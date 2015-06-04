@@ -13,10 +13,15 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        Visuals/mainwindow.cpp \
+    Database/databaseconnector.cpp \
+    Utils/logger.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += Visuals/mainwindow.h \
+    Database/databaseconnector.h \
+    Utils/logger.h \
+    Utils/ilogger.h
 
-FORMS    += mainwindow.ui
+FORMS    += Visuals/mainwindow.ui
 
 CONFIG += c++11
