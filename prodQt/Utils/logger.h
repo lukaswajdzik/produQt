@@ -4,13 +4,12 @@
 
 namespace Utils
 {
-class Logger : public ILogger
-{
-public:
-    Logger();
-    void log(std::string message) override;
-};
+    class Logger : public ILogger
+    {
+    public:
+        Logger();
+        void log(std::string message) override;
+    };
+}
 
-}//namespace Utils
-
-#endif // LOGGER_H
+#endif

@@ -4,14 +4,13 @@
 
 namespace Utils
 {
-Logger::Logger()
-{
+    Logger::Logger()
+    {
 
+    }
+
+    void Logger::log(std::string message)
+    {
+        //to be implemented soon :)
+    }
 }
-
-void Logger::log(std::string message)
-{
-    //to be implemented soon :)
-}
-
-} //namespace Utils

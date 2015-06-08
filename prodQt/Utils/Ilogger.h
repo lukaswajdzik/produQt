@@ -5,16 +5,12 @@
 
 namespace Utils
 {
+    class ILogger //wide accesible singleton
+    {
+    public:
+        virtual void log(std::string message) = 0;
+        virtual ~ILogger(){}
+    };
+}
 
-class ILogger
-{
-//wide accesible singleton
-public:
-    virtual void log(std::string message) = 0;
-    virtual ~ILogger()
-    {}
-};
-
-}//namespace Utils
-
-#endif // ILOGGER_H
+#endif
