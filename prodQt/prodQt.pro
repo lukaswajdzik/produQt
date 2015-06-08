@@ -19,8 +19,7 @@ SOURCES += main.cpp\
 
 HEADERS  += Visuals/mainwindow.h \
     Database/databaseconnector.h \
-    Utils/logger.h \
-    Utils/Ilogger.h
+    Utils/logger.h
 
 FORMS    += Visuals/mainwindow.ui
 

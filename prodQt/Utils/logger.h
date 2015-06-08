@@ -1,14 +1,25 @@
 #ifndef LOGGER_H
 #define LOGGER_H
-#include "Ilogger.h"
+
+#include <QString>
 
 namespace Utils
 {
-class Logger : public ILogger
+class Logger
 {
 public:
-    Logger();
-    void log(std::string message) override;
+    static Logger& getInstance()
+    {
+        static Logger instance;
+        return instance;
+    }
+    void log(QString message);
+
+private:
+    Logger()
+    {}
+    Logger(Logger const& copy)            = delete;
+    Logger& operator=(Logger const& copy) = delete;
 };
 
 }//namespace Utils
