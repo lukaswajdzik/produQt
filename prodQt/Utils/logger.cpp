@@ -1,37 +1,59 @@
 #include "logger.h"
 #include <iostream>
 #include <QMessageBox>
-#include <QFile>
-#include <QTextStream>
+#include <QDateTime>
 
 namespace Utils
 {
 
-void Logger::log(QString message)
-{
-    QFile configFile("config");
-
-    if(!configFile.open(QIODevice::ReadOnly))
+    Logger::Logger()
     {
-        QMessageBox::information(0, "ERROR",  "Can't fine 'config' file!"
-                                              "\n(place it in the build directory)");
+        QFile configFile("config");
+        logFileName = determineFileName(configFile);
+        configFile.close();
+        establishLogFile(logFileName);
+        log("Logger is on!");
+    }
+    Logger::~Logger()
+    {
+        logFile.close();
     }
 
-    QTextStream in(&configFile);
-
-    QString logFileName;
-    while(!in.atEnd())
-        logFileName = in.readLine();
-
-    configFile.close();
-
-    QFile logFile( logFileName );
-    if ( logFile.open(QIODevice::ReadWrite) )
+    void Logger::log(QString message)
     {
         QTextStream stream( &logFile );
-        stream << message << "\n" << endl;
+        QDateTime time = QDateTime::currentDateTime();
+        stream << time.toString("d MMM yyyy hh:mm:ss") << " - " << message << endl;
     }
 
-}
+    QString Logger::getLogFileName(QFile& file)
+    {
+        QTextStream in(&file);
 
-} //namespace Utils
+        QString logFileName;
+        logFileName = in.readLine();
+        return logFileName;
+    }
+
+    QString Logger::determineFileName(QFile& file)
+    {
+        if(!file.open(QIODevice::ReadOnly))
+        {
+            QMessageBox::information(0, "WARNING",  "Can't fine 'config' file!"
+                                                  "\nFile with the logs will be created as 'Logs.txt'");
+            return "Logs.txt";
+        }
+        else
+        {
+            return getLogFileName(file);
+        }
+    }
+
+    void Logger::establishLogFile(QString logFileName)
+    {
+        logFile.setFileName(logFileName);
+        logFile.open(QIODevice::ReadWrite | QIODevice::Text);
+    }
+
+
+}
