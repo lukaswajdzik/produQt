@@ -5,6 +5,7 @@
 
 namespace Utils
 {
+
 class Logger
 {
 public:
@@ -24,4 +25,5 @@ private:
 
 }//namespace Utils
 
-#endif // LOGGER_H
+
+#endif
