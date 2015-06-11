@@ -1,14 +1,20 @@
 #ifndef DATABASECONNECTOR_H
 #define DATABASECONNECTOR_H
 
-#include "ioperativedatabaseconnector.h"
+#include <QString>
 
 namespace Database
 {
-    class DatabaseConnector : public IDatabaseConnector
+    class DatabaseConnector
     {
     public:
-        virtual bool VerifyUser(std::string login, std::string password);
+        DatabaseConnector();
+        ~DatabaseConnector();
+        int GetState();
+        bool VerifyUser(QString login, QString password);
+    private:
+        void Connect();
+        void Dispose();
     };
 }
 

@@ -15,13 +15,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         Visuals/mainwindow.cpp \
     Database/databaseconnector.cpp \
-    Utils/logger.cpp
+    Utils/logger.cpp \
+    Visuals/databasetestwindow.cpp
 
 HEADERS  += Visuals/mainwindow.h \
     Database/databaseconnector.h \
     Utils/logger.h \
-    Database/ioperativedatabaseconnector.h
+    Visuals/databasetestwindow.h
 
-FORMS    += Visuals/mainwindow.ui
+FORMS    += Visuals/mainwindow.ui \
+    Visuals/databasetestwindow.ui
 
 CONFIG += c++11

@@ -1,31 +1,38 @@
 #include "databaseconnector.h"
-#include "ioperativedatabaseconnector.h"
+#include <QDebug>
 
 namespace Database
 {
-    IDatabaseConnector::IDatabaseConnector()
+    DatabaseConnector::DatabaseConnector()
     {
-
+        Connect();
     }
 
-    IDatabaseConnector::~IDatabaseConnector()
+    DatabaseConnector::~DatabaseConnector()
     {
         Dispose();
     }
 
-    void IDatabaseConnector::Connect()
+    int DatabaseConnector::GetState()
     {
-        //TODO: database connection in accordance with configuration file.
+        return 0;
     }
 
-    void IDatabaseConnector::Dispose()
-    {
-        //TODO: safe database disconnection.
-    }
-
-    bool VerifyUser(std::string login, std::string password)
+    bool DatabaseConnector::VerifyUser(QString login, QString password)
     {
         return login != "" && password != "";
         //TODO: first database method.
+    }
+
+    void DatabaseConnector::Connect()
+    {
+        qDebug() << "Database connection etablished";
+        //TODO: database connection in accordance with configuration file.
+    }
+
+    void DatabaseConnector::Dispose()
+    {
+        qDebug() << "Database connection disposed";
+        //TODO: safe database disconnection.
     }
 }
