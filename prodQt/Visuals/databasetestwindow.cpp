@@ -1,6 +1,7 @@
 #include "databasetestwindow.h"
 #include "ui_databasetestwindow.h"
 #include "Database/databaseconnector.h"
+#include <QDebug>
 
 using DatabaseConnector = Database::DatabaseConnector;
 
@@ -10,7 +11,8 @@ DataBaseTestWindow::DataBaseTestWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     DatabaseConnector connector;
-    bool isValid = connector.VerifyUser("", "");
+    QString validation = connector.VerifyUser("Krzysiek", "1234") ? "Passed" : "Failed";
+    qDebug() << "Validation: " + validation;
 }
 
 DataBaseTestWindow::~DataBaseTestWindow()
