@@ -26,7 +26,8 @@ HEADERS  += Visuals/mainwindow.h \
     Utils/logger.h \
     Visuals/databasetestwindow.h \
     Database/databaseconfiguration.h \
-    Database/Exceptions/databaseconnectioncouldnotbeestablishedexception.h
+    Database/Exceptions/databaseconnectioncouldnotbeestablishedexception.h \
+    Database/ioperaticedatabaseconnector.h
 
 FORMS    += Visuals/mainwindow.ui \
     Visuals/databasetestwindow.ui

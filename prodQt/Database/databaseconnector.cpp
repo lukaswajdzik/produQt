@@ -14,15 +14,6 @@ namespace Database
         Dispose();
     }
 
-    bool DatabaseConnector::VerifyUser(QString login, QString password)
-    {
-        QSqlQuery query;
-        query.exec("SELECT userpassword FROM users WHERE username = '" + login + "'");
-        query.next();
-        QString userPassword = query.value(0).toString();
-        return password == userPassword;
-    }
-
     void DatabaseConnector::Connect()
     {
         db = QSqlDatabase::addDatabase("QPSQL");
@@ -45,5 +36,14 @@ namespace Database
             db.close();
         }
         qDebug() << "Database connection disposed";
+    }
+
+    bool IOperativeDatabaseConnector::VerifyUser(QString login, QString password)
+    {
+        QSqlQuery query;
+        query.exec("SELECT userpassword FROM users WHERE username = '" + login + "'");
+        query.next();
+        QString userPassword = query.value(0).toString();
+        return password == userPassword;
     }
 }

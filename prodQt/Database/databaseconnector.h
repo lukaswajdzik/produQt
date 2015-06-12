@@ -2,6 +2,7 @@
 #define DATABASECONNECTOR_H
 
 #include "databaseconfiguration.h"
+#include "ioperaticedatabaseconnector.h"
 #include <QtSql/QSql>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlDriver>
@@ -10,12 +11,11 @@
 
 namespace Database
 {
-    class DatabaseConnector
+    class DatabaseConnector : public IOperativeDatabaseConnector
     {
     public:
         DatabaseConnector();
         ~DatabaseConnector();
-        bool VerifyUser(QString login, QString password);
     private:
         QSqlDatabase db;
         void Connect();

@@ -23,7 +23,6 @@ DataBaseTestWindow::DataBaseTestWindow(QWidget *parent) :
     {
         qDebug() << e->what();
         QMessageBox::information(0, "FAULT",  "Database connection could not be established.");
-        this->close();
     }
 }
 
