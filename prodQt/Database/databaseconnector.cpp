@@ -37,9 +37,9 @@ namespace Database
         db = QSqlDatabase::addDatabase("QPSQL");
         db.setHostName(configuration.GetDatabaseHost());
         db.setPort(configuration.GetDatabasePort());
-        db.setDatabaseName(configuration.GetDatabaseName);
-        db.setUserName(configuration.GetUserName);
-        db.setPassword(configuration.GetUserPassword);
+        db.setDatabaseName(configuration.GetDatabaseName());
+        db.setUserName(configuration.GetUserName());
+        db.setPassword(configuration.GetUserPassword());
         if (!db.open()) {
             qDebug() << "Database error occurred";
             return;

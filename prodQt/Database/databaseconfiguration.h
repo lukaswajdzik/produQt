@@ -13,12 +13,8 @@ namespace Database
         QString GetUserName();
         QString GetUserPassword();
     private:
+        QSettings settings;
         void InitializeConfiguration();
-        QString databaseHost;
-        QString databaseName;
-        int databasePort;
-        QString userName;
-        QString userPassword;
     };
 }
 

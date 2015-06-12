@@ -10,39 +10,32 @@ namespace Database
 
     void DatabaseConfiguration::InitializeConfiguration()
     {
-        QString strKey("database/");
-        QSettings * settings = 0;
         settings = new QSettings( file_path, QSettings::IniFormat );
-        databaseHost = settings->value( strKey + "database_host", "r").toString();
-        databaseName = settings->value( strKey + "database_name", "r").toString();
-        databasePort = settings->value( strKey + "database_port", "r").Int;
-        userName = settings->value( strKey + "user_name", "r").toString();
-        userPassword = settings->value( strKey + "user_password", "r").toString();
     }
 
     QString DatabaseConfiguration::GetDatabaseHost()
     {
-        return databaseHost;
+        return settings->value( "database/database_host", "r").toString();
     }
 
     QString DatabaseConfiguration::GetDatabaseName()
     {
-        return databaseName;
+        return settings->value( "database/database_name", "r").toString();
     }
 
     int DatabaseConfiguration::GetDatabasePort()
     {
-        return databasePort;
+        return settings->value( "database/database_port", "r").Int;
     }
 
     QString DatabaseConfiguration::GetUserName()
     {
-        return userName;
+        return settings->value( "database/user_name", "r").toString();
     }
 
     QString DatabaseConfiguration::GetUserPassword()
     {
-        return userPassword;
+        return settings->value( "database/user_password", "r").toString();
     }
 }
 
