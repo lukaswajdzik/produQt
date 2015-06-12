@@ -17,14 +17,23 @@ SOURCES += main.cpp\
         Visuals/mainwindow.cpp \
     Database/databaseconnector.cpp \
     Utils/logger.cpp \
-    Visuals/databasetestwindow.cpp
+    Visuals/databasetestwindow.cpp \
+    Database/databaseconfiguration.cpp
 
 HEADERS  += Visuals/mainwindow.h \
     Database/databaseconnector.h \
     Utils/logger.h \
-    Visuals/databasetestwindow.h
+    Visuals/databasetestwindow.h \
+    Database/databaseconfiguration.h
 
 FORMS    += Visuals/mainwindow.ui \
     Visuals/databasetestwindow.ui
 
 CONFIG += c++11
+
+DISTFILES += \
+    config.ini
+
+configfile.path     = $${DESTDIR}
+configfile.files    += config.ini
+INSTALLS    += configfile

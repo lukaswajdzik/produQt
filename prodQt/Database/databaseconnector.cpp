@@ -5,7 +5,6 @@ namespace Database
 {
     DatabaseConnector::DatabaseConnector()
     {
-        InitializeConfiguration();
         Connect();
     }
 
@@ -19,6 +18,11 @@ namespace Database
         return 0;
     }
 
+    DatabaseConfiguration GetConfiguration()
+    {
+        return configuration;
+    }
+
     bool DatabaseConnector::VerifyUser(QString login, QString password)
     {
         QSqlQuery query;
@@ -28,23 +32,14 @@ namespace Database
         return password == userPassword;
     }
 
-    void DatabaseConnector::InitializeConfiguration()
-    {
-        //TODO: Values to be taken from QSettings.
-        databaseHost = "127.0.0.1";
-        databasePort = "5432";
-        databaseName = "H8";
-        userName = "H8";
-        userPassword = "";
-    }
-
     void DatabaseConnector::Connect()
     {
         db = QSqlDatabase::addDatabase("QPSQL");
-        db.setHostName(databaseHost);
-        db.setDatabaseName(databaseName);
-        db.setUserName(userName);
-        db.setPassword(userPassword);
+        db.setHostName(configuration.GetDatabaseHost());
+        db.setPort(configuration.GetDatabasePort());
+        db.setDatabaseName(configuration.GetDatabaseName);
+        db.setUserName(configuration.GetUserName);
+        db.setPassword(configuration.GetUserPassword);
         if (!db.open()) {
             qDebug() << "Database error occurred";
             return;
