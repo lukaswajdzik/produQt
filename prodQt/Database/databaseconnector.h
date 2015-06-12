@@ -20,6 +20,7 @@ namespace Database
         QSqlDatabase db;
         void Connect();
         void Dispose();
+        void ConfigureDatabase(QSqlDatabase db, DatabaseConfiguration configuration);
     };
 }
 

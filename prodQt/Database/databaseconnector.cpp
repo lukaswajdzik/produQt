@@ -2,6 +2,8 @@
 #include "Exceptions/databaseconnectioncouldnotbeestablishedexception.h"
 #include <QDebug>
 
+#include "Utils/constants.h"
+
 namespace Database
 {
     DatabaseConnector::DatabaseConnector()
@@ -18,11 +20,7 @@ namespace Database
     {
         db = QSqlDatabase::addDatabase("QPSQL");
         DatabaseConfiguration configuration;
-        db.setHostName(configuration.GetDatabaseHost());
-        db.setPort(configuration.GetDatabasePort());
-        db.setDatabaseName(configuration.GetDatabaseName());
-        db.setUserName(configuration.GetUserName());
-        db.setPassword(configuration.GetUserPassword());
+        ConfigureDatabase(db, configuration);
         if (!db.open()) {
             qDebug() << "Database error occurred";
             throw new DatabaseConnectionCouldNotBeEstablishedException(configuration.GetDatabaseName());
@@ -36,6 +34,15 @@ namespace Database
             db.close();
         }
         qDebug() << "Database connection disposed";
+    }
+
+    void DatabaseConnector::ConfigureDatabase(QSqlDatabase db, DatabaseConfiguration configuration)
+    {
+        db.setHostName(configuration.GetDatabaseHost());
+        db.setPort(configuration.GetDatabasePort());
+        db.setDatabaseName(configuration.GetDatabaseName());
+        db.setUserName(configuration.GetUserName());
+        db.setPassword(configuration.GetUserPassword());
     }
 
     bool IOperativeDatabaseConnector::VerifyUser(QString login, QString password)
