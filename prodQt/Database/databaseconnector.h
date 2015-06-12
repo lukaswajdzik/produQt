@@ -6,7 +6,6 @@
 #include <QtSql/QSqlDriver>
 #include <QtSql/QSqlQuery>
 #include <QString>
-#include "databaseconfiguration.h"
 
 namespace Database
 {
@@ -16,11 +15,15 @@ namespace Database
         DatabaseConnector();
         ~DatabaseConnector();
         int GetState();
-        DatabaseConfiguration GetConfiguration();
         bool VerifyUser(QString login, QString password);
     private:
         QSqlDatabase db;
-        DatabaseConfiguration configuration;
+        QString databaseHost;
+        QString databasePort;
+        QString databaseName;
+        QString userName;
+        QString userPassword;
+        void InitializeConfiguration();
         void Connect();
         void Dispose();
     };
