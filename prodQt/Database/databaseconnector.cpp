@@ -13,16 +13,6 @@ namespace Database
         Dispose();
     }
 
-    int DatabaseConnector::GetState()
-    {
-        return 0;
-    }
-
-    DatabaseConfiguration GetConfiguration()
-    {
-        return configuration;
-    }
-
     bool DatabaseConnector::VerifyUser(QString login, QString password)
     {
         QSqlQuery query;
@@ -35,6 +25,7 @@ namespace Database
     void DatabaseConnector::Connect()
     {
         db = QSqlDatabase::addDatabase("QPSQL");
+        DatabaseConfiguration configuration;
         db.setHostName(configuration.GetDatabaseHost());
         db.setPort(configuration.GetDatabasePort());
         db.setDatabaseName(configuration.GetDatabaseName());

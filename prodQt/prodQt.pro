@@ -34,6 +34,10 @@ CONFIG += c++11
 DISTFILES += \
     config.ini
 
-configfile.path     = $${DESTDIR}
-configfile.files    += config.ini
-INSTALLS    += configfile
+win32 {
+}
+macx {
+    APP_CONFIG_FILES.files = $$PWD/config.ini
+    APP_CONFIG_FILES.path = Contents/MacOS
+    QMAKE_BUNDLE_DATA += APP_CONFIG_FILES
+}

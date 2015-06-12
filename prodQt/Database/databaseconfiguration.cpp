@@ -1,41 +1,40 @@
 #include "databaseconfiguration.h"
-#include <QSettings>
 
 namespace Database
 {
     DatabaseConfiguration::DatabaseConfiguration()
     {
-        InitializeConfiguration();
-    }
-
-    void DatabaseConfiguration::InitializeConfiguration()
-    {
-        settings = new QSettings( file_path, QSettings::IniFormat );
+        settings = new QSettings( "config.ini", QSettings::IniFormat );
     }
 
     QString DatabaseConfiguration::GetDatabaseHost()
     {
-        return settings->value( "database/database_host", "r").toString();
+        QString value = settings->value( "database/database_host", "").toString();
+        return value;
     }
 
     QString DatabaseConfiguration::GetDatabaseName()
     {
-        return settings->value( "database/database_name", "r").toString();
+        QString value = settings->value( "database/database_name", "").toString();
+        return value;
     }
 
     int DatabaseConfiguration::GetDatabasePort()
     {
-        return settings->value( "database/database_port", "r").Int;
+        int value = settings->value( "database/database_port", "").toInt();
+        return value;
     }
 
     QString DatabaseConfiguration::GetUserName()
     {
-        return settings->value( "database/user_name", "r").toString();
+        QString value = settings->value( "database/user_name", "").toString();
+        return value;
     }
 
     QString DatabaseConfiguration::GetUserPassword()
     {
-        return settings->value( "database/user_password", "r").toString();
+        QString value = settings->value( "database/user_password", "").toString();
+        return value;
     }
 }
 

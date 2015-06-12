@@ -1,6 +1,9 @@
 #ifndef DATABASECONFIGURATION_H
 #define DATABASECONFIGURATION_H
 
+#include <QSettings>
+#include <QString>
+
 namespace Database
 {
     class DatabaseConfiguration
@@ -13,8 +16,7 @@ namespace Database
         QString GetUserName();
         QString GetUserPassword();
     private:
-        QSettings settings;
-        void InitializeConfiguration();
+        QSettings *settings;
     };
 }
 
