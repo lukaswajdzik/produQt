@@ -18,13 +18,15 @@ SOURCES += main.cpp\
     Database/databaseconnector.cpp \
     Utils/logger.cpp \
     Visuals/databasetestwindow.cpp \
-    Database/databaseconfiguration.cpp
+    Database/databaseconfiguration.cpp \
+    Database/Exceptions/databaseconnectioncouldnotbeestablishedexception.cpp
 
 HEADERS  += Visuals/mainwindow.h \
     Database/databaseconnector.h \
     Utils/logger.h \
     Visuals/databasetestwindow.h \
-    Database/databaseconfiguration.h
+    Database/databaseconfiguration.h \
+    Database/Exceptions/databaseconnectioncouldnotbeestablishedexception.h
 
 FORMS    += Visuals/mainwindow.ui \
     Visuals/databasetestwindow.ui

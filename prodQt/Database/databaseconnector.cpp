@@ -1,4 +1,5 @@
 #include "databaseconnector.h"
+#include "Exceptions/databaseconnectioncouldnotbeestablishedexception.h"
 #include <QDebug>
 
 namespace Database
@@ -33,7 +34,7 @@ namespace Database
         db.setPassword(configuration.GetUserPassword());
         if (!db.open()) {
             qDebug() << "Database error occurred";
-            return;
+            throw new DatabaseConnectionCouldNotBeEstablishedException(configuration.GetDatabaseName());
         }
         qDebug() << "Database connection etablished";
     }
