@@ -12,17 +12,27 @@ DataBaseTestWindow::DataBaseTestWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::DataBaseTestWindow) {
     ui->setupUi(this);
+    connect ( ui->loginButton, SIGNAL( clicked() ), this, SLOT( loginButtonClicked() ) );
+}
+
+DataBaseTestWindow::~DataBaseTestWindow() {
+    delete ui;
+}
+
+void DataBaseTestWindow::loginButtonClicked() {
     try {
         DatabaseConnector connector;
-        QString validation = connector.VerifyUser("Krzysiek", "1234") ? "Passed" : "Failed";
-        qDebug() << "Validation: " + validation;
+        ui->statusLabel->setText("Connected");
+        QString userName = ui->userNameBox->toPlainText();
+        QString userPassword = ui->userPasswordBox->toPlainText(); //"1234"
+        if(userName.isEmpty() || userPassword.isEmpty()) {
+            return;
+        }
+        QString validation = connector.VerifyUser(userName, userPassword) ? "Passed" : "Failed";
+        ui->statusLabel->setText("Validation: " + validation);
     }
     catch(std::exception* e) {
         qDebug() << e->what();
         QMessageBox::information(0, "FAULT",  "Database connection could not be established.");
     }
-}
-
-DataBaseTestWindow::~DataBaseTestWindow() {
-    delete ui;
 }

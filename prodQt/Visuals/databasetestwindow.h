@@ -10,12 +10,15 @@ class DataBaseTestWindow;
 class DataBaseTestWindow : public QMainWindow {
     Q_OBJECT
 
-public:
-    explicit DataBaseTestWindow(QWidget *parent = 0);
-    ~DataBaseTestWindow();
+    public:
+        explicit DataBaseTestWindow(QWidget *parent = 0);
+        ~DataBaseTestWindow();
 
-private:
-    Ui::DataBaseTestWindow *ui;
+    private:
+        Ui::DataBaseTestWindow *ui;
+
+public slots:
+        void loginButtonClicked();
 };
 
 #endif // DATABASETESTWINDOW_H
