@@ -11,10 +11,8 @@
 using namespace std;
 typedef unsigned char byte;
 
-namespace Utils
-{
-    class BlowFishProvider
-    {
+namespace Utils {
+    class BlowFishProvider {
     public:
         static QString GetDbPasswordEncoded(QString password) {
             return GetPasswordEncoded(password, Utils::Constants::GetBlowfishDatabaseUserPasswordKey());
@@ -30,6 +28,9 @@ namespace Utils
         }
     private:
         static QString GetPasswordEncoded(QString password, QString bfHash) {
+            if(password.isEmpty() || bfHash.isEmpty()) {
+                return "";
+            }
             try {
                 BLOWFISH bf(bfHash.toStdString());
                 string str = "";
@@ -41,6 +42,9 @@ namespace Utils
             }
         }
         static QString GetPasswordDecoded(QString hash, QString bfHash) {
+            if(hash.isEmpty() || bfHash.isEmpty()) {
+                return "";
+            }
             try {
                 BLOWFISH bf(bfHash.toStdString());
                 string str = "";

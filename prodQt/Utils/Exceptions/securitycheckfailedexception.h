@@ -4,10 +4,8 @@
 #include <exception>
 #include <QString>
 
-namespace Utils
-{
-    class SecurityCheckFailedException : public std::exception
-    {
+namespace Utils {
+    class SecurityCheckFailedException : public std::exception {
     public:
         SecurityCheckFailedException();
         virtual const char* what() const throw();

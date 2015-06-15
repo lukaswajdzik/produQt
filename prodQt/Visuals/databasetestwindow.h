@@ -7,8 +7,7 @@ namespace Ui {
 class DataBaseTestWindow;
 }
 
-class DataBaseTestWindow : public QMainWindow
-{
+class DataBaseTestWindow : public QMainWindow {
     Q_OBJECT
 
 public:

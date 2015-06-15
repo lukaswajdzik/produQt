@@ -9,10 +9,8 @@
 #include <QtSql/QSqlQuery>
 #include <QString>
 
-namespace Database
-{
-    class DatabaseConnector : public IOperativeDatabaseConnector
-    {
+namespace Database {
+    class DatabaseConnector : public IOperativeDatabaseConnector {
     public:
         DatabaseConnector();
         ~DatabaseConnector();

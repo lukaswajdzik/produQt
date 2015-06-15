@@ -4,10 +4,8 @@
 #include <QSettings>
 #include <QString>
 
-namespace Database
-{
-    class DatabaseConfiguration
-    {
+namespace Database {
+    class DatabaseConfiguration {
     public:
         DatabaseConfiguration();
         QString GetDatabaseHost();
