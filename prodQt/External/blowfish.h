@@ -127,7 +127,7 @@ class BLOWFISH{
         if(hexKey.length() % 2 != 0)
             throw 2;
         byte key[hexKey.length() / 2];
-        for(int i = 0; i < hexKey.length() / 2; i++)
+        for(u_long i = 0; i < hexKey.length() / 2; i++)
         {
             key[i] = hex2dec(hexKey[i * 2]) * 16 + hex2dec(hexKey[i * 2 + 1]);
         }
@@ -172,7 +172,7 @@ class BLOWFISH{
     std::string BLOWFISH::Encrypt_CBC(std::string data)
     {
         byte* binaryData = new byte[data.length()];
-        for(int i = 0; i < data.length(); i++)
+        for(u_long i = 0; i < data.length(); i++)
             binaryData[i] = data[i];
         int newlen = 0;
         byte* result = Encrypt_CBC(binaryData,data.length(), &newlen);
@@ -189,7 +189,7 @@ class BLOWFISH{
         if(data.length() % 2 != 0)
             throw 2;
         byte binaryData[data.length() / 2];
-        for(int i = 0; i < data.length() / 2; i++)
+        for(u_long i = 0; i < data.length() / 2; i++)
         {
             binaryData[i] = hex2dec(data[i * 2]) * 16 + hex2dec(data[i * 2 + 1]);
         }
