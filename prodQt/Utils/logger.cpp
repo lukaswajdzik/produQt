@@ -1,21 +1,22 @@
 #include "logger.h"
-#include <iostream>
-#include <QMessageBox>
 #include <QDateTime>
+#include <QSettings>
+#include <QApplication>
+#include <QDebug>
 
 namespace Utils
 {
 
     Logger::Logger()
     {
-        QFile configFile("config");
-        logFileName = determineFileName(configFile);
-        configFile.close();
-        establishLogFile(logFileName);
-        log("Logger is on!");
+        settingFile = QApplication::applicationDirPath() + "/config.ini";
+        qDebug() << "Config file path is: " << settingFile;
+        establishLogFile(getLogFileName(settingFile));
+        log("___Program starts___");
     }
     Logger::~Logger()
     {
+        log("___Program terminated___");
         logFile.close();
     }
 
@@ -23,36 +24,21 @@ namespace Utils
     {
         QTextStream stream( &logFile );
         QDateTime time = QDateTime::currentDateTime();
-        stream << time.toString("d MMM yyyy hh:mm:ss") << " - " << message << endl;
+        stream << time.toString("yyyy.MM.dd hh:mm:ss.z") << " - " << message << endl;
     }
 
-    QString Logger::getLogFileName(QFile& file)
+    QString Logger::getLogFileName(QString settingFile)
     {
-        QTextStream in(&file);
-
-        QString logFileName;
-        logFileName = in.readLine();
+        QSettings settings(settingFile, QSettings::NativeFormat);
+        QString logFileName = settings.value("logger/log_file", "logger.log").toString();
+        qDebug() << "Logger file name is: " << logFileName;
         return logFileName;
-    }
-
-    QString Logger::determineFileName(QFile& file)
-    {
-        if(!file.open(QIODevice::ReadOnly))
-        {
-            QMessageBox::information(0, "WARNING",  "Can't fine 'config' file!"
-                                                  "\nFile with the logs will be created as 'Logs.txt'");
-            return "Logs.txt";
-        }
-        else
-        {
-            return getLogFileName(file);
-        }
     }
 
     void Logger::establishLogFile(QString logFileName)
     {
         logFile.setFileName(logFileName);
-        logFile.open(QIODevice::ReadWrite | QIODevice::Text);
+        logFile.open(QIODevice::Append | QIODevice::Text);
     }
 
 

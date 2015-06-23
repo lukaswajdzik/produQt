@@ -24,9 +24,9 @@ namespace Utils
         Logger(Logger const& copy)            = delete;
         Logger& operator=(Logger const& copy) = delete;
         QFile logFile;
+        QString settingFile;
         QString logFileName;
-        QString getLogFileName(QFile&);
-        QString determineFileName(QFile&);
+        QString getLogFileName(QString settingFile);
         void establishLogFile(QString logFileName);
     };
 

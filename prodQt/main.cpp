@@ -15,7 +15,6 @@ int main(int argc, char *argv[])
     dtw.show();
 
     Logger& logger = Logger::getInstance();
-    logger.log("halo!");
 
     return a.exec();
 }

@@ -19,6 +19,8 @@ class DataBaseTestWindow : public QMainWindow {
 
 public slots:
         void loginButtonClicked();
+private slots:
+        void on_loginButton_clicked();
 };
 
 #endif // DATABASETESTWINDOW_H

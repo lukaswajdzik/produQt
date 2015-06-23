@@ -36,3 +36,7 @@ void DataBaseTestWindow::loginButtonClicked() {
         QMessageBox::information(0, "FAULT",  "Database connection could not be established.");
     }
 }
+
+void DataBaseTestWindow::on_loginButton_clicked(){
+
+}
