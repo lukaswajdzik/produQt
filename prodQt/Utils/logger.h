@@ -7,7 +7,6 @@
 
 namespace Utils
 {
-
     class Logger
     {
     public:
@@ -29,7 +28,6 @@ namespace Utils
         QString getLogFileName(QString settingFile);
         void establishLogFile(QString logFileName);
     };
-
 }
 
 

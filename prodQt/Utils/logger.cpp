@@ -41,5 +41,4 @@ namespace Utils
         logFile.open(QIODevice::Append | QIODevice::Text);
     }
 
-
 }

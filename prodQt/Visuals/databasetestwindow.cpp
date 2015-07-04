@@ -21,8 +21,8 @@ DataBaseTestWindow::~DataBaseTestWindow() {
 
 void DataBaseTestWindow::loginButtonClicked() {
     try {
+//        ui->statusLabel->setText("Connected");
         DatabaseConnector connector;
-        ui->statusLabel->setText("Connected");
         QString userName = ui->userNameBox->toPlainText();
         QString userPassword = ui->userPasswordBox->toPlainText(); //"1234"
         if(userName.isEmpty() || userPassword.isEmpty()) {

@@ -16,4 +16,3 @@ namespace Utils {
 }
 
 #endif // CONSTANTS
-

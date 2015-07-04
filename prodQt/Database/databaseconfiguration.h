@@ -3,6 +3,7 @@
 
 #include <QSettings>
 #include <QString>
+#include <memory>
 
 namespace Database {
     class DatabaseConfiguration {
@@ -14,7 +15,7 @@ namespace Database {
         QString GetUserName();
         QString GetUserPassword();
     private:
-        QSettings *settings;
+        std::shared_ptr<QSettings> settings;
     };
 }
 

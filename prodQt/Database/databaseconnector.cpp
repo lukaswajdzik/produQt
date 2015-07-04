@@ -28,11 +28,12 @@ namespace Database {
         if(db.isOpen()) {
             db.close();
         }
-        qDebug() << "Database connection disposed";
+        qDebug() << "Database connection disposed?";
     }
 
     void DatabaseConnector::ConfigureDatabase(QSqlDatabase db, DatabaseConfiguration configuration) {
-        QString passwordDecoded = Utils::BlowFishProvider::GetDbPasswordDecoded(configuration.GetUserPassword());
+//        QString passwordDecoded = Utils::BlowFishProvider::GetDbPasswordDecoded(configuration.GetUserPassword());
+        QString passwordDecoded = configuration.GetUserPassword();
         db.setHostName(configuration.GetDatabaseHost());
         db.setPort(configuration.GetDatabasePort());
         db.setDatabaseName(configuration.GetDatabaseName());
