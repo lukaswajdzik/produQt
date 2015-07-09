@@ -1,10 +1,12 @@
 #include "databasetestwindow.h"
 #include "ui_databasetestwindow.h"
 #include "Database/databaseconnector.h"
+#include "Utils/blowfishprovider.h"
 
 #include <exception>
 #include <QDebug>
 #include <QMessageBox>
+
 
 using DatabaseConnector = Database::DatabaseConnector;
 
@@ -13,6 +15,8 @@ DataBaseTestWindow::DataBaseTestWindow(QWidget *parent) :
     ui(new Ui::DataBaseTestWindow) {
     ui->setupUi(this);
     connect ( ui->loginButton, SIGNAL( clicked() ), this, SLOT( loginButtonClicked() ) );
+    connect ( ui->decodeButton, SIGNAL( clicked() ), this, SLOT( decodeClicked() ) );
+    connect ( ui->encodeButton, SIGNAL( clicked() ), this, SLOT( encodeClicked() ) );
 }
 
 DataBaseTestWindow::~DataBaseTestWindow() {
@@ -30,11 +34,26 @@ void DataBaseTestWindow::loginButtonClicked() {
         }
         QString validation = connector.VerifyUser(userName, userPassword) ? "Passed" : "Failed";
         ui->statusLabel->setText("Validation: " + validation);
+        logger.log("Data base OK!");
     }
-    catch(std::exception* e) {
-        qDebug() << e->what();
+    catch(std::exception& e) {
+        qDebug() << e.what();
+        logger.log("Data base exception rised!");
         QMessageBox::information(0, "FAULT",  "Database connection could not be established.");
     }
+}
+
+void DataBaseTestWindow::decodeClicked(){
+    QString encodedPass = ui->decodedTextField->toPlainText();
+    QString decodedPass = Utils::BlowFishProvider::GetDbPasswordDecoded(encodedPass);
+    ui->encodedTextField->setText(decodedPass);
+
+}
+
+void DataBaseTestWindow::encodeClicked(){
+    QString decodedPass = ui->encodedTextField->toPlainText();
+    QString encodedPass = Utils::BlowFishProvider::GetDbPasswordEncoded(decodedPass);
+    ui->decodedTextField->setText(encodedPass);
 }
 
 void DataBaseTestWindow::on_loginButton_clicked(){

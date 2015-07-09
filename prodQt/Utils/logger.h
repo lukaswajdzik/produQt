@@ -2,19 +2,15 @@
 #define LOGGER_H
 
 #include <QString>
+//#include <QTextStream>
 #include <QFile>
-#include <QTextStream>
 
 namespace Utils
 {
     class Logger
     {
     public:
-        static Logger& getInstance()
-        {
-            static Logger instance;
-            return instance;
-        }
+        static Logger& getInstance();
         void log(QString message);
 
     private:

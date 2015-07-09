@@ -12,19 +12,25 @@ namespace Utils
         settingFile = QApplication::applicationDirPath() + "/config.ini";
         qDebug() << "Config file path is: " << settingFile;
         establishLogFile(getLogFileName(settingFile));
-        log("___Program starts___");
+        log("*Program starts");
     }
     Logger::~Logger()
     {
-        log("___Program terminated___");
+        log("*Program terminated");
         logFile.close();
+    }
+
+    Logger& Logger::getInstance()
+    {
+        static Logger instance;
+        return instance;
     }
 
     void Logger::log(QString message)
     {
         QTextStream stream( &logFile );
         QDateTime time = QDateTime::currentDateTime();
-        stream << time.toString("yyyy.MM.dd hh:mm:ss.z") << " - " << message << endl;
+        stream << time.toString("yyyy.MM.dd hh:mm:ss.z \t") << message << endl;
     }
 
     QString Logger::getLogFileName(QString settingFile)

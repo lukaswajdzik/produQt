@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     Visuals/databasetestwindow.cpp \
     Database/databaseconfiguration.cpp \
     Database/Exceptions/databaseconnectioncouldnotbeestablishedexception.cpp \
-    Utils/Exceptions/securitycheckfailedexception.cpp
+    Utils/Exceptions/securitycheckfailedexception.cpp \
+    Utils/blowfishprovider.cpp
 
 HEADERS  += Visuals/mainwindow.h \
     Database/databaseconnector.h \

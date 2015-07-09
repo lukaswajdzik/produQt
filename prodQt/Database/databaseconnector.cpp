@@ -19,7 +19,7 @@ namespace Database {
         ConfigureDatabase(db, configuration);
         if (!db.open()) {
             qDebug() << "Database error occurred";
-            throw new DatabaseConnectionCouldNotBeEstablishedException(configuration.GetDatabaseName());
+            throw DatabaseConnectionCouldNotBeEstablishedException(configuration.GetDatabaseName());
         }
         qDebug() << "Database connection etablished";
     }
@@ -28,12 +28,11 @@ namespace Database {
         if(db.isOpen()) {
             db.close();
         }
-        qDebug() << "Database connection disposed?";
+        qDebug() << "Database connection disposed!";
     }
 
     void DatabaseConnector::ConfigureDatabase(QSqlDatabase db, DatabaseConfiguration configuration) {
-//        QString passwordDecoded = Utils::BlowFishProvider::GetDbPasswordDecoded(configuration.GetUserPassword());
-        QString passwordDecoded = configuration.GetUserPassword();
+        QString passwordDecoded = Utils::BlowFishProvider::GetDbPasswordDecoded(configuration.GetUserPassword());
         db.setHostName(configuration.GetDatabaseHost());
         db.setPort(configuration.GetDatabasePort());
         db.setDatabaseName(configuration.GetDatabaseName());

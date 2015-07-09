@@ -2,6 +2,9 @@
 #define DATABASETESTWINDOW_H
 
 #include <QMainWindow>
+#include "Utils/logger.h"
+
+using Logger = Utils::Logger;
 
 namespace Ui {
 class DataBaseTestWindow;
@@ -16,9 +19,12 @@ class DataBaseTestWindow : public QMainWindow {
 
     private:
         Ui::DataBaseTestWindow *ui;
+        Logger& logger = Logger::getInstance();
 
 public slots:
         void loginButtonClicked();
+        void decodeClicked();
+        void encodeClicked();
 private slots:
         void on_loginButton_clicked();
 };
