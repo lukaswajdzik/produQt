@@ -8,7 +8,7 @@ namespace Database {
     class DatabaseConnectionCouldNotBeEstablishedException : public std::exception {
     public:
         DatabaseConnectionCouldNotBeEstablishedException(QString databaseName);
-        virtual const char* what() const throw();
+        const char* what() const throw();
         private:
             QString ErrorMessage;
     };

@@ -19,7 +19,7 @@ namespace Database {
         ConfigureDatabase(db, configuration);
         if (!db.open()) {
             qDebug() << "Database error occurred";
-            throw DatabaseConnectionCouldNotBeEstablishedException(configuration.GetDatabaseName());
+//            throw DatabaseConnectionCouldNotBeEstablishedException(configuration.GetDatabaseName());
         }
         qDebug() << "Database connection etablished";
     }

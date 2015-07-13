@@ -11,7 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = prodQt
 TEMPLATE = app
-
+LIBS = \
+       -lboost_system\
 
 SOURCES += main.cpp\
         Visuals/mainwindow.cpp \
@@ -33,7 +34,8 @@ HEADERS  += Visuals/mainwindow.h \
     External/blowfish.h \
     Utils/constants.h \
     Utils/blowfishprovider.h \
-    Utils/Exceptions/securitycheckfailedexception.h
+    Utils/Exceptions/securitycheckfailedexception.h \
+    Utils/Ilogger.h
 
 FORMS    += Visuals/mainwindow.ui \
     Visuals/databasetestwindow.ui

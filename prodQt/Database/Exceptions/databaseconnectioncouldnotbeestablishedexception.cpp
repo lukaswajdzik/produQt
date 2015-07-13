@@ -1,8 +1,10 @@
 #include "databaseconnectioncouldnotbeestablishedexception.h"
 
 namespace Database {
-    DatabaseConnectionCouldNotBeEstablishedException::DatabaseConnectionCouldNotBeEstablishedException(QString databaseName) {
-        ErrorMessage = "Database " + databaseName + " connection could not be established";
+    DatabaseConnectionCouldNotBeEstablishedException::DatabaseConnectionCouldNotBeEstablishedException(QString databaseName)
+    {
+        ErrorMessage = ("Database " + databaseName + " connection could not be established");
+
     }
 
     const char* DatabaseConnectionCouldNotBeEstablishedException::what() const throw() {

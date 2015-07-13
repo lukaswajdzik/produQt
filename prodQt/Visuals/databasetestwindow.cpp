@@ -3,12 +3,15 @@
 #include "Database/databaseconnector.h"
 #include "Utils/blowfishprovider.h"
 
+#include "External/blowfish.h"
+
 #include <exception>
 #include <QDebug>
 #include <QMessageBox>
-
+#include "gtest/gtest.h"
 
 using DatabaseConnector = Database::DatabaseConnector;
+typedef unsigned char byte;
 
 DataBaseTestWindow::DataBaseTestWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -44,16 +47,32 @@ void DataBaseTestWindow::loginButtonClicked() {
 }
 
 void DataBaseTestWindow::decodeClicked(){
-    QString encodedPass = ui->decodedTextField->toPlainText();
-    QString decodedPass = Utils::BlowFishProvider::GetDbPasswordDecoded(encodedPass);
-    ui->encodedTextField->setText(decodedPass);
+    QString hash = ui->decodedTextField->toPlainText();
+    QString password = Utils::BlowFishProvider::GetDbPasswordDecoded(hash);
+    ui->encodedTextField->setText(password);
 
 }
 
 void DataBaseTestWindow::encodeClicked(){
-    QString decodedPass = ui->encodedTextField->toPlainText();
-    QString encodedPass = Utils::BlowFishProvider::GetDbPasswordEncoded(decodedPass);
-    ui->decodedTextField->setText(encodedPass);
+    BLOWFISH bf("FEDCBA9876543210");
+    std::string asdf = "BlowwFIshhhhhhhhhhh!";
+    asdf = bf.Encrypt_CBC(asdf);
+//    cout << "Encrypted: " << asdf << endl;
+    ui->encodedTextField->setText(QString::fromStdString(asdf));
+    asdf = bf.Decrypt_CBC(asdf);
+//    cout << "Decrypted: " << asdf;
+    ui->decodedTextField->setText(QString::fromStdString(asdf));
+
+    asdf = bf.Encrypt_CBC(asdf);
+    ui->encodedTextField_2->setText(QString::fromStdString(asdf));
+    asdf = bf.Decrypt_CBC(asdf);
+    ui->decodedTextField_2->setText(QString::fromStdString(asdf));
+
+//    QString password = ui->encodedTextField->toPlainText();
+//    QString hash = Utils::BlowFishProvider::GetDbPasswordEncoded(password);
+//    ui->decodedTextField->setText(hash);
+//    password = Utils::BlowFishProvider::GetDbPasswordDecoded(hash);
+//    ui->encodedTextField_2->setText(password);
 }
 
 void DataBaseTestWindow::on_loginButton_clicked(){
