@@ -1,8 +1,7 @@
 #include "databasetestwindow.h"
 #include "ui_databasetestwindow.h"
-#include "Database/databaseconnector.h"
 #include "Utils/blowfishprovider.h"
-
+#include <memory>
 
 #include <exception>
 #include <QDebug>
@@ -24,14 +23,13 @@ DataBaseTestWindow::~DataBaseTestWindow() {
 
 void DataBaseTestWindow::loginButtonClicked() {
     try {
-        ui->statusLabel->setText("Connected_");
-        DatabaseConnector connector;
+        DbCon = std::make_shared<DatabaseConnector>();
         QString userName = ui->userNameBox->toPlainText();
         QString userPassword = ui->userPasswordBox->toPlainText();
         if(userName.isEmpty() || userPassword.isEmpty()) {
             return;
         }
-        QString validation = connector.VerifyUser(userName, userPassword) ? "Passed" : "Failed";
+        QString validation = DbCon-> VerifyUser(userName, userPassword) ? "Passed" : "Failed";
         ui->statusLabel->setText("Validation: " + validation);
         logger.log("Data base OK!");
     }

@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include <QString>
-#include "Utils/blowfishprovider.cpp"
+#include "Utils/blowfishprovider.h"
 #include <QDebug>
 
 namespace {
