@@ -23,8 +23,7 @@ class DataBaseTestWindow : public QMainWindow {
 
 public slots:
         void loginButtonClicked();
-        void decodeClicked();
-        void encodeClicked();
+
 private slots:
         void on_loginButton_clicked();
 };

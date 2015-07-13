@@ -1,10 +1,10 @@
 #ifndef BLOWFISHPROVIDER
 #define BLOWFISHPROVIDER
 
-#include <string>
 #include <QString>
 
 typedef unsigned char byte;
+class BLOWFISH;
 
 namespace Utils {
     class BlowFishProvider {
@@ -13,10 +13,11 @@ namespace Utils {
         static QString GetDbPasswordDecoded(QString hash);
         static QString GetUserPasswordEncoded(QString password);
         static QString GetUserPasswordDecoded(QString hash);
-        ~BlowFishProvider();
     private:
-        static QString GetPasswordEncoded(QString password, std::string bfHash);
-        static QString GetPasswordDecoded(QString hash, std::string bfHash);
+        static QString GetPasswordEncoded(QString password, BLOWFISH&);
+        static QString GetPasswordDecoded(QString hash, BLOWFISH&);
+        static BLOWFISH bfDb;
+        static BLOWFISH bfUser;
     };
 }
 

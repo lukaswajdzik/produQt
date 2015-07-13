@@ -1,59 +1,52 @@
-#include <QString>
-#include <iostream>
 #include <string>
-//#include "External/blowfish.h"
 #include "Utils/constants.h"
 #include "Utils/Exceptions/securitycheckfailedexception.h"
 #include "Utils/blowfishprovider.h"
+#include "External/blowfish.h"
+
 
 typedef unsigned char byte;
 
 namespace Utils {
-    BlowFishProvider::~BlowFishProvider()
-    {
-        qDebug() <<  "~BlowFishProvider***********************";
-    }
+    BLOWFISH BlowFishProvider::bfDb(Utils::Constants::GetBlowfishDatabaseUserPasswordKey());
+    BLOWFISH BlowFishProvider::bfUser(Utils::Constants::GetBlowfishApplicationUserPasswordKey());
 
     QString BlowFishProvider::GetDbPasswordEncoded(QString password) {
-        qDebug() <<  "GetDbPasswordEncoded***********************";
-        return GetPasswordEncoded(password, Utils::Constants::GetBlowfishDatabaseUserPasswordKey());
+        return GetPasswordEncoded(password, BlowFishProvider::bfDb);
     }
     QString BlowFishProvider::GetDbPasswordDecoded(QString hash) {
-        return GetPasswordDecoded(hash, Utils::Constants::GetBlowfishDatabaseUserPasswordKey());
+        return GetPasswordDecoded(hash, BlowFishProvider::bfDb);
     }
     QString BlowFishProvider::GetUserPasswordEncoded(QString password) {
-        return GetPasswordEncoded(password, Utils::Constants::GetBlowfishApplicationUserPasswordKey());
+        return GetPasswordEncoded(password, BlowFishProvider::bfUser);
     }
     QString BlowFishProvider::GetUserPasswordDecoded(QString hash) {
-        return GetPasswordDecoded(hash, Utils::Constants::GetBlowfishApplicationUserPasswordKey());
+        return GetPasswordDecoded(hash, BlowFishProvider::bfUser);
     }
-    QString BlowFishProvider::GetPasswordEncoded(QString password, std::string bfHash) {
-//        if(password.isEmpty() || QString(bfHash).isEmpty()) {
-//            return "";
-//        }
-        qDebug() <<  "GetPasswordEncoded***********************";
-//        try {
-//            BLOWFISH bf(bfHash.toStdString());
-//            std::string str = "";
-//            str = bf.Encrypt_CBC(password.toStdString());
-//            return QString::fromStdString(str);
-//        }
-//        catch(int) {
-//            throw new SecurityCheckFailedException();
-//        }
-    }
-    QString BlowFishProvider::GetPasswordDecoded(QString hash, std::string bfHash) {
-//        if(hash.isEmpty() || bfHash.isEmpty()) {
-//            return "";
-//        }
+    QString BlowFishProvider::GetPasswordEncoded(QString password, BLOWFISH &bf) {
+        if(password.isEmpty()) {
+            return "";
+        }
         try {
-//            BLOWFISH bf(bfHash.toStdString());
-//            std::string str = "";
-//            str = bf.Decrypt_CBC(hash.toStdString());
-//            return QString::fromStdString(str);
+            std::string str = "";
+            str = bf.Encrypt_CBC(password.toStdString());
+            return QString::fromStdString(str);
         }
         catch(int) {
-            throw new SecurityCheckFailedException();
+            throw SecurityCheckFailedException();
+        }
+    }
+    QString BlowFishProvider::GetPasswordDecoded(QString hash, BLOWFISH &bf) {
+        if(hash.isEmpty()) {
+            return "";
+        }
+        try {
+            std::string str = "";
+            str = bf.Decrypt_CBC(hash.toStdString());
+            return QString::fromStdString(str);
+        }
+        catch(int) {
+            throw SecurityCheckFailedException();
         }
     }
 
