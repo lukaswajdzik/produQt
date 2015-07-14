@@ -24,7 +24,7 @@ protected:
 };
 
 
-TEST_F (blowFishProviderTest, comparePasswodAfterAndBeforeEncryption) {
+TEST_F (blowFishProviderTest, comparePasswordAfterAndBeforeEncryption) {
     const QString password = "pass4check.";
     QString hashPass = sut.GetDbPasswordEncoded(password);
     QString pass = sut.GetDbPasswordDecoded(hashPass);

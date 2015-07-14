@@ -34,8 +34,7 @@ HEADERS  += Visuals/mainwindow.h \
     External/blowfish.h \
     Utils/constants.h \
     Utils/blowfishprovider.h \
-    Utils/Exceptions/securitycheckfailedexception.h \
-    Utils/Ilogger.h
+    Utils/Exceptions/securitycheckfailedexception.h
 
 FORMS    += Visuals/mainwindow.ui \
     Visuals/databasetestwindow.ui

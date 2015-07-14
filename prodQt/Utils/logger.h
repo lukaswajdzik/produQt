@@ -2,7 +2,6 @@
 #define LOGGER_H
 
 #include <QString>
-//#include <QTextStream>
 #include <QFile>
 
 namespace Utils
