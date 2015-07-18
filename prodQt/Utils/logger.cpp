@@ -9,11 +9,17 @@ namespace Utils
 
     Logger::Logger()
     {
+        executeInitOperations();
+    }
+
+    void Logger::executeInitOperations(void)
+    {
         settingFile = QApplication::applicationDirPath() + "/config.ini";
         qDebug() << "Config file path is: " << settingFile;
         establishLogFile(getLogFileName(settingFile));
         log("*Program starts");
     }
+
     Logger::~Logger()
     {
         log("*Program terminated");

@@ -1,10 +1,11 @@
 #include "databaseconnectioncouldnotbeestablishedexception.h"
+#include "Utils/logger.h"
 
 namespace Database {
-    DatabaseConnectionCouldNotBeEstablishedException::DatabaseConnectionCouldNotBeEstablishedException(QString databaseName)
+    DatabaseConnectionCouldNotBeEstablishedException::DatabaseConnectionCouldNotBeEstablishedException(QSqlError error)
     {
-        ErrorMessage = ("Database " + databaseName + " connection could not be established");
-
+        ErrorMessage = "-Database driverText: " + error.driverText();
+        ErrorMessage += " -databaseText: " + error.databaseText();
     }
 
     const char* DatabaseConnectionCouldNotBeEstablishedException::what() const throw() {

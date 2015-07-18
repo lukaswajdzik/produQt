@@ -4,6 +4,7 @@
 #include <QString>
 #include "Utils/blowfishprovider.h"
 
+
 namespace Database {
     DatabaseConnector::DatabaseConnector() {
         Connect();
@@ -13,19 +14,31 @@ namespace Database {
         Dispose();
     }
 
+    bool DatabaseConnector::isConnected(){
+        if (db.isOpen())
+            return true;
+        else
+            return false;
+    }
+
+    bool DatabaseConnector::reconnect(){
+        db.close();
+        return db.open();
+    }
+
     void DatabaseConnector::Connect() {
         db = QSqlDatabase::addDatabase("QPSQL");
         DatabaseConfiguration configuration;
         ConfigureDatabase(db, configuration);
         if (!db.open()) {
             qDebug() << "Database error occurred";
-            throw DatabaseConnectionCouldNotBeEstablishedException(configuration.GetDatabaseName());
+            throw DatabaseConnectionCouldNotBeEstablishedException(db.lastError());
         }
         qDebug() << "Database connection etablished";
     }
 
     void DatabaseConnector::Dispose() {
-        if(db.isOpen()) {
+        if(!isConnected()) {
             db.close();
         }
         qDebug() << "Database connection disposed!";

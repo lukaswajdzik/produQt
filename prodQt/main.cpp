@@ -1,20 +1,19 @@
-#include "Visuals/mainwindow.h"
-#include "Visuals/databasetestwindow.h"
 #include <QApplication>
+
+//#include "Visuals/mainwindow.h"
+//#include "Visuals/databasetestwindow.h"
 #include "Utils/logger.h"
+#include "Control/processcontrol.h"
 
 using Logger = Utils::Logger;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    Logger::getInstance();
 
-    DataBaseTestWindow dtw;
-    dtw.show();
-
-    Logger& logger = Logger::getInstance();
+    Control::ProcessControl run;
+    run.initOperations();
 
     return a.exec();
 }

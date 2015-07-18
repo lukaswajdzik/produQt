@@ -3,11 +3,12 @@
 
 #include <exception>
 #include <QString>
+#include <QSqlError>
 
 namespace Database {
     class DatabaseConnectionCouldNotBeEstablishedException : public std::exception {
     public:
-        DatabaseConnectionCouldNotBeEstablishedException(QString databaseName);
+        DatabaseConnectionCouldNotBeEstablishedException(QSqlError);
         const char* what() const throw();
         private:
             QString ErrorMessage;

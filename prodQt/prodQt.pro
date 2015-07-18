@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     Database/databaseconfiguration.cpp \
     Database/Exceptions/databaseconnectioncouldnotbeestablishedexception.cpp \
     Utils/Exceptions/securitycheckfailedexception.cpp \
-    Utils/blowfishprovider.cpp
+    Utils/blowfishprovider.cpp \
+    Control/processcontrol.cpp \
 
 HEADERS  += Visuals/mainwindow.h \
     Database/databaseconnector.h \
@@ -34,7 +35,8 @@ HEADERS  += Visuals/mainwindow.h \
     External/blowfish.h \
     Utils/constants.h \
     Utils/blowfishprovider.h \
-    Utils/Exceptions/securitycheckfailedexception.h
+    Utils/Exceptions/securitycheckfailedexception.h \
+    Control/processcontrol.h
 
 FORMS    += Visuals/mainwindow.ui \
     Visuals/databasetestwindow.ui

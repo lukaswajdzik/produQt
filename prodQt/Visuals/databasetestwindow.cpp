@@ -26,9 +26,9 @@ void DataBaseTestWindow::loginButtonClicked() {
         DbCon = std::make_shared<DatabaseConnector>();
         QString userName = ui->userNameBox->toPlainText();
         QString userPassword = ui->userPasswordBox->toPlainText();
-        if(userName.isEmpty() || userPassword.isEmpty()) {
-            return;
-        }
+//        if(userName.isEmpty() || userPassword.isEmpty()) {
+//            return;
+//        }
         QString validation = DbCon-> VerifyUser(userName, userPassword) ? "Passed" : "Failed";
         ui->statusLabel->setText("Validation: " + validation);
         logger.log("Data base OK!");

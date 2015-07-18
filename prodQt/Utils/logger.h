@@ -17,6 +17,7 @@ namespace Utils
         ~Logger();
         Logger(Logger const& copy)            = delete;
         Logger& operator=(Logger const& copy) = delete;
+        void executeInitOperations();
         QFile logFile;
         QString settingFile;
         QString logFileName;

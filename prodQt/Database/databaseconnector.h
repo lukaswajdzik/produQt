@@ -14,6 +14,8 @@ namespace Database {
     public:
         DatabaseConnector();
         ~DatabaseConnector();
+        bool isConnected();
+        bool reconnect();
     private:
         QSqlDatabase db;
         void Connect();
