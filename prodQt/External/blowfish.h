@@ -79,7 +79,6 @@ class BLOWFISH{
         BLOWFISH(std::string hexKey);
         BLOWFISH(byte* cipherKey, int keylength);
 
-        //TODO: string encryption functions -> base64
         std::string Encrypt_CBC(std::string data);
         byte* Encrypt_CBC(byte* data, int length, int* newlength);
         byte* Encrypt_ECB(byte* data, int length, int* newlength);
@@ -372,7 +371,6 @@ class BLOWFISH{
 
     void BLOWFISH::setblock(byte* block, int offset)
     {
-        //TODO: CHECK ENDIANNESS
         xr_par = 0; xl_par = 0;
         for(int i = 0; i < 4; i++)
         {
@@ -383,7 +381,6 @@ class BLOWFISH{
 
     void BLOWFISH::getblock(byte* block, int offset)
     {
-        //TODO: CHECK ENDIANNESS
         unsigned int xl = xl_par;
         unsigned int xr = xr_par;
         for(int i = 3; i >= 0; i--)
@@ -486,7 +483,6 @@ class BLOWFISH{
 
     unsigned int BLOWFISH::round(unsigned int a, unsigned int b, unsigned int n)
     {
-        //TODO: CHECK ENDIANNESS
         unsigned int x1 = (s0[(b >> 24) % 256] + s1[(b >> 16) % 256]) ^ s2[(b >> 8) % 256];
         unsigned int x2 = x1 + s3[b % 256];
         unsigned int x3 = x2 ^ p[n];

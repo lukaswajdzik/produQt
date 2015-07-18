@@ -8,6 +8,7 @@
 namespace Database {
     class DatabaseConfiguration {
     public:
+        //TODO: memorize ini configuration in the DB!
         DatabaseConfiguration();
         QString GetDatabaseHost();
         QString GetDatabaseName();

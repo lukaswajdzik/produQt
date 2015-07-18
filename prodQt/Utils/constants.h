@@ -13,6 +13,9 @@ namespace Utils {
         static std::string GetBlowfishApplicationUserPasswordKey() {
             return "fc3c7c79ec88242ff3a5dd163492826dc6c1f2d5";
         }
+        static std::string GetSuperUserPassword() {
+            return "TkkUk6v4DcqfXfyK";
+        }
     };
 }
 

@@ -15,6 +15,7 @@ namespace Database {
         DatabaseConnector();
         ~DatabaseConnector();
         bool isConnected();
+        //TODO: implement reconnection mechanism: a few attampt to connect with possibility to manually change a DB data, like DB name etc
         bool reconnect();
     private:
         QSqlDatabase db;
