@@ -24,6 +24,10 @@ SOURCES += main.cpp\
     Utils/Exceptions/securitycheckfailedexception.cpp \
     Utils/blowfishprovider.cpp \
     Control/processcontrol.cpp \
+    Utils/blowFIshProviderTestSuite.cpp \
+    User/login.cpp \
+    User/useraccount.cpp \
+    Visuals/adduser.cpp
 
 HEADERS  += Visuals/mainwindow.h \
     Database/databaseconnector.h \
@@ -36,10 +40,14 @@ HEADERS  += Visuals/mainwindow.h \
     Utils/constants.h \
     Utils/blowfishprovider.h \
     Utils/Exceptions/securitycheckfailedexception.h \
-    Control/processcontrol.h
+    Control/processcontrol.h \
+    User/login.h \
+    User/useraccount.h \
+    Visuals/adduser.h
 
 FORMS    += Visuals/mainwindow.ui \
-    Visuals/databasetestwindow.ui
+    Visuals/databasetestwindow.ui \
+    Visuals/adduser.ui
 
 CONFIG += c++11
 

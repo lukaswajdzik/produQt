@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "Visuals/adduser.h"
+#include <memory>
 
 namespace Ui {
     class MainWindow;
@@ -19,8 +21,12 @@ public:
 
     ~MainWindow();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    std::shared_ptr<AddUser> ad;
 };
 
 #endif

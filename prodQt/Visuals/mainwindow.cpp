@@ -34,3 +34,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+    ad = std::make_shared<AddUser>();
+    ad->show();
+}
