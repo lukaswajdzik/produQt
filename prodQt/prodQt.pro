@@ -26,8 +26,9 @@ SOURCES += main.cpp\
     Control/processcontrol.cpp \
     Utils/blowFIshProviderTestSuite.cpp \
     User/login.cpp \
-    User/useraccount.cpp \
-    Visuals/adduser.cpp
+    Visuals/adduser.cpp \
+    User/usermodifier.cpp \
+    Database/operativedatabaseconnector.cpp
 
 HEADERS  += Visuals/mainwindow.h \
     Database/databaseconnector.h \
@@ -42,8 +43,10 @@ HEADERS  += Visuals/mainwindow.h \
     Utils/Exceptions/securitycheckfailedexception.h \
     Control/processcontrol.h \
     User/login.h \
-    User/useraccount.h \
-    Visuals/adduser.h
+    Visuals/adduser.h \
+    User/usermodifier.h \
+    Database/databasequeryprovider.h \
+    Database/operativedatabaseconnector.h
 
 FORMS    += Visuals/mainwindow.ui \
     Visuals/databasetestwindow.ui \

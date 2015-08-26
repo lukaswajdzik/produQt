@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QString>
 #include "Utils/blowfishprovider.h"
+#include "Database/databasequeryprovider.h"
 
 
 namespace Database {
@@ -53,19 +54,5 @@ namespace Database {
         db.setPassword(passwordDecoded);
     }
 
-    bool IOperativeDatabaseConnector::VerifyUser(QString login, QString password) {
-        QString userPassword = SelectPasswordByUserName(login);
-        QString userPasswordDecoded = Utils::BlowFishProvider::GetUserPasswordDecoded(userPassword);
-        return password == userPasswordDecoded;
-    }
 
-    QString IOperativeDatabaseConnector::SelectPasswordByUserName(QString userName) {
-        QSqlQuery query;
-        QString queryString = "SELECT userpassword FROM users WHERE username = :userName";
-        query.prepare(queryString);
-        query.bindValue(":userName", userName);
-        query.exec();
-        query.next();
-        return query.value(0).toString();
-    }
 }

@@ -29,8 +29,8 @@ void DataBaseTestWindow::loginButtonClicked() {
 //        if(userName.isEmpty() || userPassword.isEmpty()) {
 //            return;
 //        }
-        QString validation = DbCon-> VerifyUser(userName, userPassword) ? "Passed" : "Failed";
-        ui->statusLabel->setText("Validation: " + validation);
+//        QString validation = DbCon-> VerifyUser(userName, userPassword) ? "Passed" : "Failed";
+//        ui->statusLabel->setText("Validation: " + validation);
         logger.log("Data base OK!");
     }
     catch(std::exception& e) {

@@ -15,6 +15,9 @@ public:
     explicit AddUser(QWidget *parent = 0);
     ~AddUser();
 
+private slots:
+    void on_pushButtonAddUser_clicked();
+
 private:
     Ui::AddUser *ui;
 };

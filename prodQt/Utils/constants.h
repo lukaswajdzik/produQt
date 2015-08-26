@@ -3,6 +3,7 @@
 
 #include <string>
 #include <QDebug>
+#include <QString>
 
 namespace Utils {
     class Constants {
@@ -15,6 +16,9 @@ namespace Utils {
         }
         static std::string GetSuperUserPassword() {
             return "TkkUk6v4DcqfXfyK";
+        }
+        static QStringList GetAccessTypes() {
+            return {"Pełny", "Ograniczony"};
         }
     };
 }

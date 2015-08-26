@@ -10,7 +10,9 @@
 #include <QString>
 
 namespace Database {
-    class DatabaseConnector : public IOperativeDatabaseConnector {
+    class DatabaseQueryProvider;
+
+    class DatabaseConnector {
     public:
         DatabaseConnector();
         ~DatabaseConnector();

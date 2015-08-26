@@ -6,8 +6,8 @@
 namespace Database {
     class IOperativeDatabaseConnector {
     public:
-        bool VerifyUser(QString login, QString password);
-        QString SelectPasswordByUserName(QString userName);
+        virtual bool VerifyUser(QString login, QString password) = 0;
+        virtual QString SelectPasswordByUserName(QString userName) = 0;
     };
 }
 
