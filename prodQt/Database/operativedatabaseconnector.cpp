@@ -35,13 +35,13 @@ namespace Database {
         return query.value(0).toString();
     }
 
-    void OperativeDatabaseConnector::addUserToDatabase()
+    void OperativeDatabaseConnector::addUserToDatabase(User::UserData p_userData)
     {
         QSqlQuery query;
         query.prepare(DatabaseQueryProvider::addUser() );
-        query.bindValue(":userName", QString("Stefan"));
-        query.bindValue(":userPass", "hahahahaha!");
-        query.bindValue(":userRole", 3);
+        query.bindValue(":userName", p_userData.name);
+        query.bindValue(":userPass", p_userData.password);
+        query.bindValue(":userRole", int(p_userData.role));
         qDebug() << "!Query: " << query.exec();
     }
 

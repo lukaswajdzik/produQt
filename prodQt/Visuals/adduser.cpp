@@ -1,7 +1,12 @@
 #include "adduser.h"
 #include "ui_adduser.h"
 #include "Utils/constants.h"
-#include "Database/operativedatabaseconnector.h"
+#include "User/usermodifier.h"
+
+enum Access{
+    Full, //0
+    Limited //1
+};
 
 AddUser::AddUser(QWidget *parent) :
     QDialog(parent),
@@ -18,7 +23,12 @@ AddUser::~AddUser()
 
 void AddUser::on_pushButtonAddUser_clicked()
 {
-    Database::OperativeDatabaseConnector haha;
-    haha.addUserToDatabase();
+    User::UserData userData;
+    User::UserModifier userModifier;
 
+    userData.name = ui->lineEditUserName->text();
+    userData.password = ui->lineEditPassword1->text();
+    userData.role = (ui->comboBoxAccess->currentText() == Utils::Constants::GetAccessTypes().at(0) ? Access::Full : Access::Limited);
+
+    userModifier.addUser(userData);
 }

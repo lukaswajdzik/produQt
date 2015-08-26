@@ -2,6 +2,7 @@
 #define OPERATIVEDATABASECONNECTOR_H
 
 #include "Database/ioperaticedatabaseconnector.h"
+#include "User/usermodifier.h"
 
 namespace Database{
 
@@ -10,7 +11,7 @@ namespace Database{
     public:
         virtual bool VerifyUser(QString login, QString password) override;
         virtual QString SelectPasswordByUserName(QString userName) override;
-        void addUserToDatabase();
+        void addUserToDatabase(User::UserData);
         OperativeDatabaseConnector();
         ~OperativeDatabaseConnector();
     };

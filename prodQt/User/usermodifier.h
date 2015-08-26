@@ -7,7 +7,7 @@ namespace User{
 
 struct UserData{
     QString name;
-    QString role;
+    int role;
     QString password;
 };
 
