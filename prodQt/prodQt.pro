@@ -28,7 +28,7 @@ SOURCES += main.cpp\
     User/login.cpp \
     Visuals/adduser.cpp \
     User/usermodifier.cpp \
-    Database/operativedatabaseconnector.cpp
+    Database/useroperativedb.cpp
 
 HEADERS  += Visuals/mainwindow.h \
     Database/databaseconnector.h \
@@ -36,7 +36,6 @@ HEADERS  += Visuals/mainwindow.h \
     Visuals/databasetestwindow.h \
     Database/databaseconfiguration.h \
     Database/Exceptions/databaseconnectioncouldnotbeestablishedexception.h \
-    Database/ioperaticedatabaseconnector.h \
     External/blowfish.h \
     Utils/constants.h \
     Utils/blowfishprovider.h \
@@ -46,7 +45,8 @@ HEADERS  += Visuals/mainwindow.h \
     Visuals/adduser.h \
     User/usermodifier.h \
     Database/databasequeryprovider.h \
-    Database/operativedatabaseconnector.h
+    Database/useroperativedb.h \
+    Database/ioperativedatabaseconnector.h
 
 FORMS    += Visuals/mainwindow.ui \
     Visuals/databasetestwindow.ui \

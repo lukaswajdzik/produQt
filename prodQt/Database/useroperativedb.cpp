@@ -1,4 +1,4 @@
-#include "operativedatabaseconnector.h"
+#include "Database/useroperativedb.h"
 #include "Database/databasequeryprovider.h"
 #include "Utils/blowfishprovider.h"
 #include <QtSql/QSql>
@@ -8,25 +8,24 @@
 #include <QVariant>
 #include <QDebug>
 
+#include <QMessageBox>
+
 namespace Database {
 
-    OperativeDatabaseConnector::OperativeDatabaseConnector()
-    {
+    UserOperativeDb::UserOperativeDb()
+    {}
 
-    }
+    UserOperativeDb::~UserOperativeDb()
+    {}
 
-    OperativeDatabaseConnector::~OperativeDatabaseConnector()
-    {
-
-    }
-
-    bool OperativeDatabaseConnector::VerifyUser(QString login, QString password) {
+    bool UserOperativeDb::VerifyUser(QString login, QString password) {
         QString userPassword = SelectPasswordByUserName(login);
         QString userPasswordDecoded = Utils::BlowFishProvider::GetUserPasswordDecoded(userPassword);
+    QMessageBox::information(0, "PASS",  userPasswordDecoded);
         return password == userPasswordDecoded;
     }
 
-    QString OperativeDatabaseConnector::SelectPasswordByUserName(QString userName) {
+    QString UserOperativeDb::SelectPasswordByUserName(QString userName) {
         QSqlQuery query;
         query.prepare(DatabaseQueryProvider::getUserPassword() );
         query.bindValue(":userName", userName);
@@ -35,13 +34,12 @@ namespace Database {
         return query.value(0).toString();
     }
 
-    void OperativeDatabaseConnector::addUserToDatabase(User::UserData p_userData)
-    {
+    void UserOperativeDb::addUserToDatabase(User::UserData p_userData) {
         QSqlQuery query;
         query.prepare(DatabaseQueryProvider::addUser() );
         query.bindValue(":userName", p_userData.name);
-        query.bindValue(":userPass", p_userData.password);
-        query.bindValue(":userRole", int(p_userData.role));
+        query.bindValue(":userPass", Utils::BlowFishProvider::GetUserPasswordEncoded(p_userData.password));
+        query.bindValue(":userRole", static_cast<int>(p_userData.role));
         qDebug() << "!Query: " << query.exec();
     }
 

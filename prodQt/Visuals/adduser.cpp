@@ -2,6 +2,8 @@
 #include "ui_adduser.h"
 #include "Utils/constants.h"
 #include "User/usermodifier.h"
+#include "Database/useroperativedb.h"
+#include <memory>
 
 enum Access{
     Full, //0
@@ -23,8 +25,9 @@ AddUser::~AddUser()
 
 void AddUser::on_pushButtonAddUser_clicked()
 {
+    std::shared_ptr<Database::IOperativeDatabaseConnector> userOperativeDB = std::make_shared<Database::UserOperativeDb>();
     User::UserData userData;
-    User::UserModifier userModifier;
+    User::UserModifier userModifier(userOperativeDB);
 
     userData.name = ui->lineEditUserName->text();
     userData.password = ui->lineEditPassword1->text();

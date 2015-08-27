@@ -2,7 +2,7 @@
 #define DATABASECONNECTOR_H
 
 #include "databaseconfiguration.h"
-#include "ioperaticedatabaseconnector.h"
+#include "ioperativedatabaseconnector.h"
 #include <QtSql/QSql>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlDriver>
