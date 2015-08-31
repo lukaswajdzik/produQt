@@ -3,17 +3,18 @@
 //#include "Visuals/mainwindow.h"
 //#include "Visuals/databasetestwindow.h"
 #include "Utils/logger.h"
-#include "Control/processcontrol.h"
+#include "Application/ApplicationContext.h"
 
 using Logger = Utils::Logger;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Logger::getInstance();
+    Logger::getInstance().log("Application launched!");
 
-    Control::ProcessControl run;
-    run.initOperations();
+    MainWindow window;
+    Application::ApplicationContext context(window);
 
+//    window.show();
     return a.exec();
 }
