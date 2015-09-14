@@ -5,18 +5,19 @@
 #include <QString>
 #include <memory>
 
-namespace Database {
+namespace Configuration {
+
     class DatabaseConfiguration {
     public:
         //TODO: memorize ini configuration in the DB!
-        DatabaseConfiguration();
+        DatabaseConfiguration(std::shared_ptr<QSettings>&);
         QString GetDatabaseHost();
         QString GetDatabaseName();
         int GetDatabasePort();
         QString GetUserName();
         QString GetUserPassword();
     private:
-        std::shared_ptr<QSettings> settings;
+        std::shared_ptr<QSettings> m_settings;
     };
 }
 

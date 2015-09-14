@@ -2,24 +2,29 @@
 #define APPLICATIONCONTEXT_H
 
 #include "Visuals/mainwindow.h"
-#include "Database/databaseconnector.h"
+#include "Configuration/ConfigurationProvider.h"
 
-using DatabaseConnector = Database::DatabaseConnector;
+namespace Database{
+    class DatabaseConnector;
+}
+
+using Database::DatabaseConnector;
+using Configuration::ConfigurationProvider;
 
 namespace Application
 {
 
     class ApplicationContext
     {
-
     public:
         ApplicationContext(MainWindow&);
         ~ApplicationContext();
 
     private:
-        bool initDBConnection();
-        MainWindow& window;
-        std::shared_ptr<DatabaseConnector> DbConnector;
+        MainWindow& m_mainWindow;
+        ConfigurationProvider m_configProvider;
+
+        std::shared_ptr<DatabaseConnector> m_dbConnector;
 
     };
 

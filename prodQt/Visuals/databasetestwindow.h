@@ -21,7 +21,6 @@ class DataBaseTestWindow : public QMainWindow {
     private:
         Ui::DataBaseTestWindow *ui;
         Logger& logger = Logger::getInstance();
-        std::shared_ptr<Database::DatabaseConnector> DbCon;
 
 public slots:
         void loginButtonClicked();

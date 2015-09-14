@@ -2,35 +2,21 @@
 #include <QDebug>
 #include "Utils/logger.h"
 #include <QMessageBox>
+#include "Database/databaseconnector.h"
 
 using Logger = Utils::Logger;
 
 namespace Application
 {
-    ApplicationContext::ApplicationContext(MainWindow &win) : window(win)
+    ApplicationContext::ApplicationContext(MainWindow &win)
+        : m_mainWindow(win)
     {
-        window.show();
-        window.setDbLabelAsIsConnecting();
-        initDBConnection();
+        m_mainWindow.show();
+        m_dbConnector = std::make_shared<DatabaseConnector>(m_configProvider.getDatabaseConfigurator());
     }
 
     ApplicationContext::~ApplicationContext()
     {}
 
-    bool ApplicationContext::initDBConnection()
-    {
-        try {
-            DbConnector = std::make_shared<DatabaseConnector>();
-            if(DbConnector->isConnected())
-                window.setDbLabelAsConnected();
-        }
-        catch(std::exception& e) {
-            qDebug() << e.what();
-            Logger::getInstance().log(e.what());
-            QMessageBox::information(0, "BŁĄD",  "Nie można połączyć z bazą danych.");
-            window.setDbLabelAsDisconected();
-        }
-
-    }
 }
 

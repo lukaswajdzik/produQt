@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     Database/databaseconnector.cpp \
     Utils/logger.cpp \
     Visuals/databasetestwindow.cpp \
-    Database/databaseconfiguration.cpp \
     Database/Exceptions/databaseconnectioncouldnotbeestablishedexception.cpp \
     Utils/Exceptions/securitycheckfailedexception.cpp \
     Utils/blowfishprovider.cpp \
@@ -29,13 +28,14 @@ SOURCES += main.cpp\
     User/usermodifier.cpp \
     Database/useroperativedb.cpp \
     Application/ApplicationContext.cpp \
-    Application/Session.cpp
+    Application/Session.cpp \
+    Configuration/DatabaseConfiguration.cpp \
+    Configuration/ConfigurationProvider.cpp
 
 HEADERS  += Visuals/mainwindow.h \
     Database/databaseconnector.h \
     Utils/logger.h \
     Visuals/databasetestwindow.h \
-    Database/databaseconfiguration.h \
     Database/Exceptions/databaseconnectioncouldnotbeestablishedexception.h \
     External/blowfish.h \
     Utils/constants.h \
@@ -48,7 +48,9 @@ HEADERS  += Visuals/mainwindow.h \
     Database/useroperativedb.h \
     Database/ioperativedatabaseconnector.h \
     Application/ApplicationContext.h \
-    Application/Session.h
+    Application/Session.h \
+    Configuration/DatabaseConfiguration.h \
+    Configuration/ConfigurationProvider.h
 
 FORMS    += Visuals/mainwindow.ui \
     Visuals/databasetestwindow.ui \
