@@ -30,7 +30,9 @@ SOURCES += main.cpp\
     Application/ApplicationContext.cpp \
     Application/Session.cpp \
     Configuration/DatabaseConfiguration.cpp \
-    Configuration/ConfigurationProvider.cpp
+    Configuration/ConfigurationProvider.cpp \
+    Controllers/UserModifierController.cpp \
+    Modules/UserModifierModule.cpp
 
 HEADERS  += Visuals/mainwindow.h \
     Database/databaseconnector.h \
@@ -50,7 +52,9 @@ HEADERS  += Visuals/mainwindow.h \
     Application/ApplicationContext.h \
     Application/Session.h \
     Configuration/DatabaseConfiguration.h \
-    Configuration/ConfigurationProvider.h
+    Configuration/ConfigurationProvider.h \
+    Controllers/UserModifierController.h \
+    Modules/UserModifierModule.h
 
 FORMS    += Visuals/mainwindow.ui \
     Visuals/databasetestwindow.ui \

@@ -1,7 +1,5 @@
 #include <QApplication>
 
-//#include "Visuals/mainwindow.h"
-//#include "Visuals/databasetestwindow.h"
 #include "Utils/logger.h"
 #include "Application/ApplicationContext.h"
 

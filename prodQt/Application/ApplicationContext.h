@@ -3,6 +3,7 @@
 
 #include "Visuals/mainwindow.h"
 #include "Configuration/ConfigurationProvider.h"
+#include "Application/Session.h"
 
 namespace Database{
     class DatabaseConnector;
@@ -13,7 +14,6 @@ using Configuration::ConfigurationProvider;
 
 namespace Application
 {
-
     class ApplicationContext
     {
     public:
@@ -23,9 +23,8 @@ namespace Application
     private:
         MainWindow& m_mainWindow;
         ConfigurationProvider m_configProvider;
-
+        Session m_session;
         std::shared_ptr<DatabaseConnector> m_dbConnector;
-
     };
 
 }
