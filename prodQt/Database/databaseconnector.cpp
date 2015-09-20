@@ -42,7 +42,7 @@ namespace Database {
         catch(std::exception& e) {
             qDebug() << e.what();
             Logger::getInstance().log(e.what());
-            QMessageBox::information(0, "Błąd",  "Nie można połączyć z bazą danych.");
+            QMessageBox::information(0, "Błąd połączenia",  "Nie można połączyć z bazą danych.");
         }
     }
 

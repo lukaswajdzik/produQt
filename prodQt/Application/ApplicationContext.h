@@ -1,7 +1,7 @@
 #ifndef APPLICATIONCONTEXT_H
 #define APPLICATIONCONTEXT_H
 
-#include "Visuals/mainwindow.h"
+#include "Controllers/MainWindowController.h"
 #include "Configuration/ConfigurationProvider.h"
 #include "Application/Session.h"
 
@@ -17,11 +17,12 @@ namespace Application
     class ApplicationContext
     {
     public:
-        ApplicationContext(MainWindow&);
+        ApplicationContext();
         ~ApplicationContext();
 
+        Session &getSession();
+
     private:
-        MainWindow& m_mainWindow;
         ConfigurationProvider m_configProvider;
         Session m_session;
         std::shared_ptr<DatabaseConnector> m_dbConnector;

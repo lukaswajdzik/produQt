@@ -1,5 +1,6 @@
 #include "ConfigurationProvider.h"
 #include "Configuration/DatabaseConfiguration.h"
+#include <QMessageBox>
 
 namespace Configuration
 {
@@ -8,6 +9,7 @@ namespace Configuration
 ConfigurationProvider::ConfigurationProvider()
 {
     m_settings = std::make_shared<QSettings>( "config.ini", QSettings::IniFormat);
+    //TODO: check if the file was read correctly
 }
 
 ConfigurationProvider::~ConfigurationProvider()

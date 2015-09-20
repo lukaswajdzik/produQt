@@ -8,15 +8,18 @@ using Logger = Utils::Logger;
 
 namespace Application
 {
-    ApplicationContext::ApplicationContext(MainWindow &win)
-        : m_mainWindow(win)
+    ApplicationContext::ApplicationContext()
     {
-        m_mainWindow.show();
         m_dbConnector = std::make_shared<DatabaseConnector>(m_configProvider.getDatabaseConfigurator());
     }
 
     ApplicationContext::~ApplicationContext()
     {}
+
+    Session& ApplicationContext::getSession()
+    {
+        return m_session;
+    }
 
 }
 

@@ -3,14 +3,24 @@
 namespace Application
 {
 
-    Session::Session()
-    {
-        m_accessType = 0;
-    }
+    Session::Session() :
+        m_isLogged(false),
+        m_accessType(0)
+    {}
 
     Session::~Session()
     {
 
+    }
+
+    bool Session::getIsLogged()
+    {
+        return m_isLogged;
+    }
+
+    void Session::setIsLogged(bool log)
+    {
+        m_isLogged = log;
     }
 
     bool Session::getAccessType()

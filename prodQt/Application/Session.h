@@ -3,17 +3,20 @@
 
 namespace Application
 {
-
     class Session
     {
-    private:
-        int m_accessType;
-
     public:
         Session();
         ~Session();
+        bool getIsLogged();
+        void setIsLogged(bool);
+
         bool getAccessType();
         void setAccessType(int);
+
+    private:
+        bool m_isLogged;
+        int m_accessType;
     };
 
 }

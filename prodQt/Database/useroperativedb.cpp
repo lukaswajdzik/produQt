@@ -34,7 +34,7 @@ namespace Database {
         return query.value(0).toString();
     }
 
-    void UserOperativeDb::addUserToDatabase(User::UserData p_userData) {
+    void UserOperativeDb::addUserToDatabase(Module::UserData p_userData) {
         QSqlQuery query;
         query.prepare(DatabaseQueryProvider::addUser() );
         query.bindValue(":userName", p_userData.name);

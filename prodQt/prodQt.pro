@@ -15,37 +15,33 @@ LIBS = \
        -lboost_system\
 
 SOURCES += main.cpp\
-        Visuals/mainwindow.cpp \
     Database/databaseconnector.cpp \
     Utils/logger.cpp \
-    Visuals/databasetestwindow.cpp \
+    Controllers/databasetestwindow.cpp \
     Database/Exceptions/databaseconnectioncouldnotbeestablishedexception.cpp \
     Utils/Exceptions/securitycheckfailedexception.cpp \
     Utils/blowfishprovider.cpp \
     Utils/blowFIshProviderTestSuite.cpp \
-    User/login.cpp \
-    Visuals/adduser.cpp \
-    User/usermodifier.cpp \
     Database/useroperativedb.cpp \
     Application/ApplicationContext.cpp \
     Application/Session.cpp \
     Configuration/DatabaseConfiguration.cpp \
     Configuration/ConfigurationProvider.cpp \
-    Controllers/UserModifierController.cpp \
-    Modules/UserModifierModule.cpp
+    Modules/UserModifierModule.cpp \
+    Controllers/MainWindowController.cpp \
+    Controllers/UserAddingController.cpp \
+    Modules/UserAddingModule.cpp \
+    Modules/Module.cpp
 
-HEADERS  += Visuals/mainwindow.h \
+HEADERS  += \
     Database/databaseconnector.h \
     Utils/logger.h \
-    Visuals/databasetestwindow.h \
+    Controllers/databasetestwindow.h \
     Database/Exceptions/databaseconnectioncouldnotbeestablishedexception.h \
     External/blowfish.h \
     Utils/constants.h \
     Utils/blowfishprovider.h \
     Utils/Exceptions/securitycheckfailedexception.h \
-    User/login.h \
-    Visuals/adduser.h \
-    User/usermodifier.h \
     Database/databasequeryprovider.h \
     Database/useroperativedb.h \
     Database/ioperativedatabaseconnector.h \
@@ -53,12 +49,15 @@ HEADERS  += Visuals/mainwindow.h \
     Application/Session.h \
     Configuration/DatabaseConfiguration.h \
     Configuration/ConfigurationProvider.h \
-    Controllers/UserModifierController.h \
-    Modules/UserModifierModule.h
+    Modules/UserModifierModule.h \
+    Controllers/MainWindowController.h \
+    Controllers/UserAddingController.h \
+    Modules/UserAddingModule.h \
+    Modules/Module.h
 
-FORMS    += Visuals/mainwindow.ui \
-    Visuals/databasetestwindow.ui \
-    Visuals/adduser.ui
+FORMS    += Controllers/mainwindow.ui \
+    Controllers/databasetestwindow.ui \
+    Controllers/adduser.ui
 
 CONFIG += c++11
 

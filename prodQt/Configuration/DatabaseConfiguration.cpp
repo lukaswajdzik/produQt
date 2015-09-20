@@ -9,7 +9,6 @@ namespace Configuration {
 
     DatabaseConfiguration::DatabaseConfiguration(std::shared_ptr<QSettings> &p_settings) : m_settings(std::move(p_settings))
     {
-//        settings = std::make_shared<QSettings>( "config.ini", QSettings::IniFormat );
     }
 
     QString DatabaseConfiguration::GetDatabaseHost() {
