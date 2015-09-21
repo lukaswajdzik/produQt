@@ -31,7 +31,9 @@ SOURCES += main.cpp\
     Controllers/MainWindowController.cpp \
     Controllers/UserAddingController.cpp \
     Modules/UserAddingModule.cpp \
-    Modules/Module.cpp
+    Modules/Module.cpp \
+    Controllers/UserAddingControllerFactory.cpp \
+    Controllers/FirstUserAddingController.cpp
 
 HEADERS  += \
     Database/databaseconnector.h \
@@ -53,7 +55,10 @@ HEADERS  += \
     Controllers/MainWindowController.h \
     Controllers/UserAddingController.h \
     Modules/UserAddingModule.h \
-    Modules/Module.h
+    Modules/Module.h \
+    Controllers/UserAddingControllerFactory.h \
+    Controllers/IUserAddingController.h \
+    Controllers/FirstUserAddingController.h
 
 FORMS    += Controllers/mainwindow.ui \
     Controllers/databasetestwindow.ui \
