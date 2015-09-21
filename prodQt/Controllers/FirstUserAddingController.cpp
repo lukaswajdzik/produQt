@@ -16,14 +16,14 @@ FirstUserAddingController::FirstUserAddingController(QWidget *parent, std::share
     m_appContext(std::move(p_context)),
     m_ui(new Ui::AddUser)
 {
-    qDebug() << "contructor of UserAddingController";
+    qDebug() << "contructor of FirstUserAddingController";
     m_ui->setupUi(this);
     m_ui->comboBoxAccess->addItems(Utils::Constants::GetAccessTypes());
 }
 
 FirstUserAddingController::~FirstUserAddingController()
 {
-    qDebug() << "destructor of UserAddingController";
+    qDebug() << "destructor of FirstUserAddingController";
     delete m_ui;
 }
 

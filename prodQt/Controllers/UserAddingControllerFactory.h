@@ -15,7 +15,7 @@ public:
     UserAddingControllerFactory(QWidget*, std::shared_ptr<Application::ApplicationContext>);
     ~UserAddingControllerFactory();
 
-    std::shared_ptr<IUserAddingController> create(bool);
+    std::shared_ptr<IUserAddingController> create(int);
 
 private:
     QWidget* m_parent;

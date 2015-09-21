@@ -11,9 +11,9 @@ UserAddingControllerFactory::~UserAddingControllerFactory()
 {   
 }
 
-std::shared_ptr<IUserAddingController> UserAddingControllerFactory::create(bool firstUser)
+std::shared_ptr<IUserAddingController> UserAddingControllerFactory::create(int userNumber)
 {
-    if(not firstUser)
+    if(userNumber)
     {
         return std::make_shared<UserAddingController>(m_parent, m_context);
     }
