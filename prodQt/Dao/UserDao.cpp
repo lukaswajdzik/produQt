@@ -18,7 +18,7 @@ namespace Dao {
     {
     }
 
-    void UserDao::addUserToDatabase(UserAccountRecord p_userData) {
+    bool UserDao::addUserToDatabase(UserAccountRecord p_userData) {
         m_connector->prepare(Database::DatabaseQueryProvider::addUser() );
         m_connector->bindValue(0, p_userData.name);
         m_connector->bindValue(1, p_userData.hash_pass);
@@ -26,7 +26,9 @@ namespace Dao {
         if(not m_connector->exec())
         {
             Utils::Logger::getInstance().log("ERROR: Fail to add new user: " + p_userData.name + " to the DataBase!");
+            return false;
         }
+        return true;
     }
 
     bool UserDao::checkIfUserExist(QString p_userName)

@@ -22,7 +22,7 @@ namespace Dao{
         UserDao(std::shared_ptr<QSqlQuery>);
         ~UserDao();
 
-        void addUserToDatabase(UserAccountRecord);
+        bool addUserToDatabase(UserAccountRecord);
         bool checkIfUserExist(QString);
     private:
         std::shared_ptr<QSqlQuery> m_connector;
