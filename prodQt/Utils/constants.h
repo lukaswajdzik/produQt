@@ -22,8 +22,15 @@ namespace Utils {
         static std::string GetSuperUserPassword() {
             return "TkkUk6v4DcqfXfyK";
         }
-        static QStringList GetAccessTypes() {
+        static int GetLenghtOfUserPassword(){
+            return 5;
+        }
+
+        static QStringList GetAllAccessTypes() {
             return {"Pełny", "Ograniczony"};
+        }
+        static QStringList GetFullAccessType() {
+            return {"Pełny"};
         }
     };
 }

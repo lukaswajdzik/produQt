@@ -1,37 +1,24 @@
 #ifndef FADDUSER_H
 #define FADDUSER_H
 
-#include <QDialog>
 #include <memory>
 #include <functional>
 #include "IUserAddingController.h"
-
-namespace Ui {
-    class AddUser;
-}
 
 namespace Application{
     class ApplicationContext;
 }
 
-class FirstUserAddingController : public QDialog,
-                                  public IUserAddingController
+class FirstUserAddingController : public IUserAddingController
 {
-    Q_OBJECT
-
 public:
-    explicit FirstUserAddingController(QWidget *parent, std::shared_ptr<Application::ApplicationContext>);
-    ~FirstUserAddingController();
+    explicit FirstUserAddingController(std::shared_ptr<Application::ApplicationContext>);
+    ~FirstUserAddingController() = default;
     void setCloseAction(std::function<void(void)>) override;
-    void show() override;
-
-private slots:
-    void on_pushButtonAddUser_clicked();
-    void on_pushButtonReject_released();
+    void process() override;
 
 private:
     std::shared_ptr<Application::ApplicationContext> m_appContext;
-    Ui::AddUser *m_ui;
     std::function<void(void)> m_closeAction;
 };
 

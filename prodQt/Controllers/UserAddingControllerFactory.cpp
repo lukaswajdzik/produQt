@@ -11,12 +11,13 @@ UserAddingControllerFactory::~UserAddingControllerFactory()
 {   
 }
 
-std::shared_ptr<IUserAddingController> UserAddingControllerFactory::create(int userNumber)
+std::shared_ptr<IUserAddingController> UserAddingControllerFactory::createConsecutiveUser(QSqlTableModel* p_userModel)
 {
-    if(userNumber)
-    {
-        return std::make_shared<UserAddingController>(m_parent, m_context);
-    }
-    return std::make_shared<FirstUserAddingController>(m_parent, m_context);
+    return std::make_shared<UserAddingController>(m_parent, m_context, p_userModel);
+}
+
+std::shared_ptr<IUserAddingController> UserAddingControllerFactory::createFirstUser()
+{
+    return std::make_shared<FirstUserAddingController>(m_context);
 }
 

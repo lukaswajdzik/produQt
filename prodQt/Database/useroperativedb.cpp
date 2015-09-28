@@ -7,7 +7,6 @@
 #include <QtSql/QSqlQuery>
 #include <QVariant>
 #include <QDebug>
-
 #include <QMessageBox>
 
 namespace Database {
@@ -28,7 +27,7 @@ namespace Database {
     QString UserOperativeDb::SelectPasswordByUserName(QString userName) {
         QSqlQuery query;
         query.prepare(DatabaseQueryProvider::getUserPassword() );
-        query.bindValue(":userName", userName);
+        query.bindValue(0, userName);
         query.exec();
         query.next();
         return query.value(0).toString();
@@ -37,9 +36,9 @@ namespace Database {
     void UserOperativeDb::addUserToDatabase(Module::UserData p_userData) {
         QSqlQuery query;
         query.prepare(DatabaseQueryProvider::addUser() );
-        query.bindValue(":userName", p_userData.name);
-        query.bindValue(":userPass", Utils::BlowFishProvider::GetUserPasswordEncoded(p_userData.password));
-        query.bindValue(":userRole", static_cast<int>(p_userData.role));
+        query.bindValue(0, p_userData.name);
+        query.bindValue(1, Utils::BlowFishProvider::GetUserPasswordEncoded(p_userData.password));
+        query.bindValue(2, static_cast<int>(p_userData.role));
         qDebug() << "!Query: " << query.exec();
     }
 

@@ -15,6 +15,9 @@ namespace Database
             return "INSERT INTO useraccount (name, hash_pass, role) \
                     VALUES (:userName, :userPass, :userRole);";
         }
+        static QString existUser(){
+            return "SELECT EXISTS (SELECT name FROM useraccount WHERE name = :userName)";
+        }
 
     };
 

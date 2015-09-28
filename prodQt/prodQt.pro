@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     Modules/UserAddingModule.cpp \
     Modules/Module.cpp \
     Controllers/UserAddingControllerFactory.cpp \
-    Controllers/FirstUserAddingController.cpp
+    Controllers/FirstUserAddingController.cpp \
+    Dao/UserDao.cpp
 
 HEADERS  += \
     Database/databaseconnector.h \
@@ -58,7 +59,8 @@ HEADERS  += \
     Modules/Module.h \
     Controllers/UserAddingControllerFactory.h \
     Controllers/IUserAddingController.h \
-    Controllers/FirstUserAddingController.h
+    Controllers/FirstUserAddingController.h \
+    Dao/UserDao.h
 
 FORMS    += Controllers/mainwindow.ui \
     Controllers/databasetestwindow.ui \

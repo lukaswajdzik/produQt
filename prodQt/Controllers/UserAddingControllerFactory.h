@@ -5,6 +5,7 @@
 #include <memory>
 
 class QWidget;
+class QSqlTableModel;
 namespace Application{
     class ApplicationContext;
 }
@@ -15,7 +16,8 @@ public:
     UserAddingControllerFactory(QWidget*, std::shared_ptr<Application::ApplicationContext>);
     ~UserAddingControllerFactory();
 
-    std::shared_ptr<IUserAddingController> create(int);
+    std::shared_ptr<IUserAddingController> createFirstUser();
+    std::shared_ptr<IUserAddingController> createConsecutiveUser(QSqlTableModel*);
 
 private:
     QWidget* m_parent;
