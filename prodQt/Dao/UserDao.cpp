@@ -1,12 +1,14 @@
 #include "UserDao.h"
 #include "Utils/logger.h"
 #include "Database/databasequeryprovider.h"
+#include "Dao/Exceptions/DbQueryCouldNotBeExecuted.h"
 #include <QtSql/QSql>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlDriver>
 #include <QtSql/QSqlQuery>
 #include <QVariant>
 #include <QDebug>
+
 
 namespace Dao {
 
@@ -25,8 +27,7 @@ namespace Dao {
         m_connector->bindValue(2, p_userData.role);
         if(not m_connector->exec())
         {
-            Utils::Logger::getInstance().log("ERROR: Fail to add new user: " + p_userData.name + " to the DataBase!");
-            return false;
+            throw new DbQueryCouldNotBeExecuted(m_connector->lastError());
         }
         return true;
     }
@@ -37,7 +38,7 @@ namespace Dao {
         m_connector->bindValue(0, p_userName);
         if(not m_connector->exec())
         {
-            Utils::Logger::getInstance().log("ERROR: Fail to check if user exist");
+            throw new DbQueryCouldNotBeExecuted(m_connector->lastError());
         }
         m_connector->next();
         return m_connector->value(0).toBool();

@@ -1,5 +1,4 @@
 #include "databaseconnectioncouldnotbeestablishedexception.h"
-#include "Utils/logger.h"
 
 namespace Database {
     DatabaseConnectionCouldNotBeEstablishedException::DatabaseConnectionCouldNotBeEstablishedException(QSqlError error)

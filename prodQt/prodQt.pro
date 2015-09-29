@@ -34,7 +34,9 @@ SOURCES += main.cpp\
     Modules/Module.cpp \
     Controllers/UserAddingControllerFactory.cpp \
     Controllers/FirstUserAddingController.cpp \
-    Dao/UserDao.cpp
+    Dao/UserDao.cpp \
+    Dao/Exceptions/DbQueryCouldNotBeExecuted.cpp \
+    Controllers/LoginController.cpp
 
 HEADERS  += \
     Database/databaseconnector.h \
@@ -60,7 +62,9 @@ HEADERS  += \
     Controllers/UserAddingControllerFactory.h \
     Controllers/IUserAddingController.h \
     Controllers/FirstUserAddingController.h \
-    Dao/UserDao.h
+    Dao/UserDao.h \
+    Dao/Exceptions/DbQueryCouldNotBeExecuted.h \
+    Controllers/LoginController.h
 
 FORMS    += Controllers/mainwindow.ui \
     Controllers/databasetestwindow.ui \
