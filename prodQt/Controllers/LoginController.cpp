@@ -8,8 +8,4 @@ LoginController::LoginController(std::shared_ptr<Application::ApplicationContext
 
 LoginController::~LoginController()
 {
-
 }
-
-
-

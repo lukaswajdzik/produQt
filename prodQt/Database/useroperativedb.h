@@ -13,7 +13,6 @@ namespace Database{
 
         bool VerifyUser(QString login, QString password) override;
         QString SelectPasswordByUserName(QString userName) override;
-        void addUserToDatabase(Module::UserData) override;
     };
 }
 

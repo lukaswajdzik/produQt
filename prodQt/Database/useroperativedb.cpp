@@ -32,14 +32,4 @@ namespace Database {
         query.next();
         return query.value(0).toString();
     }
-
-    void UserOperativeDb::addUserToDatabase(Module::UserData p_userData) {
-        QSqlQuery query;
-        query.prepare(DatabaseQueryProvider::addUser() );
-        query.bindValue(0, p_userData.name);
-        query.bindValue(1, Utils::BlowFishProvider::GetUserPasswordEncoded(p_userData.password));
-        query.bindValue(2, static_cast<int>(p_userData.role));
-        qDebug() << "!Query: " << query.exec();
-    }
-
 }

@@ -9,7 +9,6 @@ namespace Database {
     public:
         virtual bool VerifyUser(QString login, QString password) = 0;
         virtual QString SelectPasswordByUserName(QString userName) = 0;
-        virtual void addUserToDatabase(Module::UserData) = 0;
     };
 }
 

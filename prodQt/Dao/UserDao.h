@@ -4,9 +4,7 @@
 #include <string>
 #include <QString>
 
-
 class QSqlQuery;
-
 
 namespace Dao{
 
