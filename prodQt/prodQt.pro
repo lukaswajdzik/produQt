@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     Controllers/LoginController.cpp \
     Dao/LoginDao.cpp \
     Modules/UserLoginModule.cpp \
-    Utils/Subject.cpp
+    Utils/Subject.cpp \
+    View/MainWindowView.cpp
 
 HEADERS  += \
     Database/databaseconnector.h \
@@ -71,7 +72,8 @@ HEADERS  += \
     Dao/LoginDao.h \
     Modules/UserLoginModule.h \
     Utils/Observer.h \
-    Utils/Subject.h
+    Utils/Subject.h \
+    View/MainWindowView.h
 
 FORMS    += Controllers/mainwindow.ui \
     Controllers/databasetestwindow.ui \

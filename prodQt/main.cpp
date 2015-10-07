@@ -3,6 +3,7 @@
 
 #include "Utils/logger.h"
 #include "Application/ApplicationContext.h"
+#include "View/MainWindowView.h"
 
 using Logger = Utils::Logger;
 
@@ -12,7 +13,9 @@ int main(int argc, char *argv[])
     Logger::getInstance().log("Application launched!");
 
     auto context = std::make_shared<Application::ApplicationContext>();
-    MainWindowController windowController(context);
+//    MainWindowController windowController(context);
+    MainWindowView windowController;
+
 
     windowController.show();
     return a.exec();
