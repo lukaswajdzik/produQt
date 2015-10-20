@@ -8,6 +8,9 @@ namespace Database
     class DatabaseQueryProvider
     {
     public:
+        static QString getUserDatabaseName(){
+            return "useraccount";
+        }
         static QString getUserPassword(){
             return "SELECT hash_pass FROM useraccount WHERE name = :userName";
         }

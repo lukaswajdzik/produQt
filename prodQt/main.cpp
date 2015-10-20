@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
     auto context = std::make_shared<Application::ApplicationContext>();
 //    MainWindowController windowController(context);
-    MainWindowView windowController;
+    MainWindowView windowController(context);
 
 
     windowController.show();

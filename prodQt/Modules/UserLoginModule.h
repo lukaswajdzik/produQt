@@ -3,10 +3,13 @@
 #include <QString>
 #include "Modules/Module.h"
 
+
+class QSqlTableModel;
+class QWidget;
+
 namespace Application {
     class ApplicationContext;
 }
-
 namespace Dao{
     class LoginDao;
 }
@@ -19,7 +22,8 @@ namespace Module{
         UserLoginModule(std::shared_ptr<Application::ApplicationContext>);
         ~UserLoginModule();
 
-        void logUser(QString, QString);
+        bool logUser(QString, QString);
+        QSqlTableModel* getUserListModel(QWidget*);
 
     private:
         std::shared_ptr<Application::ApplicationContext> m_appContext;

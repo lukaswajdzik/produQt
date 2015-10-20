@@ -28,7 +28,6 @@ SOURCES += main.cpp\
     Configuration/DatabaseConfiguration.cpp \
     Configuration/ConfigurationProvider.cpp \
     Modules/UserModifierModule.cpp \
-    Controllers/MainWindowController.cpp \
     Controllers/UserAddingController.cpp \
     Modules/UserAddingModule.cpp \
     Modules/Module.cpp \
@@ -40,7 +39,10 @@ SOURCES += main.cpp\
     Dao/LoginDao.cpp \
     Modules/UserLoginModule.cpp \
     Utils/Subject.cpp \
-    View/MainWindowView.cpp
+    View/MainWindowView.cpp \
+    View/LoginView.cpp \
+    Controllers/MainWindowControllerOLD.cpp \
+    Controllers/MainWindowController.cpp
 
 HEADERS  += \
     Database/databaseconnector.h \
@@ -59,7 +61,6 @@ HEADERS  += \
     Configuration/DatabaseConfiguration.h \
     Configuration/ConfigurationProvider.h \
     Modules/UserModifierModule.h \
-    Controllers/MainWindowController.h \
     Controllers/UserAddingController.h \
     Modules/UserAddingModule.h \
     Modules/Module.h \
@@ -73,7 +74,11 @@ HEADERS  += \
     Modules/UserLoginModule.h \
     Utils/Observer.h \
     Utils/Subject.h \
-    View/MainWindowView.h
+    View/MainWindowView.h \
+    View/LoginView.h \
+    Controllers/MainWindowControllerOLD.h \
+    Controllers/MainWindowController.h \
+    View/workingwindow.h
 
 FORMS    += Controllers/mainwindow.ui \
     Controllers/databasetestwindow.ui \

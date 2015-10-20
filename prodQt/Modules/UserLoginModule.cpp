@@ -1,5 +1,8 @@
 #include "UserLoginModule.h"
 #include "Dao/LoginDao.h"
+#include "Utils/logger.h"
+#include <QSqlTableModel>
+#include <QDebug>
 
 namespace Module{
 
@@ -14,9 +17,28 @@ namespace Module{
     {
     }
 
-    void UserLoginModule::logUser(QString p_name, QString p_pass)
+    bool UserLoginModule::logUser(QString p_name, QString p_pass)
     {
-        m_loginDao->verifyUser(p_name, p_pass);
+        auto result = false;
+        try{
+            result = m_loginDao->verifyUser(p_name, p_pass);
+        }
+        catch(std::exception* ex){
+            Utils::Logger::getInstance().log(ex->what());
+            qDebug() << ex->what();
+            delete ex;
+        }
+        return result;
+
+    }
+
+    QSqlTableModel *UserLoginModule::getUserListModel(QWidget *parent)
+    {
+        QSqlTableModel *l_userListModel = new QSqlTableModel(parent);
+        l_userListModel->setTable(m_loginDao->getUserDatabaseName());
+        l_userListModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
+        l_userListModel->select();
+        return l_userListModel;
     }
 
 }

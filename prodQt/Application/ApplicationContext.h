@@ -1,7 +1,7 @@
 #ifndef APPLICATIONCONTEXT_H
 #define APPLICATIONCONTEXT_H
 
-#include "Controllers/MainWindowController.h"
+#include "Controllers/MainWindowControllerOLD.h"
 #include "Configuration/ConfigurationProvider.h"
 #include "Application/Session.h"
 

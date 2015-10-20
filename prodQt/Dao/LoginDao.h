@@ -14,6 +14,7 @@ namespace Dao {
         ~LoginDao();
 
         bool verifyUser(QString, QString);
+        QString getUserDatabaseName();
 
     private:
         std::shared_ptr<QSqlQuery> m_connector;

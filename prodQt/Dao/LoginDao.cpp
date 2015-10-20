@@ -26,15 +26,19 @@ namespace Dao {
         return password == userPasswordDecoded;
     }
 
+    QString LoginDao::getUserDatabaseName()
+    {
+        return Database::DatabaseQueryProvider::getUserDatabaseName();
+    }
+
     QString LoginDao::selectPasswordByUserName(QString userName) {
-        QSqlQuery query;
-        query.prepare(Database::DatabaseQueryProvider::getUserPassword() );
-        query.bindValue(0, userName);
+        m_connector->prepare(Database::DatabaseQueryProvider::getUserPassword() );
+        m_connector->bindValue(0, userName);
         if(not m_connector->exec())
             throw new DbQueryCouldNotBeExecuted(m_connector->lastError());
 
-        query.next();
-        return query.value(0).toString();
+        m_connector->next();
+        return m_connector->value(0).toString();
     }
 
 }
