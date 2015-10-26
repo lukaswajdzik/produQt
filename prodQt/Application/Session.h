@@ -1,9 +1,11 @@
 #ifndef SESSION_H
 #define SESSION_H
 
+#include "Utils/Subject.h"
+
 namespace Application
 {
-    class Session
+    class Session : public Utils::Subject
     {
     public:
         Session();

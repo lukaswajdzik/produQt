@@ -10,7 +10,6 @@ namespace Application
 
     Session::~Session()
     {
-
     }
 
     bool Session::getIsLogged()
@@ -21,6 +20,7 @@ namespace Application
     void Session::setIsLogged(bool log)
     {
         m_isLogged = log;
+        notify();
     }
 
     bool Session::getAccessType()

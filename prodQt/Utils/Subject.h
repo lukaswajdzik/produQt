@@ -1,7 +1,7 @@
 #ifndef SUBJECT_H
 #define SUBJECT_H
 #include <memory>
-#include <vector>
+#include <list>
 
 namespace Utils{
     class Observer;
@@ -10,13 +10,13 @@ namespace Utils{
     {
     public:
         virtual ~Subject();
-        virtual void attach(std::shared_ptr<Observer>);
-        virtual void detach(std::shared_ptr<Observer>);
+        virtual void attach(Observer*);
+        virtual void detach(Observer*);
         virtual void notify();
     protected:
         Subject();
     private:
-        std::vector<std::shared_ptr<Observer>> *m_observers;
+        std::list<Observer*> m_observers;
     };
 }
 

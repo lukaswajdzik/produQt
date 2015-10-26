@@ -3,21 +3,29 @@
 
 namespace Utils{
 
-    void Subject::attach(std::shared_ptr<Observer> o)
+Subject::Subject()
+{
+}
+
+Subject::~Subject()
+{
+}
+
+void Subject::attach(Observer *o)
     {
-        m_observers->push_back(o);
+        m_observers.push_back(o);
     }
 
-    void Subject::detach(std::shared_ptr<Observer> o)
+    void Subject::detach(Observer *o)
     {
-        m_observers->pop_back();
+        m_observers.pop_back();
     }
 
     void Subject::notify()
     {
-        for (const auto &a : *m_observers)
+        for (const auto &observer : m_observers)
         {
-            a->update(this);
+            observer->update(this);
         }
 
     }

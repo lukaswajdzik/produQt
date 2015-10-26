@@ -13,17 +13,21 @@
 
 
 MainWindowView::MainWindowView(std::shared_ptr<Application::ApplicationContext> p_appContext, QWidget *p_parent) :
-    QMainWindow(p_parent)
+    QMainWindow(p_parent),
+    m_appContext(std::move(p_appContext)),
+    m_workingWindow(0)
 {
     setupUI(this);
     QWidget::setFixedSize(1100, 750);
-    m_controller = std::make_shared<MainWindowController>(std::move(p_appContext));
+    m_appContext->getSession().attach(this);
+    m_controller = std::make_shared<MainWindowController>(m_appContext);
     showLoginPage();
 }
 
 MainWindowView::~MainWindowView()
 {
     qDebug() << "Program terminate!";
+    m_appContext->getSession().detach(this);
 }
 
 void MainWindowView::setupExitButton()
@@ -37,7 +41,7 @@ void MainWindowView::setupInfoLabel()
 {
     m_labelApplicationInfo->setObjectName(QStringLiteral("labelDbInfo"));
     m_labelApplicationInfo->setGeometry(QRect(20, 730, 500, 17));
-    m_labelApplicationInfo->setText("Witaj.");
+    m_labelApplicationInfo->setText(".");
     QFont font;
     font.setBold(true);
     m_labelApplicationInfo->setFont(font);
@@ -92,6 +96,7 @@ void MainWindowView::setupUI(QMainWindow *MainWindow)
     setupElements(MainWindow);
     m_centralWidget->setLayout(m_layout);
     setupAnimationEffectsForWindow();
+    setAnimationForInfoText();
     QMetaObject::connectSlotsByName(MainWindow);
 }
 
@@ -99,8 +104,12 @@ void MainWindowView::setUserInfoText(QString p_text, QString p_color)
 {
     QString base = tr("<font color='%1'>%2</font>");
     m_labelApplicationInfo->setText(base.arg(p_color, p_text));
-    m_labelApplicationInfo->setGraphicsEffect(m_opacity);
-//    m_animationForInfoText->start();
+    m_animationForInfoText->start();
+}
+
+void MainWindowView::update(Utils::Subject *p)
+{
+    clearWorkingWindow();
 }
 
 void MainWindowView::on_pushbuttonClose_clicked()
@@ -110,8 +119,8 @@ void MainWindowView::on_pushbuttonClose_clicked()
 
 void MainWindowView::setupAnimationEffectsForWindow()
 {
-    m_opacity = new QGraphicsOpacityEffect(this);
-    m_animationForWindow = new QPropertyAnimation( m_opacity, "opacity", this );
+    m_opacityForWindow = new QGraphicsOpacityEffect(this);
+    m_animationForWindow = new QPropertyAnimation( m_opacityForWindow, "opacity", this );
     m_animationForWindow->setDuration( 1000 );
     m_animationForWindow->setStartValue( 0.1 );
     m_animationForWindow->setEndValue( 1.0 );
@@ -119,8 +128,10 @@ void MainWindowView::setupAnimationEffectsForWindow()
 
 void MainWindowView::setAnimationForInfoText()
 {
-    m_animationForInfoText = new QPropertyAnimation( m_opacity, "opacity", this );
-    m_animationForInfoText->setDuration( 2000 );
+    m_opacityForText = new QGraphicsOpacityEffect(this);
+    m_animationForInfoText = new QPropertyAnimation( m_opacityForText, "opacity", this );
+    m_labelApplicationInfo->setGraphicsEffect(m_opacityForText);
+    m_animationForInfoText->setDuration( 3000 );
     m_animationForInfoText->setStartValue( 1.0 );
     m_animationForInfoText->setEndValue( 0.0 );
 }
@@ -128,7 +139,13 @@ void MainWindowView::setAnimationForInfoText()
 void MainWindowView::showLoginPage()
 {
     m_workingWindow = m_controller->getLoginWindow(this);
-    m_controller->getView(*m_workingWindow)->setGraphicsEffect(m_opacity);
+    m_controller->getView(*m_workingWindow)->setGraphicsEffect(m_opacityForWindow);
     m_animationForWindow->start();
     m_layout->addWidget(m_controller->getView(*m_workingWindow));
+}
+
+void MainWindowView::clearWorkingWindow()
+{
+    if(m_workingWindow != 0)
+        delete m_workingWindow;
 }

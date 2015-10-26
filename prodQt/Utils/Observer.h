@@ -8,10 +8,8 @@ namespace Utils{
     class Observer
     {
     public:
-        virtual ~Observer();
+        virtual ~Observer(){}
         virtual void update(Subject* theChangedSubject) = 0;
-    protected:
-        Observer();
     };
 
 }

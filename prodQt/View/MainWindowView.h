@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <memory>
+#include "Utils/Observer.h"
 
 class QPushButton;
 class QLabel;
@@ -17,7 +18,8 @@ namespace Application {
     class ApplicationContext;
 }
 
-class MainWindowView : public QMainWindow
+class MainWindowView : public QMainWindow,
+                       public Utils::Observer
 {
     Q_OBJECT
 public:
@@ -26,6 +28,7 @@ public:
     ~MainWindowView();
 
     void setUserInfoText(QString p_text, QString p_color = "black");
+    void update(Utils::Subject*) override;
 signals:
 
 private slots:
@@ -33,13 +36,15 @@ private slots:
 
 private:
     std::shared_ptr<MainWindowController> m_controller;
+    std::shared_ptr<Application::ApplicationContext> m_appContext;
 
     QWidget *m_centralWidget;
     QLabel *m_labelApplicationInfo;
     QPushButton *m_pushbuttonClose;
     QGridLayout *m_layout;
     QFrame *m_line;
-    QGraphicsOpacityEffect *m_opacity;
+    QGraphicsOpacityEffect *m_opacityForWindow;
+    QGraphicsOpacityEffect *m_opacityForText;
     QPropertyAnimation *m_animationForWindow;
     QPropertyAnimation *m_animationForInfoText;
     IWorkingWindow *m_workingWindow;
@@ -55,6 +60,7 @@ private:
     void setupAnimationEffectsForWindow();
     void setAnimationForInfoText();
     void showLoginPage();
+    void clearWorkingWindow();
 };
 
 #endif // MAINWINDOWVIEW_H

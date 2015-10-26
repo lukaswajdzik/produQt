@@ -109,7 +109,12 @@ QWidget *LoginView::getView()
 
 void LoginView::on_pbLogin_clicked()
 {
-    (m_controller->logUser(m_comboBoxUserSelection->currentText(), m_lineEditUserPassword->text()));
-    m_mainWindow->setUserInfoText("hejo");
+    auto userName = m_comboBoxUserSelection->currentText();
+    auto password = m_lineEditUserPassword->text();
+
+    if(m_controller->logUser(userName, password))
+        m_mainWindow->setUserInfoText("Zalogowano użytkownka " + userName);
+    else
+        m_mainWindow->setUserInfoText("Niepoprawne hasło dla użytkownika " + userName, "red");
 }
 
