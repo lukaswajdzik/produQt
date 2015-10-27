@@ -7,6 +7,7 @@ class QWidget;
 class IWorkingWindow;
 class MainWindowView;
 class LoginView;
+class WorkingView;
 
 namespace Application{
     class ApplicationContext;
@@ -18,7 +19,8 @@ public:
     MainWindowController(std::shared_ptr<Application::ApplicationContext>);
     ~MainWindowController();
 
-    LoginView *getLoginWindow(MainWindowView*);
+    IWorkingWindow *getLoginWindow(MainWindowView*);
+    IWorkingWindow *getWorkingView(MainWindowView*);
     QWidget* getView(IWorkingWindow&);
 
 

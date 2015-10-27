@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     View/MainWindowView.cpp \
     View/LoginView.cpp \
     Controllers/MainWindowControllerOLD.cpp \
-    Controllers/MainWindowController.cpp
+    Controllers/MainWindowController.cpp \
+    View/WorkingView.cpp
 
 HEADERS  += \
     Database/databaseconnector.h \
@@ -78,7 +79,8 @@ HEADERS  += \
     View/LoginView.h \
     Controllers/MainWindowControllerOLD.h \
     Controllers/MainWindowController.h \
-    View/workingwindow.h
+    View/WorkingView.h \
+    View/IWorkingWindow.h
 
 FORMS    += Controllers/mainwindow.ui \
     Controllers/databasetestwindow.ui \

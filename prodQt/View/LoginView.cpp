@@ -112,9 +112,9 @@ void LoginView::on_pbLogin_clicked()
     auto userName = m_comboBoxUserSelection->currentText();
     auto password = m_lineEditUserPassword->text();
 
-    if(m_controller->logUser(userName, password))
-        m_mainWindow->setUserInfoText("Zalogowano użytkownka " + userName);
-    else
-        m_mainWindow->setUserInfoText("Niepoprawne hasło dla użytkownika " + userName, "red");
+    m_controller->logUser(userName, password);
+//        m_mainWindow->setUserInfoText("Zalogowano użytkownka " + userName);
+//    else
+//        m_mainWindow->setUserInfoText("Niepoprawne hasło dla użytkownika " + userName, "red");
 }
 

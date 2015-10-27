@@ -59,8 +59,11 @@ private:
     void setupLine();
     void setupAnimationEffectsForWindow();
     void setAnimationForInfoText();
-    void showLoginPage();
     void clearWorkingWindow();
+    void clearLayout(QLayout *);
+    void showWorkingWindow(IWorkingWindow*);
+    void cleanup();
+    void loadWindow(IWorkingWindow*);
 };
 
 #endif // MAINWINDOWVIEW_H

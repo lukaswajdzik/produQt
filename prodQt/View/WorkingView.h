@@ -1,6 +1,5 @@
-#ifndef LOGINVIEW_H
-#define LOGINVIEW_H
-
+#ifndef WORKINGVIEW_H
+#define WORKINGVIEW_H
 #include <QWidget>
 #include <memory>
 #include <View/IWorkingWindow.h>
@@ -19,24 +18,23 @@ namespace Application {
     class ApplicationContext;
 }
 
-class LoginView : public QWidget, public IWorkingWindow
-
+class WorkingView : public QWidget,
+                    public IWorkingWindow
 {
     Q_OBJECT
 public:
-    explicit LoginView(std::shared_ptr<Application::ApplicationContext>,
-                       MainWindowView*);
-    ~LoginView();
-
+    explicit WorkingView(std::shared_ptr<Application::ApplicationContext>, MainWindowView*);
+    ~WorkingView();
     QWidget* getView() override;
 
-    void setupPasswordLine();
 signals:
 
 public slots:
-    void on_pbLogin_clicked();
 
 private:
+    MainWindowView *m_mainWindow;
+    std::shared_ptr<Application::ApplicationContext> m_appContext;
+
     QTabWidget *m_tabLogin;
     QWidget *m_tab;
     QPushButton *m_pbLogin;
@@ -46,18 +44,6 @@ private:
     QVBoxLayout *m_verticalLayout;
     QSqlTableModel *m_userListModel;
 
-    MainWindowView *m_mainWindow;
-
-    std::shared_ptr<LoginController> m_controller;
-
-    void createNewObjects(QWidget *parent);
-    void setupTabWidget();
-    void setupLoginPushbutton();
-    void setupLabel();
-    void setupLayout();
-    void setupLayoutWidget();
-    void setupObjectNames();
-    void setupUserListInComboBox();
 };
 
-#endif // LOGINVIEW_H
+#endif // WORKINGVIEW_H

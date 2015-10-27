@@ -1,5 +1,6 @@
 #include "MainWindowView.h"
 #include "LoginView.h"
+#include "WorkingView.h"
 #include "Controllers/MainWindowController.h"
 #include <QLabel>
 #include <QPushButton>
@@ -15,13 +16,15 @@
 MainWindowView::MainWindowView(std::shared_ptr<Application::ApplicationContext> p_appContext, QWidget *p_parent) :
     QMainWindow(p_parent),
     m_appContext(std::move(p_appContext)),
-    m_workingWindow(0)
+    m_workingWindow(nullptr),
+    m_opacityForWindow(nullptr),
+    m_animationForWindow(nullptr)
 {
     setupUI(this);
     QWidget::setFixedSize(1100, 750);
     m_appContext->getSession().attach(this);
     m_controller = std::make_shared<MainWindowController>(m_appContext);
-    showLoginPage();
+    loadWindow(m_controller->getLoginWindow(this));
 }
 
 MainWindowView::~MainWindowView()
@@ -95,7 +98,6 @@ void MainWindowView::setupUI(QMainWindow *MainWindow)
 
     setupElements(MainWindow);
     m_centralWidget->setLayout(m_layout);
-    setupAnimationEffectsForWindow();
     setAnimationForInfoText();
     QMetaObject::connectSlotsByName(MainWindow);
 }
@@ -109,7 +111,7 @@ void MainWindowView::setUserInfoText(QString p_text, QString p_color)
 
 void MainWindowView::update(Utils::Subject *p)
 {
-    clearWorkingWindow();
+    loadWindow(m_controller->getWorkingView(this));
 }
 
 void MainWindowView::on_pushbuttonClose_clicked()
@@ -119,6 +121,10 @@ void MainWindowView::on_pushbuttonClose_clicked()
 
 void MainWindowView::setupAnimationEffectsForWindow()
 {
+//    if(m_opacityForWindow != nullptr)
+//        m_opacityForWindow->deleteLater();
+//        delete m_opacityForWindow;
+
     m_opacityForWindow = new QGraphicsOpacityEffect(this);
     m_animationForWindow = new QPropertyAnimation( m_opacityForWindow, "opacity", this );
     m_animationForWindow->setDuration( 1000 );
@@ -136,16 +142,49 @@ void MainWindowView::setAnimationForInfoText()
     m_animationForInfoText->setEndValue( 0.0 );
 }
 
-void MainWindowView::showLoginPage()
+void MainWindowView::loadWindow(IWorkingWindow* p_window)
 {
-    m_workingWindow = m_controller->getLoginWindow(this);
-    m_controller->getView(*m_workingWindow)->setGraphicsEffect(m_opacityForWindow);
+    cleanup();
+    m_workingWindow = p_window;
+    setupAnimationEffectsForWindow();
+    m_controller->getView(*p_window)->setGraphicsEffect(m_opacityForWindow);
+    showWorkingWindow(p_window);
+}
+
+void MainWindowView::cleanup()
+{
+    if(m_opacityForWindow != nullptr)
+        m_opacityForWindow->deleteLater();
+    if(m_animationForWindow != nullptr)
+        m_animationForWindow->deleteLater();
+    clearLayout(m_layout);
+    clearWorkingWindow();
+}
+
+void MainWindowView::showWorkingWindow(IWorkingWindow* p_window)
+{
     m_animationForWindow->start();
-    m_layout->addWidget(m_controller->getView(*m_workingWindow));
+    m_layout->addWidget(m_controller->getView(*p_window));
 }
 
 void MainWindowView::clearWorkingWindow()
 {
-    if(m_workingWindow != 0)
+    if(m_workingWindow != nullptr)
         delete m_workingWindow;
+    m_workingWindow = nullptr;
+}
+
+void MainWindowView::clearLayout(QLayout *layout)
+{
+    QLayoutItem *item;
+    while((item = layout->takeAt(0))) {
+        if (item->layout()) {
+            clearLayout(item->layout());
+            delete item->layout();
+        }
+        if (item->widget()) {
+            delete item->widget();
+        }
+        delete item;
+    }
 }
