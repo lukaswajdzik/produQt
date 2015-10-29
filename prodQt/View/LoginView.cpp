@@ -2,6 +2,7 @@
 #include "Controllers/LoginController.h"
 #include "Utils/constants.h"
 #include "MainWindowView.h"
+#include "View/NumericKeyboard.h"
 #include <QVBoxLayout>
 #include <QTabWidget>
 #include <QPushButton>
@@ -21,7 +22,7 @@ LoginView::LoginView(std::shared_ptr<Application::ApplicationContext> p_appConte
 
     setupTabWidget();
     setupLoginPushbutton();
-    setupLayoutWidget();
+    setupWidgets();
     setupLayout();
     setupObjectNames();
     setupPasswordLine();
@@ -66,9 +67,12 @@ void LoginView::createNewObjects(QWidget *parent)
     m_tab = new QWidget(m_tabLogin);
     m_pbLogin = new QPushButton("Zaloguj", m_tab);
     m_layoutWidget = new QWidget(m_tab);
+    m_keyboardWidget = new QWidget(m_tab);
     m_verticalLayout = new QVBoxLayout(m_layoutWidget);
+    m_keyboardLayout = new QHBoxLayout(m_keyboardWidget);
     m_comboBoxUserSelection = new QComboBox(m_layoutWidget);
     m_lineEditUserPassword = new QLineEdit(m_layoutWidget);
+    m_keyboard = std::make_shared<NumericKeyboard>(nullptr, m_lineEditUserPassword);
 }
 
 void LoginView::setupTabWidget()
@@ -95,11 +99,13 @@ void LoginView::setupLayout()
     m_verticalLayout->setContentsMargins(0, 0, 0, 0);
     m_verticalLayout->addWidget(m_comboBoxUserSelection);
     m_verticalLayout->addWidget(m_lineEditUserPassword);
+    m_keyboardLayout->addWidget(m_keyboard->getView());
 }
 
-void LoginView::setupLayoutWidget()
+void LoginView::setupWidgets()
 {
     m_layoutWidget->setGeometry(QRect(100, 130, 180, 65));
+    m_keyboardWidget->setGeometry(QRect(0, 220, 550, 300));
 }
 
 QWidget *LoginView::getView()
@@ -112,9 +118,12 @@ void LoginView::on_pbLogin_clicked()
     auto userName = m_comboBoxUserSelection->currentText();
     auto password = m_lineEditUserPassword->text();
 
-    m_controller->logUser(userName, password);
-//        m_mainWindow->setUserInfoText("Zalogowano użytkownka " + userName);
-//    else
-//        m_mainWindow->setUserInfoText("Niepoprawne hasło dla użytkownika " + userName, "red");
+    if(m_controller->logUser(userName, password))
+    {
+        m_mainWindow->setUserInfoText("Zalogowano użytkownka " + userName, "blue");
+        m_controller->setIsLogged();
+    }
+    else
+        m_mainWindow->setUserInfoText("Niepoprawne hasło dla użytkownika " + userName, "red");
 }
 

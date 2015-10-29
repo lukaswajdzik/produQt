@@ -12,7 +12,7 @@ namespace Application
     {
     }
 
-    bool Session::getIsLogged()
+    bool Session::isLogged()
     {
         return m_isLogged;
     }

@@ -14,6 +14,8 @@ class QPushButton;
 class LoginController;
 class QSqlTableModel;
 class MainWindowView;
+class NumericKeyboard;
+class QHBoxLayout;
 
 namespace Application {
     class ApplicationContext;
@@ -43,10 +45,12 @@ private:
     QComboBox *m_comboBoxUserSelection;
     QLineEdit *m_lineEditUserPassword;
     QWidget *m_layoutWidget;
+    QWidget *m_keyboardWidget;
+    QHBoxLayout *m_keyboardLayout;
     QVBoxLayout *m_verticalLayout;
     QSqlTableModel *m_userListModel;
-
     MainWindowView *m_mainWindow;
+    std::shared_ptr<NumericKeyboard> m_keyboard;
 
     std::shared_ptr<LoginController> m_controller;
 
@@ -55,7 +59,7 @@ private:
     void setupLoginPushbutton();
     void setupLabel();
     void setupLayout();
-    void setupLayoutWidget();
+    void setupWidgets();
     void setupObjectNames();
     void setupUserListInComboBox();
 };

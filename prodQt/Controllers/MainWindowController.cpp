@@ -2,6 +2,8 @@
 #include "View/LoginView.h"
 #include "View/IWorkingWindow.h"
 #include "View/WorkingView.h"
+#include "Application/ApplicationContext.h"
+#include "View/NumericKeyboard.h"
 
 MainWindowController::MainWindowController(std::shared_ptr<Application::ApplicationContext> p_appContext) :
     m_appContext(std::move(p_appContext))
@@ -22,7 +24,17 @@ IWorkingWindow *MainWindowController::getWorkingView(MainWindowView *p_mainWindo
     return new WorkingView(m_appContext, p_mainWindowPtr);
 }
 
+IWorkingWindow *MainWindowController::temp()
+{
+    return new NumericKeyboard(0,0);
+}
+
 QWidget *MainWindowController::getView(IWorkingWindow & p_window)
 {
     return p_window.getView();
+}
+
+void MainWindowController::logout()
+{
+    m_appContext->getSession().setIsLogged(false);
 }

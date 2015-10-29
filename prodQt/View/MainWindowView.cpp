@@ -29,16 +29,26 @@ MainWindowView::MainWindowView(std::shared_ptr<Application::ApplicationContext> 
 
 MainWindowView::~MainWindowView()
 {
-    qDebug() << "Program terminate!";
     m_appContext->getSession().detach(this);
+    delete m_workingWindow;
+    qDebug() << "Program terminate!";
+}
+
+void MainWindowView::setupLogoutButton()
+{
+    m_pushbuttonLogout->setObjectName(QStringLiteral("pushbuttonLogout"));
+    m_pushbuttonLogout->setText("WYLOGUJ");
+    m_pushbuttonLogout->setGeometry(QRect(900, 0, 100, 30));
+    m_pushbuttonLogout->setVisible(false);
 }
 
 void MainWindowView::setupExitButton()
 {
     m_pushbuttonClose->setObjectName(QStringLiteral("pushbuttonClose"));
     m_pushbuttonClose->setText("ZAMKNIJ");
-    m_pushbuttonClose->setGeometry(QRect(970, 0, 130, 30));
+    m_pushbuttonClose->setGeometry(QRect(1000, 0, 100, 30));
 }
+
 
 void MainWindowView::setupInfoLabel()
 {
@@ -76,6 +86,7 @@ void MainWindowView::setupElements(QMainWindow *MainWindow)
     setupMainWindow(MainWindow);
     setupInfoLabel();
     setupExitButton();
+    setupLogoutButton();
     setupWidget();
     setupLine();
 }
@@ -85,6 +96,7 @@ void MainWindowView::createNewObjects(QMainWindow *MainWindow)
     m_centralWidget = new QWidget(MainWindow);
     m_layout = new QGridLayout(m_centralWidget);
     m_pushbuttonClose = new QPushButton(m_centralWidget);
+    m_pushbuttonLogout = new QPushButton(m_centralWidget);
     m_labelApplicationInfo = new QLabel(m_centralWidget);
     m_line = new QFrame(m_centralWidget);
 }
@@ -99,6 +111,7 @@ void MainWindowView::setupUI(QMainWindow *MainWindow)
     setupElements(MainWindow);
     m_centralWidget->setLayout(m_layout);
     setAnimationForInfoText();
+    setupAnimationEffectsForWindow();
     QMetaObject::connectSlotsByName(MainWindow);
 }
 
@@ -109,22 +122,8 @@ void MainWindowView::setUserInfoText(QString p_text, QString p_color)
     m_animationForInfoText->start();
 }
 
-void MainWindowView::update(Utils::Subject *p)
-{
-    loadWindow(m_controller->getWorkingView(this));
-}
-
-void MainWindowView::on_pushbuttonClose_clicked()
-{
-    close();
-}
-
 void MainWindowView::setupAnimationEffectsForWindow()
 {
-//    if(m_opacityForWindow != nullptr)
-//        m_opacityForWindow->deleteLater();
-//        delete m_opacityForWindow;
-
     m_opacityForWindow = new QGraphicsOpacityEffect(this);
     m_animationForWindow = new QPropertyAnimation( m_opacityForWindow, "opacity", this );
     m_animationForWindow->setDuration( 1000 );
@@ -144,19 +143,14 @@ void MainWindowView::setAnimationForInfoText()
 
 void MainWindowView::loadWindow(IWorkingWindow* p_window)
 {
-    cleanup();
+    p_window->getView()->setGraphicsEffect(m_opacityForWindow);
+    cleanupLayout();
     m_workingWindow = p_window;
-    setupAnimationEffectsForWindow();
-    m_controller->getView(*p_window)->setGraphicsEffect(m_opacityForWindow);
     showWorkingWindow(p_window);
 }
 
-void MainWindowView::cleanup()
+void MainWindowView::cleanupLayout()
 {
-    if(m_opacityForWindow != nullptr)
-        m_opacityForWindow->deleteLater();
-    if(m_animationForWindow != nullptr)
-        m_animationForWindow->deleteLater();
     clearLayout(m_layout);
     clearWorkingWindow();
 }
@@ -187,4 +181,29 @@ void MainWindowView::clearLayout(QLayout *layout)
         }
         delete item;
     }
+}
+
+void MainWindowView::update(Utils::Subject *p)
+{
+    if (m_appContext->getSession().isLogged())
+    {
+//        loadWindow(m_controller->getWorkingView(this));
+        loadWindow(m_controller->temp());
+        m_pushbuttonLogout->setVisible(true);
+    }
+    else
+    {
+        loadWindow(m_controller->getLoginWindow(this));
+        m_pushbuttonLogout->setVisible(false);
+    }
+}
+
+void MainWindowView::on_pushbuttonClose_clicked()
+{
+    close();
+}
+
+void MainWindowView::on_pushbuttonLogout_clicked()
+{
+    m_controller->logout();
 }

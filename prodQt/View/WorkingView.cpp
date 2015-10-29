@@ -49,16 +49,19 @@ WorkingView::WorkingView(std::shared_ptr<Application::ApplicationContext> p_appC
     m_layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
 
     m_lineEditUserPassword->setPlaceholderText("Nico");
-    qDebug()<<"aaaa!";
+    connect(m_pbLogin, SIGNAL(clicked()), this, SLOT(on_pbLogin_clicked()));
 }
 
 WorkingView::~WorkingView()
 {
-
 }
 
 QWidget *WorkingView::getView()
 {
     return m_tabLogin;
+}
+
+void WorkingView::on_pbLogin_clicked()
+{
 }
 

@@ -30,7 +30,7 @@ public:
 signals:
 
 public slots:
-
+void on_pbLogin_clicked();
 private:
     MainWindowView *m_mainWindow;
     std::shared_ptr<Application::ApplicationContext> m_appContext;
@@ -43,6 +43,7 @@ private:
     QWidget *m_layoutWidget;
     QVBoxLayout *m_verticalLayout;
     QSqlTableModel *m_userListModel;
+
 
 };
 

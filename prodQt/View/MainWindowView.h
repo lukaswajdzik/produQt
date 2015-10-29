@@ -33,6 +33,7 @@ signals:
 
 private slots:
     void on_pushbuttonClose_clicked();
+    void on_pushbuttonLogout_clicked();
 
 private:
     std::shared_ptr<MainWindowController> m_controller;
@@ -41,6 +42,7 @@ private:
     QWidget *m_centralWidget;
     QLabel *m_labelApplicationInfo;
     QPushButton *m_pushbuttonClose;
+    QPushButton *m_pushbuttonLogout;
     QGridLayout *m_layout;
     QFrame *m_line;
     QGraphicsOpacityEffect *m_opacityForWindow;
@@ -52,6 +54,7 @@ private:
     void createNewObjects(QMainWindow *MainWindow);
     void setupElements(QMainWindow *MainWindow);
     void setupUI(QMainWindow *MainWindow);
+    void setupLogoutButton();
     void setupExitButton();
     void setupInfoLabel();
     void setupMainWindow(QMainWindow *MainWindow);
@@ -62,7 +65,7 @@ private:
     void clearWorkingWindow();
     void clearLayout(QLayout *);
     void showWorkingWindow(IWorkingWindow*);
-    void cleanup();
+    void cleanupLayout();
     void loadWindow(IWorkingWindow*);
 };
 

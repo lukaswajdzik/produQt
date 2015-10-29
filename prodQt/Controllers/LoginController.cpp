@@ -21,7 +21,10 @@ bool LoginController::logUser(QString p_name, QString p_pass)
 {
     auto result = false;
     result = m_module->logUser(p_name, p_pass);
-    if (result)
-        m_appContext->getSession().setIsLogged(true);
     return result;
+}
+
+void LoginController::setIsLogged()
+{
+    m_appContext->getSession().setIsLogged(true);
 }

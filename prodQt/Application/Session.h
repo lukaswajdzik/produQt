@@ -10,7 +10,7 @@ namespace Application
     public:
         Session();
         ~Session();
-        bool getIsLogged();
+        bool isLogged();
         void setIsLogged(bool);
 
         bool getAccessType();

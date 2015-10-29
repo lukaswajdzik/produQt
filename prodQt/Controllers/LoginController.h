@@ -21,6 +21,7 @@ public:
 
     QSqlTableModel *getUsersListModel(QWidget*);
     bool logUser(QString, QString);
+    void setIsLogged();
 
 private:
     std::shared_ptr<Application::ApplicationContext> m_appContext;
