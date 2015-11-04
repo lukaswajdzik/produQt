@@ -16,22 +16,26 @@ WorkingView::WorkingView(std::shared_ptr<Application::ApplicationContext> p_appC
      m_mainWindow(p_mainWindow),
      m_appContext(p_appContext)
 {
-    m_tabLogin = new QTabWidget(this);
-    m_tab = new QWidget(m_tabLogin);
-    m_pbLogin = new QPushButton("Nowy!", m_tab);
+    m_weightTab = new QTabWidget(this);
+    m_tab = new QWidget(m_weightTab);
+    m_pb = new QPushButton("Waga", m_tab);
     m_layoutWidget = new QWidget(m_tab);
     m_verticalLayout = new QVBoxLayout(m_layoutWidget);
+    m_verticalLayout1 = new QVBoxLayout(m_layoutWidget);
+    m_verticalLayout2 = new QVBoxLayout(m_layoutWidget);
+    m_verticalLayout->addLayout(m_verticalLayout1);
+    m_verticalLayout->addLayout(m_verticalLayout2);
     m_comboBoxUserSelection = new QComboBox(m_layoutWidget);
     m_lineEditUserPassword = new QLineEdit(m_layoutWidget);
 
-    m_tabLogin->setFixedSize(550,550);
+    m_weightTab->setFixedSize(900,690);
     QFont font;
     font.setBold(true);
     font.setWeight(75);
-    m_tabLogin->setFont(font);
-    m_tabLogin->setAutoFillBackground(false);
-    m_tabLogin->addTab(m_tab, QString());
-    m_tabLogin->setTabText(m_tabLogin->indexOf(m_tab), QApplication::translate("MainWindow", "Działaj!", 0));
+    m_weightTab->setFont(font);
+    m_weightTab->setAutoFillBackground(false);
+    m_weightTab->addTab(m_tab, QString());
+    m_weightTab->setTabText(m_weightTab->indexOf(m_tab), QApplication::translate("MainWindow", "Działaj!", 0));
 
     m_layoutWidget->setGeometry(QRect(20, 20, 580, 365));
 
@@ -43,13 +47,13 @@ WorkingView::WorkingView(std::shared_ptr<Application::ApplicationContext> p_appC
     m_tab->setObjectName(QStringLiteral("login"));
     m_comboBoxUserSelection->setObjectName(QStringLiteral("comboBoxUserSelection"));
     m_lineEditUserPassword->setObjectName(QStringLiteral("lineEditUserPassword"));
-    m_tabLogin->setObjectName(QStringLiteral("tabLogin"));
-    m_pbLogin->setObjectName(QStringLiteral("pbLogin"));
+    m_weightTab->setObjectName(QStringLiteral("tabLogin"));
+    m_pb->setObjectName(QStringLiteral("pbLogin"));
     m_verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
     m_layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
 
     m_lineEditUserPassword->setPlaceholderText("Nico");
-    connect(m_pbLogin, SIGNAL(clicked()), this, SLOT(on_pbLogin_clicked()));
+    connect(m_pb, SIGNAL(clicked()), this, SLOT(on_pbLogin_clicked()));
 }
 
 WorkingView::~WorkingView()
@@ -58,7 +62,7 @@ WorkingView::~WorkingView()
 
 QWidget *WorkingView::getView()
 {
-    return m_tabLogin;
+    return m_weightTab;
 }
 
 void WorkingView::on_pbLogin_clicked()

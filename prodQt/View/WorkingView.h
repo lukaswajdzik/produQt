@@ -35,13 +35,15 @@ private:
     MainWindowView *m_mainWindow;
     std::shared_ptr<Application::ApplicationContext> m_appContext;
 
-    QTabWidget *m_tabLogin;
+    QTabWidget *m_weightTab;
     QWidget *m_tab;
-    QPushButton *m_pbLogin;
+    QPushButton *m_pb;
     QComboBox *m_comboBoxUserSelection;
     QLineEdit *m_lineEditUserPassword;
     QWidget *m_layoutWidget;
     QVBoxLayout *m_verticalLayout;
+    QVBoxLayout *m_verticalLayout1;
+    QVBoxLayout *m_verticalLayout2;
     QSqlTableModel *m_userListModel;
 
 

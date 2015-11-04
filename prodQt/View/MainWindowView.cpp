@@ -187,8 +187,7 @@ void MainWindowView::update(Utils::Subject *p)
 {
     if (m_appContext->getSession().isLogged())
     {
-//        loadWindow(m_controller->getWorkingView(this));
-        loadWindow(m_controller->temp());
+        loadWindow(m_controller->getWorkingView(this));
         m_pushbuttonLogout->setVisible(true);
     }
     else

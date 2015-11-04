@@ -21,7 +21,6 @@ public:
 
     IWorkingWindow *getLoginWindow(MainWindowView*);
     IWorkingWindow *getWorkingView(MainWindowView*);
-    IWorkingWindow *temp();
     QWidget* getView(IWorkingWindow&);
     void logout();
 

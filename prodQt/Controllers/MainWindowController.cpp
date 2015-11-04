@@ -24,11 +24,6 @@ IWorkingWindow *MainWindowController::getWorkingView(MainWindowView *p_mainWindo
     return new WorkingView(m_appContext, p_mainWindowPtr);
 }
 
-IWorkingWindow *MainWindowController::temp()
-{
-    return new NumericKeyboard(0,0);
-}
-
 QWidget *MainWindowController::getView(IWorkingWindow & p_window)
 {
     return p_window.getView();
