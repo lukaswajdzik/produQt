@@ -20,8 +20,8 @@ public:
     ~LoginController();
 
     QSqlTableModel *getUsersListModel(QWidget*);
-    bool logUser(QString, QString);
-    void setIsLogged();
+    bool verifyUser(QString, QString);
+    void logUser(QString);
 
 private:
     std::shared_ptr<Application::ApplicationContext> m_appContext;

@@ -13,20 +13,22 @@ class QPushButton;
 class LoginController;
 class QSqlTableModel;
 class MainWindowView;
+class QGridLayout;
 
 namespace Application {
     class ApplicationContext;
 }
 
-class WorkingView : public QWidget,
-                    public IWorkingWindow
+class WorkingTabsView : public QWidget,
+                        public IWorkingWindow
 {
     Q_OBJECT
 public:
-    explicit WorkingView(std::shared_ptr<Application::ApplicationContext>, MainWindowView*);
-    ~WorkingView();
+    explicit WorkingTabsView(std::shared_ptr<Application::ApplicationContext>, MainWindowView*);
+    ~WorkingTabsView();
     QWidget* getView() override;
 
+    void addTab(QWidget*, QString);
 signals:
 
 public slots:
@@ -35,18 +37,8 @@ private:
     MainWindowView *m_mainWindow;
     std::shared_ptr<Application::ApplicationContext> m_appContext;
 
-    QTabWidget *m_weightTab;
-    QWidget *m_tab;
-    QPushButton *m_pb;
-    QComboBox *m_comboBoxUserSelection;
-    QLineEdit *m_lineEditUserPassword;
+    QTabWidget *m_tabWidget;
     QWidget *m_layoutWidget;
-    QVBoxLayout *m_verticalLayout;
-    QVBoxLayout *m_verticalLayout1;
-    QVBoxLayout *m_verticalLayout2;
-    QSqlTableModel *m_userListModel;
-
-
 };
 
 #endif // WORKINGVIEW_H

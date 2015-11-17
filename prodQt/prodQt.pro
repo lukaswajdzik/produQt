@@ -43,9 +43,11 @@ SOURCES += main.cpp\
     View/LoginView.cpp \
     Controllers/MainWindowControllerOLD.cpp \
     Controllers/MainWindowController.cpp \
-    View/WorkingView.cpp \
     View/NumericKeyboard.cpp \
-    Utils/button.cpp
+    Utils/button.cpp \
+    View/TableEditorView.cpp \
+    View/WorkingTabsView.cpp \
+    View/WeightTabView.cpp
 
 HEADERS  += \
     Database/databaseconnector.h \
@@ -81,10 +83,12 @@ HEADERS  += \
     View/LoginView.h \
     Controllers/MainWindowControllerOLD.h \
     Controllers/MainWindowController.h \
-    View/WorkingView.h \
     View/IWorkingWindow.h \
     View/NumericKeyboard.h \
-    Utils/button.h
+    Utils/button.h \
+    View/TableEditorView.h \
+    View/WorkingTabsView.h \
+    View/WeightTabView.h
 
 FORMS    += Controllers/mainwindow.ui \
     Controllers/databasetestwindow.ui \

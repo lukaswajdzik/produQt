@@ -21,6 +21,9 @@ namespace Database
         static QString existUser(){
             return "SELECT EXISTS (SELECT name FROM useraccount WHERE name = :userName)";
         }
+        static QString getUserData(){
+            return "SELECT user_id, name, role FROM useraccount WHERE name = :userName)";
+        }
 
     };
 

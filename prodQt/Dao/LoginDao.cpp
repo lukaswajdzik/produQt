@@ -26,6 +26,18 @@ namespace Dao {
         return password == userPasswordDecoded;
     }
 
+    UserDao LoginDao::getUserRecord(QString userName)
+    {
+        m_connector->prepare(Database::DatabaseQueryProvider::getUserData());
+        m_connector->bindValue(0, userName);
+        m_connector->exec();
+        m_connector->next();
+        UserDao userData;
+        userData.userId = m_connector->value(0).toInt();
+        userData.name = m_connector->value(1).toString();
+        userData.role = m_connector->value(2).toInt();
+    }
+
     QString LoginDao::getUserDatabaseName()
     {
         return Database::DatabaseQueryProvider::getUserDatabaseName();

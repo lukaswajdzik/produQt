@@ -22,7 +22,8 @@ namespace Module{
         UserLoginModule(std::shared_ptr<Application::ApplicationContext>);
         ~UserLoginModule();
 
-        bool logUser(QString, QString);
+        bool verifyUser(QString, QString);
+        void logUser(QString);
         QSqlTableModel* getUserListModel(QWidget*);
 
     private:

@@ -5,6 +5,14 @@
 
 class QSqlQuery;
 
+struct UserDao
+{
+    int userId;
+    QString name;
+    QString password;
+    int role;
+};
+
 namespace Dao {
 
     class LoginDao
@@ -14,11 +22,11 @@ namespace Dao {
         ~LoginDao();
 
         bool verifyUser(QString, QString);
+        UserDao getUserRecord(QString);
         QString getUserDatabaseName();
 
     private:
         std::shared_ptr<QSqlQuery> m_connector;
-
         QString selectPasswordByUserName(QString);
     };
 

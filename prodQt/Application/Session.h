@@ -2,6 +2,7 @@
 #define SESSION_H
 
 #include "Utils/Subject.h"
+#include <QString>
 
 namespace Application
 {
@@ -11,12 +12,14 @@ namespace Application
         Session();
         ~Session();
         bool isLogged();
-        void setIsLogged(bool);
+        void logUser(QString, int);
+        void logOut();
 
         bool getAccessType();
         void setAccessType(int);
 
     private:
+        QString m_loggedUserName;
         bool m_isLogged;
         int m_accessType;
     };

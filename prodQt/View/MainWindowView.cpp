@@ -1,6 +1,6 @@
 #include "MainWindowView.h"
 #include "LoginView.h"
-#include "WorkingView.h"
+#include "WorkingTabsView.h"
 #include "Controllers/MainWindowController.h"
 #include <QLabel>
 #include <QPushButton>
@@ -11,6 +11,7 @@
 #include <QGridLayout>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
+#include "View/WorkingTabsView.h"
 
 
 MainWindowView::MainWindowView(std::shared_ptr<Application::ApplicationContext> p_appContext, QWidget *p_parent) :

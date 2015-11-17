@@ -7,7 +7,7 @@ class QWidget;
 class IWorkingWindow;
 class MainWindowView;
 class LoginView;
-class WorkingView;
+class WorkingTabsView;
 
 namespace Application{
     class ApplicationContext;
@@ -23,6 +23,7 @@ public:
     IWorkingWindow *getWorkingView(MainWindowView*);
     QWidget* getView(IWorkingWindow&);
     void logout();
+    void addTabs(WorkingTabsView*);
 
 
 private:

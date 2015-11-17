@@ -17,14 +17,14 @@ QSqlTableModel *LoginController::getUsersListModel(QWidget *parent)
     return m_module->getUserListModel(parent);
 }
 
-bool LoginController::logUser(QString p_name, QString p_pass)
+bool LoginController::verifyUser(QString p_name, QString p_pass)
 {
     auto result = false;
-    result = m_module->logUser(p_name, p_pass);
+    result = m_module->verifyUser(p_name, p_pass);
     return result;
 }
 
-void LoginController::setIsLogged()
+void LoginController::logUser(QString p_name)
 {
-    m_appContext->getSession().setIsLogged(true);
+    m_module->logUser(p_name);
 }

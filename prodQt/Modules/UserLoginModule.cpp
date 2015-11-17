@@ -17,7 +17,7 @@ namespace Module{
     {
     }
 
-    bool UserLoginModule::logUser(QString p_name, QString p_pass)
+    bool UserLoginModule::verifyUser(QString p_name, QString p_pass)
     {
         auto result = false;
         try{
@@ -30,6 +30,14 @@ namespace Module{
         }
         return result;
 
+    }
+
+    void UserLoginModule::logUser(QString p_name)
+    {
+        UserDao user;
+        int a;
+//        user = m_loginDao->getUserRecord(p_name);
+//        m_appContext->getSession().logUser(user.name, user.role);
     }
 
     QSqlTableModel *UserLoginModule::getUserListModel(QWidget *parent)
