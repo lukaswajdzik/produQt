@@ -9,6 +9,8 @@ class QPushButton;
 class QSqlTableModel;
 class QTableView;
 class MainWindowView;
+class QHBoxLayout;
+class QItemSelectionModel;
 
 class TableEditorView : public QWidget,
                         public IWorkingWindow
@@ -20,14 +22,19 @@ public:
 
 private slots:
     void submit();
+    void removeRow();
+    void sutupModel(const QString tableName);
+    void setupPushbuttons(QHBoxLayout* p_layout);
 
 private:
     MainWindowView *m_mainWindow;
     QPushButton *m_submitButton;
     QPushButton *m_revertButton;
+    QPushButton *m_removeButton;
     QDialogButtonBox *m_buttonBox;
     QSqlTableModel *m_model;
     QTableView *m_view;
+    QItemSelectionModel *m_selmodel;
 };
 
 #endif
