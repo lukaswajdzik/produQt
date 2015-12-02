@@ -3,16 +3,11 @@
 #include <memory>
 #include <string>
 #include <QString>
+#include "Dao/UserDaoRecord.h"
 
 class QSqlQuery;
 
 namespace Dao{
-
-    struct UserAccountRecord{
-        QString name;
-        QString hash_pass;
-        int role;
-    };
 
     class UserDao
     {
@@ -20,7 +15,7 @@ namespace Dao{
         UserDao(std::shared_ptr<QSqlQuery>);
         ~UserDao();
 
-        bool addUserToDatabase(UserAccountRecord);
+        bool addUserToDatabase(UserDaoRecord);
         bool checkIfUserExist(QString);
     private:
         std::shared_ptr<QSqlQuery> m_connector;

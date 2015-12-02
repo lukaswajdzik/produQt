@@ -2,11 +2,10 @@
 
 namespace Application
 {
-
     Session::Session() :
         m_loggedUserName(""),
         m_isLogged(false),
-        m_accessType(0)
+        m_accessType(UserAccessType::NONE)
     {}
 
     Session::~Session()
@@ -18,7 +17,7 @@ namespace Application
         return m_isLogged;
     }
 
-    void Session::logUser(QString name, int p_role)
+    void Session::logUser(QString name, UserAccessType p_role)
     {
         m_isLogged = true;
         m_loggedUserName = name;
@@ -30,19 +29,13 @@ namespace Application
     {
         m_isLogged = false;
         m_loggedUserName.clear();
-        m_accessType = 0;
+        m_accessType = UserAccessType::NONE;
         notify();
     }
 
-    bool Session::getAccessType()
+    UserAccessType Session::getAccessType()
     {
         return m_accessType;
     }
-
-    void Session::setAccessType(int p_access)
-    {
-        m_accessType = p_access;
-    }
-
 
 }

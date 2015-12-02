@@ -3,6 +3,7 @@
 
 #include "Utils/Subject.h"
 #include <QString>
+#include "Application/UserAccessType.h"
 
 namespace Application
 {
@@ -12,16 +13,15 @@ namespace Application
         Session();
         ~Session();
         bool isLogged();
-        void logUser(QString, int);
+        void logUser(QString, UserAccessType);
         void logOut();
 
-        bool getAccessType();
-        void setAccessType(int);
+        UserAccessType getAccessType();
 
     private:
         QString m_loggedUserName;
         bool m_isLogged;
-        int m_accessType;
+        UserAccessType m_accessType;
     };
 
 }

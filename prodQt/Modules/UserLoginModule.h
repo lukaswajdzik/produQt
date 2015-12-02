@@ -29,6 +29,7 @@ namespace Module{
     private:
         std::shared_ptr<Application::ApplicationContext> m_appContext;
         std::shared_ptr<Dao::LoginDao> m_loginDao;
+        void handeException(std::exception*);
     };
 
 }

@@ -2,6 +2,7 @@
 #define MAINWINDOWCONRROLLER_H
 
 #include <memory>
+#include "Application/UserAccessType.h"
 
 class QWidget;
 class IWorkingWindow;
@@ -13,9 +14,14 @@ namespace Application{
     class ApplicationContext;
 }
 
+namespace Utils{
+    class WorkingWindowBuilder;
+}
+
 class MainWindowController
 {
 public:
+    using UserAccessType = Application::UserAccessType;
     MainWindowController(std::shared_ptr<Application::ApplicationContext>);
     ~MainWindowController();
 
@@ -23,10 +29,10 @@ public:
     IWorkingWindow *getWorkingView(MainWindowView*);
     QWidget* getView(IWorkingWindow&);
     void logout();
-    void addTabs(WorkingTabsView*);
 
 
 private:
+    std::shared_ptr<Utils::WorkingWindowBuilder> createViewBuilder(UserAccessType);
     std::shared_ptr<Application::ApplicationContext> m_appContext;
 };
 

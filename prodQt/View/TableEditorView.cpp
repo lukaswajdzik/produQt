@@ -2,22 +2,24 @@
 #include <QtSql>
 
 #include "TableEditorView.h"
+#include "View/MainWindowView.h"
 
-TableEditorView::TableEditorView(const QString &tableName, QWidget *parent)
-    : QWidget(parent)
+TableEditorView::TableEditorView(const QString tableName, MainWindowView* p_mainWindow)
+    : QWidget(p_mainWindow),
+      m_mainWindow(p_mainWindow)
 {
-    model = new QSqlTableModel(this);
-    model->setTable(tableName);
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->select();
+    m_model = new QSqlTableModel(this);
+    m_model->setTable(tableName);
+    m_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    m_model->select();
 
-    model->setHeaderData(1, Qt::Horizontal, tr("Nazwa"));
-    model->setHeaderData(2, Qt::Horizontal, tr("Cena [PLN]"));
-    model->setHeaderData(3, Qt::Horizontal, tr("Kategoria"));
-    model->insertRow(model->rowCount());
+    m_model->setHeaderData(1, Qt::Horizontal, tr("Nazwa"));
+    m_model->setHeaderData(2, Qt::Horizontal, tr("Cena [PLN]"));
+    m_model->setHeaderData(3, Qt::Horizontal, tr("Kategoria"));
+    m_model->insertRow(m_model->rowCount());
 
     m_view = new QTableView;
-    m_view->setModel(model);
+    m_view->setModel(m_model);
 //    view->resizeColumnsToContents();
     m_view->setColumnHidden(0, true);
 
@@ -30,7 +32,7 @@ TableEditorView::TableEditorView(const QString &tableName, QWidget *parent)
     m_buttonBox->addButton(m_revertButton, QDialogButtonBox::ActionRole);
 
     connect(m_submitButton, SIGNAL(clicked()), this, SLOT(submit()));
-    connect(m_revertButton, SIGNAL(clicked()), model, SLOT(revertAll()));
+    connect(m_revertButton, SIGNAL(clicked()), m_model, SLOT(revertAll()));
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addWidget(m_view);
@@ -47,14 +49,14 @@ QWidget *TableEditorView::getView()
 
 void TableEditorView::submit()
 {
-    model->database().transaction();
-    if (model->submitAll()) {
-        model->database().commit();
+    m_model->database().transaction();
+    if (m_model->submitAll()) {
+        m_model->database().commit();
     } else {
-        model->database().rollback();
+        m_model->database().rollback();
         QMessageBox::warning(this, tr("Cached Table"),
                              tr("The database reported an error: %1")
-                             .arg(model->lastError().text()));
+                             .arg(m_model->lastError().text()));
     }
-    model->insertRow(model->rowCount());
+    m_model->insertRow(m_model->rowCount());
 }

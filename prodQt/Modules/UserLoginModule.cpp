@@ -3,6 +3,7 @@
 #include "Utils/logger.h"
 #include <QSqlTableModel>
 #include <QDebug>
+#include "Application/UserAccessType.h"
 
 namespace Module{
 
@@ -24,9 +25,7 @@ namespace Module{
             result = m_loginDao->verifyUser(p_name, p_pass);
         }
         catch(std::exception* ex){
-            Utils::Logger::getInstance().log(ex->what());
-            qDebug() << ex->what();
-            delete ex;
+            handeException(ex);
         }
         return result;
 
@@ -34,10 +33,14 @@ namespace Module{
 
     void UserLoginModule::logUser(QString p_name)
     {
-        UserDao user;
-        int a;
-//        user = m_loginDao->getUserRecord(p_name);
-//        m_appContext->getSession().logUser(user.name, user.role);
+        Dao::UserDaoRecord user;
+        try{
+            user = m_loginDao->getUserRecord(p_name);
+        }
+        catch(std::exception* ex){
+            handeException(ex);
+        }
+        m_appContext->getSession().logUser(user.name, static_cast<Application::UserAccessType>(user.role));
     }
 
     QSqlTableModel *UserLoginModule::getUserListModel(QWidget *parent)
@@ -48,6 +51,14 @@ namespace Module{
         l_userListModel->select();
         return l_userListModel;
     }
+
+    void UserLoginModule::handeException(std::exception* ex)
+    {
+        Utils::Logger::getInstance().log(ex->what());
+        qDebug() << ex->what();
+        delete ex;
+    }
+
 
 }
 

@@ -19,7 +19,7 @@ namespace Dao {
     {
     }
 
-    bool UserDao::addUserToDatabase(UserAccountRecord p_userData) {
+    bool UserDao::addUserToDatabase(UserDaoRecord p_userData) {
         m_connector->prepare(Database::DatabaseQueryProvider::addUser() );
         m_connector->bindValue(0, p_userData.name);
         m_connector->bindValue(1, p_userData.hash_pass);

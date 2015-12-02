@@ -7,6 +7,7 @@
 
 #include "View/TableEditorView.h"
 #include "View/WeightTabView.h"
+#include "Utils/FullAccessWorkingWindowBuilder.h"
 
 MainWindowController::MainWindowController(std::shared_ptr<Application::ApplicationContext> p_appContext) :
     m_appContext(std::move(p_appContext))
@@ -24,17 +25,26 @@ IWorkingWindow *MainWindowController::getLoginWindow(MainWindowView *p_mainWindo
 
 IWorkingWindow *MainWindowController::getWorkingView(MainWindowView *p_mainWindowPtr)
 {
-//    return new WorkingTabsView(m_appContext, p_mainWindowPtr);
-    WorkingTabsView* abc = new WorkingTabsView(m_appContext, p_mainWindowPtr);
-    TableEditorView* b = new TableEditorView("products", 0);
-    WeightTabView* c = new WeightTabView(m_appContext, p_mainWindowPtr);
-    abc->addTab(c, "aleaaaaa");
-    return abc;
+    auto viewBuilder = createViewBuilder(m_appContext->getSession().getAccessType());
+
+    viewBuilder->buildWeightTabView(p_mainWindowPtr);
+    viewBuilder->buildTableEditorView(p_mainWindowPtr);
+
+    return viewBuilder->getWorkingWindow();
 }
-void addTabs(WorkingTabsView* tabs)
+
+std::shared_ptr<Utils::WorkingWindowBuilder> MainWindowController::createViewBuilder(UserAccessType p_access)
 {
-    TableEditorView * b = new TableEditorView("products", 0);
-    tabs->addTab(b->getView(), "--Lista Produktów--");
+    std::shared_ptr<Utils::WorkingWindowBuilder> viewBuilder;
+    if(p_access == UserAccessType::FULL)
+    {
+        viewBuilder = std::make_shared<Utils::FullAccessWorkingWindowBuilder>(m_appContext);
+    }
+    else if(p_access == UserAccessType::LIMITED)
+    {
+        //viewBuilder = 'limited' Bulider
+    }
+    return viewBuilder;
 }
 
 QWidget *MainWindowController::getView(IWorkingWindow & p_window)

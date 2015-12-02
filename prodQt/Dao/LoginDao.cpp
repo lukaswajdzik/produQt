@@ -8,6 +8,7 @@
 #include <QtSql/QSqlDriver>
 #include <QtSql/QSqlQuery>
 #include <QVariant>
+#include <QDebug>
 
 namespace Dao {
 
@@ -26,16 +27,23 @@ namespace Dao {
         return password == userPasswordDecoded;
     }
 
-    UserDao LoginDao::getUserRecord(QString userName)
+    void LoginDao::copyUserData(UserDaoRecord &userData)
     {
-        m_connector->prepare(Database::DatabaseQueryProvider::getUserData());
-        m_connector->bindValue(0, userName);
-        m_connector->exec();
-        m_connector->next();
-        UserDao userData;
         userData.userId = m_connector->value(0).toInt();
         userData.name = m_connector->value(1).toString();
         userData.role = m_connector->value(2).toInt();
+    }
+
+    UserDaoRecord LoginDao::getUserRecord(QString userName)
+    {
+        m_connector->prepare(Database::DatabaseQueryProvider::getUserData());
+        m_connector->bindValue(0, userName);
+        if(not m_connector->exec())
+            throw new DbQueryCouldNotBeExecuted(m_connector->lastError());
+        m_connector->next();
+        UserDaoRecord userData;
+        copyUserData(userData);
+        return userData;
     }
 
     QString LoginDao::getUserDatabaseName()

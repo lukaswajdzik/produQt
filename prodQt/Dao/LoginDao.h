@@ -2,16 +2,9 @@
 #define LOGINDAO_H
 #include <memory>
 #include <QString>
-
+#include "Dao/UserDaoRecord.h"
 class QSqlQuery;
 
-struct UserDao
-{
-    int userId;
-    QString name;
-    QString password;
-    int role;
-};
 
 namespace Dao {
 
@@ -22,10 +15,11 @@ namespace Dao {
         ~LoginDao();
 
         bool verifyUser(QString, QString);
-        UserDao getUserRecord(QString);
+        UserDaoRecord getUserRecord(QString);
         QString getUserDatabaseName();
 
     private:
+        void copyUserData(UserDaoRecord&);
         std::shared_ptr<QSqlQuery> m_connector;
         QString selectPasswordByUserName(QString);
     };

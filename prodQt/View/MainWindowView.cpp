@@ -39,7 +39,7 @@ void MainWindowView::setupLogoutButton()
 {
     m_pushbuttonLogout->setObjectName(QStringLiteral("pushbuttonLogout"));
     m_pushbuttonLogout->setText("WYLOGUJ");
-    m_pushbuttonLogout->setGeometry(QRect(900, 0, 100, 30));
+    m_pushbuttonLogout->setGeometry(QRect(900, 0, 100, 50));
     m_pushbuttonLogout->setVisible(false);
 }
 
@@ -47,7 +47,7 @@ void MainWindowView::setupExitButton()
 {
     m_pushbuttonClose->setObjectName(QStringLiteral("pushbuttonClose"));
     m_pushbuttonClose->setText("ZAMKNIJ");
-    m_pushbuttonClose->setGeometry(QRect(1000, 0, 100, 30));
+    m_pushbuttonClose->setGeometry(QRect(1000, 0, 100, 50));
 }
 
 

@@ -46,8 +46,9 @@ SOURCES += main.cpp\
     View/NumericKeyboard.cpp \
     Utils/button.cpp \
     View/TableEditorView.cpp \
-    View/WorkingTabsView.cpp \
-    View/WeightTabView.cpp
+    View/WeightTabView.cpp \
+    Utils/FullAccessWorkingWindowBuilder.cpp \
+    View/WorkingTabsView.cpp
 
 HEADERS  += \
     Database/databaseconnector.h \
@@ -87,8 +88,13 @@ HEADERS  += \
     View/NumericKeyboard.h \
     Utils/button.h \
     View/TableEditorView.h \
+    View/WeightTabView.h \
+    Dao/UserDaoRecord.h \
+    Utils/FullAccessWorkingWindowBuilder.h \
+    Utils/WorkingWindowBuilder.h \
     View/WorkingTabsView.h \
-    View/WeightTabView.h
+    Utils/UserAccessType.h \
+    Application/UserAccessType.h
 
 FORMS    += Controllers/mainwindow.ui \
     Controllers/databasetestwindow.ui \

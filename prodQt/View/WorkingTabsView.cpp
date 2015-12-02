@@ -1,16 +1,7 @@
 #include "WorkingTabsView.h"
 #include "Application/ApplicationContext.h"
 #include "MainWindowView.h"
-#include <QVBoxLayout>
-#include <QGridLayout>
 #include <QTabWidget>
-#include <QLabel>
-#include <QComboBox>
-#include <QLineEdit>
-#include <QApplication>
-#include <QDebug>
-#include <QPushButton>
-
 
 WorkingTabsView::WorkingTabsView(std::shared_ptr<Application::ApplicationContext> p_appContext, MainWindowView *p_mainWindow) :
      QWidget(p_mainWindow),
@@ -18,20 +9,15 @@ WorkingTabsView::WorkingTabsView(std::shared_ptr<Application::ApplicationContext
      m_appContext(p_appContext)
 {
     m_tabWidget = new QTabWidget(this);
-    m_layoutWidget = new QWidget(m_tabWidget);
 
+    m_tabWidget->setStyleSheet("QTabBar::tab { height: 55px; width: 100px; }");
     m_tabWidget->setFixedSize(900,690);
     QFont font;
     font.setBold(true);
     font.setWeight(75);
     m_tabWidget->setFont(font);
     m_tabWidget->setAutoFillBackground(false);
-//    addTab();
-
-//    m_layoutWidget->setGeometry(QRect(20, 20, 580, 365));
-
-    m_tabWidget->setObjectName(QStringLiteral("tabLogin"));
-    m_layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+    m_tabWidget->setObjectName(QStringLiteral("tabWidget"));
 }
 
 WorkingTabsView::~WorkingTabsView()
@@ -47,8 +33,3 @@ QWidget *WorkingTabsView::getView()
 {
     return m_tabWidget;
 }
-
-void WorkingTabsView::on_pbLogin_clicked()
-{
-}
-

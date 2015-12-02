@@ -120,8 +120,8 @@ void LoginView::on_pbLogin_clicked()
 
     if(m_controller->verifyUser(userName, password))
     {
-        m_controller->logUser(userName);
         m_mainWindow->setUserInfoText("Zalogowano użytkownka " + userName, "blue");
+        m_controller->logUser(userName);
     }
     else
         m_mainWindow->setUserInfoText("Niepoprawne hasło dla użytkownika " + userName, "red");

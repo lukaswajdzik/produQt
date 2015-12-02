@@ -4,10 +4,14 @@
 #include <string>
 #include <QStringList>
 #include <map>
+#include "Application/UserAccessType.h"
+
+using namespace Application;
 
 namespace {
-    const std::map<int, QString> c_accessTypes={ std::make_pair(100, "Pełny"),
-                                                 std::make_pair(101, "Ograniczony") };
+    const std::map<QString, UserAccessType> c_accessTypesTranslation =
+    { std::make_pair("Pełny",       UserAccessType::FULL),
+      std::make_pair("Ograniczony", UserAccessType::LIMITED) };
 }
 
 namespace Utils {
@@ -22,19 +26,29 @@ namespace Utils {
         static int GetLenghtOfUserPassword(){
             return 5;
         }
-        static QStringList GetAllAccessTypes() {
+        static QString GetWeightTabViewName(){
+            return "--Waga--";
+        }
+        static QString GetProductTableTabViewName(){
+            return "--Produkty--";
+        }
+        static QString GetProductTableDbName(){
+            return "products";
+        }
+
+        static QStringList GetAllAccessTypesTranslated() {
             QStringList types;
-            for(const auto &access : c_accessTypes)
-                types.push_back(access.second);
+            for(const auto &access : c_accessTypesTranslation)
+                types.push_back(access.first);
 
             return types;
         }
         static int GetCorrespondingAccessNumber(QString accessName)
         {
-            for(const auto &access : c_accessTypes)
+            for(const auto &access : c_accessTypesTranslation)
             {
-                if (access.second == accessName)
-                    return access.first;
+                if (access.first == accessName)
+                    return static_cast<int>(access.second);
             }
             return -1;
         }

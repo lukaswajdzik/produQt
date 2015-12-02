@@ -5,15 +5,7 @@
 #include <View/IWorkingWindow.h>
 
 class QTabWidget;
-class QLabel;
-class QComboBox;
-class QLineEdit;
-class QVBoxLayout;
-class QPushButton;
-class LoginController;
-class QSqlTableModel;
 class MainWindowView;
-class QGridLayout;
 
 namespace Application {
     class ApplicationContext;
@@ -32,13 +24,11 @@ public:
 signals:
 
 public slots:
-void on_pbLogin_clicked();
 private:
     MainWindowView *m_mainWindow;
     std::shared_ptr<Application::ApplicationContext> m_appContext;
 
     QTabWidget *m_tabWidget;
-    QWidget *m_layoutWidget;
 };
 
 #endif // WORKINGVIEW_H
