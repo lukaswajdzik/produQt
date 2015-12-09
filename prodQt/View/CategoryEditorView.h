@@ -1,9 +1,9 @@
-#ifndef TABLEEDITOR_H
-#define TABLEEDITOR_H
+#ifndef CATEGORYEDITORVIEW_H
+#define CATEGORYEDITORVIEW_H
+
 
 #include <QDialog>
 #include "View/IWorkingWindow.h"
-#include <memory>
 
 class QDialogButtonBox;
 class QPushButton;
@@ -17,20 +17,13 @@ class QComboBox;
 class QHeaderView;
 class QVBoxLayout;
 class QLineEdit;
-class TableEditorController;
 
-namespace Application{
-    class ApplicationContext;
-}
-
-class TableEditorView : public QWidget,
-                        public IWorkingWindow
+class CategoryEditorView : public QWidget,
+                           public IWorkingWindow
 {
     Q_OBJECT
 public:
-    explicit TableEditorView(const QString tableName,
-                             std::shared_ptr<Application::ApplicationContext> p_appContext,
-                             MainWindowView* p_mainWindow = 0);
+    explicit CategoryEditorView(const QString tableName, MainWindowView* p_mainWindow = 0);
     QWidget* getView() override;
 
     void setupProductsLayout();
@@ -40,36 +33,49 @@ private slots:
     void removeRow();
     void setupModel(const QString tableName);
     void setupProductsPushbuttons();
-    void sortColumn(int);
+    void setupCategoryPushbuttons(QLayout* p_layout);
 
     void showCategoryFields();
     void closeEditMode();
+
+    void loadAddingPannel();
+    void loadEditingPannel();
+    void loadRemovingPannel();
+    void cleanUp();
 private:
     MainWindowView *m_mainWindow;
-    std::shared_ptr<TableEditorController> m_controller;
 
-    QPushButton *m_addRecordItemButton;
-    QPushButton *m_saveButton;
-    QPushButton *m_removeButton;
+    QWidget *m_mainWidget;
+    QVBoxLayout *m_mainLayout;
+
+    QWidget *m_fixButtonWidget;
+    QVBoxLayout *m_fixButtonLayout;
+
+    QWidget *m_dynamicButtonWidget;
+    QVBoxLayout *m_dynamicButtoLayout;
+
+    QPushButton *m_addCategoryButton;
+    QPushButton *m_EditCategoryButton;
+    QPushButton *m_removeCategoryButton;
+    QDialogButtonBox *m_buttonBox;
+
     QPushButton *m_refreshButton;
     QPushButton *m_newCategory;
     QHeaderView *m_horizHeader;
-    QDialogButtonBox *m_buttonBox;
     QSqlRelationalTableModel *m_model;
-    QTableView *m_view;
     QItemSelectionModel *m_selmodel;
     QWidget *m_productsPannel;
     QVBoxLayout *m_categoryLayout;
     QVBoxLayout *m_productsLayout;
-    QHBoxLayout *m_mainLayout;
-    Qt::SortOrder m_columnSoringOrder[];
 
-    void changeColumnOrder(Qt::SortOrder&);
 
     QLineEdit* categoryName;
     QComboBox* parentCategory;
     QPushButton* close;
 
+    void clearLayout(QLayout *layout);
+
+
 };
 
-#endif
+#endif // CATEGORYEDITORVIEW_H

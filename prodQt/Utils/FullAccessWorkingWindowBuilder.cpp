@@ -21,7 +21,7 @@ void FullAccessWorkingWindowBuilder::buildWeightTabView(MainWindowView* p_parent
 void FullAccessWorkingWindowBuilder::buildTableEditorView(MainWindowView* p_parent)
 {
     buildWorkingWindow(p_parent);
-    m_workingWindow->addTab(new TableEditorView(Const::GetProductTableDbName(), p_parent), Const::GetProductTableTabViewName());
+    m_workingWindow->addTab(new TableEditorView(Const::GetProductTableDbName(),m_appContext , p_parent), Const::GetProductTableTabViewName());
 }
 
 WorkingTabsView* FullAccessWorkingWindowBuilder::getWorkingWindow()

@@ -48,7 +48,9 @@ SOURCES += main.cpp\
     View/TableEditorView.cpp \
     View/WeightTabView.cpp \
     Utils/FullAccessWorkingWindowBuilder.cpp \
-    View/WorkingTabsView.cpp
+    View/WorkingTabsView.cpp \
+    View/CategoryEditorView.cpp \
+    Controllers/TableEditorController.cpp
 
 HEADERS  += \
     Database/databaseconnector.h \
@@ -94,7 +96,9 @@ HEADERS  += \
     Utils/WorkingWindowBuilder.h \
     View/WorkingTabsView.h \
     Utils/UserAccessType.h \
-    Application/UserAccessType.h
+    Application/UserAccessType.h \
+    View/CategoryEditorView.h \
+    Controllers/TableEditorController.h
 
 FORMS    += Controllers/mainwindow.ui \
     Controllers/databasetestwindow.ui \

@@ -3,60 +3,137 @@
 
 #include "TableEditorView.h"
 #include "View/MainWindowView.h"
+#include <QSqlRelationalTableModel>
+#include <QComboBox>
+#include "Controllers/TableEditorController.h"
 
-//QItemSelectionModel
-TableEditorView::TableEditorView(const QString tableName, MainWindowView* p_mainWindow)
+TableEditorView::TableEditorView(const QString tableName,
+                                 std::shared_ptr<Application::ApplicationContext> p_appContext,
+                                 MainWindowView* p_mainWindow)
     : QWidget(p_mainWindow),
-      m_mainWindow(p_mainWindow)
+      m_mainWindow(p_mainWindow),
+      m_controller(std::make_shared<TableEditorController>(p_appContext, p_mainWindow))
 {
-    m_view = new QTableView;
-    QHBoxLayout *mainLayout = new QHBoxLayout;
-    sutupModel(tableName);
-    m_view->setModel(m_model);
-    m_view->setEditTriggers(QAbstractItemView::DoubleClicked);
-    m_view->setColumnHidden(0, true);
-
-    setupPushbuttons(mainLayout);
-
-    mainLayout->addWidget(m_view);
-
-    setLayout(mainLayout);
-
     setWindowTitle(tr("Tabela Produktów"));
+    m_view = new QTableView(this);
+    m_mainLayout = new QHBoxLayout(this);
+
+    setupModel(tableName);
+
+    m_view->setModel(m_model);
+    m_view->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_view->setItemDelegate(new QSqlRelationalDelegate(m_view));
+    auto idIndex = m_model->fieldIndex("product_id");
+    m_view->setColumnHidden(idIndex, true);
+    m_view->resizeColumnsToContents();
+
+    setupProductsPushbuttons();
+
+    m_mainLayout->addWidget(m_controller->getCategoryView());
+
+    setupProductsLayout();
+
+    setLayout(m_mainLayout);
 
     m_selmodel = m_view->selectionModel();
+
+    m_horizHeader = m_view->horizontalHeader();
+    connect(m_horizHeader, SIGNAL(sectionClicked(int)), this, SLOT(sortColumn(int)));
 }
 
-void TableEditorView::setupPushbuttons(QHBoxLayout *p_layout)
+void TableEditorView::setupProductsLayout()
 {
-    m_submitButton = new QPushButton(tr("Dodaj"));
-    m_submitButton->setDefault(true);
-    m_revertButton = new QPushButton(tr("Cofnij"));
-    m_removeButton = new QPushButton(tr("Usuń"));
+    m_productsPannel = new QWidget(this);
+    m_productsLayout = new QVBoxLayout(this);
 
-    m_buttonBox = new QDialogButtonBox(Qt::Vertical);
-    m_buttonBox->addButton(m_submitButton, QDialogButtonBox::ActionRole);
-    m_buttonBox->addButton(m_revertButton, QDialogButtonBox::ActionRole);
-    m_buttonBox->addButton(m_removeButton, QDialogButtonBox::ActionRole);
+    m_productsPannel->setLayout(m_productsLayout);
+    m_productsLayout->addWidget(m_buttonBox);
+    m_productsLayout->addWidget(m_view);
+    m_mainLayout->addWidget(m_productsPannel);
+}
 
-    connect(m_submitButton, SIGNAL(clicked()), this, SLOT(submit()));
-    connect(m_revertButton, SIGNAL(clicked()), m_model, SLOT(revertAll()));
+void TableEditorView::sortColumn(int p_nb)
+{
+    changeColumnOrder(m_columnSoringOrder[p_nb]);
+    m_model->sort(p_nb, m_columnSoringOrder[p_nb]);
+}
+
+void TableEditorView::changeColumnOrder(Qt::SortOrder& p_column)
+{
+    if(p_column == Qt::DescendingOrder)
+    {
+        p_column = Qt::AscendingOrder;
+    }
+    else if (p_column == Qt::AscendingOrder)
+    {
+        p_column = Qt::DescendingOrder;
+    }
+    else
+        p_column = Qt::AscendingOrder;
+}
+
+void TableEditorView::setupProductsPushbuttons()
+{
+    m_addRecordItemButton = new QPushButton(tr("Dodaj nowy produkt"), this);
+    m_removeButton = new QPushButton(tr("Usuń zaznaczony"), this);
+    m_refreshButton = new QPushButton(tr("Odśwież"), this);
+    m_saveButton = new QPushButton(tr("Zapisz"), this);
+
+    m_buttonBox = new QDialogButtonBox(Qt::Horizontal, this);
+    m_buttonBox->centerButtons();
+    m_buttonBox->addButton(m_addRecordItemButton, QDialogButtonBox::ActionRole);
+    m_buttonBox->addButton(m_saveButton, QDialogButtonBox::ActionRole);
+    m_buttonBox->addButton(m_refreshButton, QDialogButtonBox::ActionRole);
+    m_buttonBox->addButton(m_removeButton, QDialogButtonBox::AcceptRole);
+
+    connect(m_addRecordItemButton, SIGNAL(clicked()), this, SLOT(submit()));
     connect(m_removeButton, SIGNAL(clicked()), this, SLOT(removeRow()));
-
-    p_layout->addWidget(m_buttonBox);
+    connect(m_refreshButton, SIGNAL(clicked()), m_model, SLOT(select()));
+    connect(m_saveButton, SIGNAL(clicked()), m_model, SLOT(submitAll()));
 }
 
-void TableEditorView::sutupModel(const QString tableName)
+void TableEditorView::showCategoryFields()
 {
-    m_model = new QSqlTableModel(this);
+    categoryName = new QLineEdit(this);
+    parentCategory = new QComboBox(this);
+    close = new QPushButton(tr("Anuluj"), this);
+
+    categoryName->setMaximumWidth(230);
+    parentCategory->setMaximumWidth(230);
+    m_categoryLayout->addWidget(categoryName);
+    m_categoryLayout->addWidget(parentCategory);
+    m_categoryLayout->addWidget(close);
+    connect(close, SIGNAL(clicked()), this, SLOT(closeEditMode()));
+
+}
+
+void TableEditorView::closeEditMode()
+{
+    m_categoryLayout->removeWidget(categoryName);
+    m_categoryLayout->removeWidget(parentCategory);
+    m_categoryLayout->removeWidget(close);
+}
+
+void TableEditorView::setupModel(const QString tableName)
+{
+    m_model = new QSqlRelationalTableModel(this);
     m_model->setTable(tableName);
+    auto nameIndex = m_model->fieldIndex("name");
+    auto typeIndex = m_model->fieldIndex("Category_Id");
+    m_model->setRelation(typeIndex, QSqlRelation("categories", "id", "category"));
     m_model->setEditStrategy(QSqlTableModel::OnRowChange);
+    m_model->setSort(nameIndex, Qt::AscendingOrder);
     m_model->select();
 
     m_model->setHeaderData(1, Qt::Horizontal, tr("Nazwa"));
     m_model->setHeaderData(2, Qt::Horizontal, tr("Cena [PLN]"));
     m_model->setHeaderData(3, Qt::Horizontal, tr("Kategoria"));
-    m_model->insertRow(m_model->rowCount());
+
+}
+void TableEditorView::revert()
+{
+    m_model->revert();
+    m_model->select();
 }
 
 QWidget *TableEditorView::getView()
@@ -66,22 +143,19 @@ QWidget *TableEditorView::getView()
 
 void TableEditorView::submit()
 {
-    m_model->database().transaction();
-    if (m_model->submitAll()) {
-        m_model->database().commit();
-        m_model->insertRow(m_model->rowCount());
-    } else {
-        m_model->database().rollback();
-        m_mainWindow->setUserInfoText("Błąd podczas dodawania, spróbuj ponownie", "red");
-    }
+    QSqlRecord record;
+    record.append(QSqlField("name", QVariant::String));
+    record.append(QSqlField("price", QVariant::Double));
+    record.append(QSqlField("Category_Id", QVariant::Int));
+    record.setValue(0, " ");
+    record.setValue(1, 0.0);
+    record.setValue(2, 0);
+    m_model->insertRecord(m_selmodel->currentIndex().row(), record);
+    m_model->select();
 }
 
 void TableEditorView::removeRow()
 {
-    m_model->setEditStrategy(QSqlTableModel::OnRowChange);
     m_model->removeRows(m_selmodel->currentIndex().row(), 1);
-    QString abc = QString("WARTOŚĆ : %1").arg(m_selmodel->currentIndex().row());
-    m_mainWindow->setUserInfoText(abc);
     m_model->select();
-    m_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
 }

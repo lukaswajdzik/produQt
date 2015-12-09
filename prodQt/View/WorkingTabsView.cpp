@@ -10,8 +10,8 @@ WorkingTabsView::WorkingTabsView(std::shared_ptr<Application::ApplicationContext
 {
     m_tabWidget = new QTabWidget(this);
 
-    m_tabWidget->setStyleSheet("QTabBar::tab { height: 55px; width: 100px; }");
-    m_tabWidget->setFixedSize(900,690);
+    m_tabWidget->setStyleSheet("QTabBar::tab { height: 45px; width: 100px; }");
+    m_tabWidget->setFixedSize(900,680);
     QFont font;
     font.setBold(true);
     font.setWeight(75);
