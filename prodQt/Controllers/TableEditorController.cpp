@@ -1,5 +1,8 @@
 #include "TableEditorController.h"
 #include "View/CategoryEditorView.h"
+#include "View/AddCategoryView.h"
+#include "View/MainWindowView.h"
+#include "View/EditCategoryView.h"
 
 TableEditorController::TableEditorController(std::shared_ptr<Application::ApplicationContext> p_appContext,
                                              MainWindowView* p_mainWindow) :
@@ -14,10 +17,20 @@ TableEditorController::~TableEditorController()
 
 }
 
-QWidget *TableEditorController::getCategoryView()
+void TableEditorController::showWidgetWithFocus(QWidget* categoryView)
 {
-    auto categoryView = new CategoryEditorView("abc", m_mainWindow);
-    return categoryView->getView();
-
+    categoryView->show();
+    categoryView->activateWindow();
+    categoryView->raise();
+    categoryView->setFocus();
 }
 
+void TableEditorController::showCategoryAddingView()
+{
+    showWidgetWithFocus(new AddCategoryView(m_mainWindow));
+}
+
+void TableEditorController::showCategoryEditingView()
+{
+    showWidgetWithFocus(new EditCategoryView(m_mainWindow));
+}

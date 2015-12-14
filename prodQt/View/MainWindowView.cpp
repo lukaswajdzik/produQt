@@ -15,7 +15,7 @@
 
 
 MainWindowView::MainWindowView(std::shared_ptr<Application::ApplicationContext> p_appContext, QWidget *p_parent) :
-    QMainWindow(p_parent),
+    QMainWindow(p_parent, Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint),
     m_appContext(std::move(p_appContext)),
     m_workingWindow(nullptr),
     m_opacityForWindow(nullptr),

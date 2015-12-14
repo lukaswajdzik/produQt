@@ -49,8 +49,9 @@ SOURCES += main.cpp\
     View/WeightTabView.cpp \
     Utils/FullAccessWorkingWindowBuilder.cpp \
     View/WorkingTabsView.cpp \
-    View/CategoryEditorView.cpp \
-    Controllers/TableEditorController.cpp
+    Controllers/TableEditorController.cpp \
+    View/AddCategoryView.cpp \
+    View/EditCategoryView.cpp
 
 HEADERS  += \
     Database/databaseconnector.h \
@@ -97,12 +98,15 @@ HEADERS  += \
     View/WorkingTabsView.h \
     Utils/UserAccessType.h \
     Application/UserAccessType.h \
-    View/CategoryEditorView.h \
-    Controllers/TableEditorController.h
+    Controllers/TableEditorController.h \
+    View/AddCategoryView.h \
+    View/EditCategoryView.h
 
 FORMS    += Controllers/mainwindow.ui \
     Controllers/databasetestwindow.ui \
-    Controllers/adduser.ui
+    Controllers/adduser.ui \
+    View/AddCategoryView.ui \
+    View/EditCategoryView.ui
 
 CONFIG += c++11
 

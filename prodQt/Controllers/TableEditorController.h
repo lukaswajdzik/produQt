@@ -14,11 +14,14 @@ public:
     TableEditorController(std::shared_ptr<Application::ApplicationContext>, MainWindowView*);
     ~TableEditorController();
 
-    QWidget* getCategoryView();
+    void showCategoryAddingView();
+    void showCategoryEditingView();
 
 private:
     std::shared_ptr<Application::ApplicationContext> m_appContext;
     MainWindowView* m_mainWindow;
+
+    void showWidgetWithFocus(QWidget* categoryView);
 };
 
 #endif // TABLEEDITORCONTROLLER_H

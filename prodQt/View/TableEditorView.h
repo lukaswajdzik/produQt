@@ -4,6 +4,9 @@
 #include <QDialog>
 #include "View/IWorkingWindow.h"
 #include <memory>
+#include <QSqlRelationalDelegate>
+#include <QComboBox>
+#include <QStringList>
 
 class QDialogButtonBox;
 class QPushButton;
@@ -44,6 +47,8 @@ private slots:
 
     void showCategoryFields();
     void closeEditMode();
+    void showCategoryAddingView();
+    void showCategoryEditView();
 private:
     MainWindowView *m_mainWindow;
     std::shared_ptr<TableEditorController> m_controller;
@@ -53,18 +58,19 @@ private:
     QPushButton *m_removeButton;
     QPushButton *m_refreshButton;
     QPushButton *m_newCategory;
+    QPushButton *m_addCategoryButton;
+    QPushButton *m_editCategoryButton;
     QHeaderView *m_horizHeader;
     QDialogButtonBox *m_buttonBox;
     QSqlRelationalTableModel *m_model;
     QTableView *m_view;
     QItemSelectionModel *m_selmodel;
-    QWidget *m_productsPannel;
     QVBoxLayout *m_categoryLayout;
-    QVBoxLayout *m_productsLayout;
     QHBoxLayout *m_mainLayout;
     Qt::SortOrder m_columnSoringOrder[];
 
     void changeColumnOrder(Qt::SortOrder&);
+    void applyChangesToDb();
 
     QLineEdit* categoryName;
     QComboBox* parentCategory;

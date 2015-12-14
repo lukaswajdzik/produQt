@@ -21,15 +21,13 @@ TableEditorView::TableEditorView(const QString tableName,
     setupModel(tableName);
 
     m_view->setModel(m_model);
-    m_view->setEditTriggers(QAbstractItemView::NoEditTriggers);
+//    m_view->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_view->setItemDelegate(new QSqlRelationalDelegate(m_view));
     auto idIndex = m_model->fieldIndex("product_id");
     m_view->setColumnHidden(idIndex, true);
     m_view->resizeColumnsToContents();
 
     setupProductsPushbuttons();
-
-    m_mainLayout->addWidget(m_controller->getCategoryView());
 
     setupProductsLayout();
 
@@ -43,13 +41,8 @@ TableEditorView::TableEditorView(const QString tableName,
 
 void TableEditorView::setupProductsLayout()
 {
-    m_productsPannel = new QWidget(this);
-    m_productsLayout = new QVBoxLayout(this);
-
-    m_productsPannel->setLayout(m_productsLayout);
-    m_productsLayout->addWidget(m_buttonBox);
-    m_productsLayout->addWidget(m_view);
-    m_mainLayout->addWidget(m_productsPannel);
+    m_mainLayout->addWidget(m_buttonBox);
+    m_mainLayout->addWidget(m_view);
 }
 
 void TableEditorView::sortColumn(int p_nb)
@@ -78,18 +71,34 @@ void TableEditorView::setupProductsPushbuttons()
     m_removeButton = new QPushButton(tr("Usuń zaznaczony"), this);
     m_refreshButton = new QPushButton(tr("Odśwież"), this);
     m_saveButton = new QPushButton(tr("Zapisz"), this);
+    m_addCategoryButton = new QPushButton(tr("Dodaj kategorię"), this);
+    m_editCategoryButton = new QPushButton(tr("Edytuj kategorię"), this);
 
-    m_buttonBox = new QDialogButtonBox(Qt::Horizontal, this);
+    m_buttonBox = new QDialogButtonBox(Qt::Vertical, this);
     m_buttonBox->centerButtons();
-    m_buttonBox->addButton(m_addRecordItemButton, QDialogButtonBox::ActionRole);
-    m_buttonBox->addButton(m_saveButton, QDialogButtonBox::ActionRole);
-    m_buttonBox->addButton(m_refreshButton, QDialogButtonBox::ActionRole);
-    m_buttonBox->addButton(m_removeButton, QDialogButtonBox::AcceptRole);
+    m_buttonBox->addButton(m_addRecordItemButton, QDialogButtonBox::ApplyRole);
+    m_buttonBox->addButton(m_saveButton, QDialogButtonBox::ApplyRole);
+    m_buttonBox->addButton(m_refreshButton, QDialogButtonBox::ApplyRole);
+    m_buttonBox->addButton(m_removeButton, QDialogButtonBox::ApplyRole);
+    m_buttonBox->addButton(m_addCategoryButton, QDialogButtonBox::HelpRole);
+    m_buttonBox->addButton(m_editCategoryButton, QDialogButtonBox::HelpRole);
 
     connect(m_addRecordItemButton, SIGNAL(clicked()), this, SLOT(submit()));
     connect(m_removeButton, SIGNAL(clicked()), this, SLOT(removeRow()));
     connect(m_refreshButton, SIGNAL(clicked()), m_model, SLOT(select()));
     connect(m_saveButton, SIGNAL(clicked()), m_model, SLOT(submitAll()));
+    connect(m_addCategoryButton, SIGNAL(clicked()), this, SLOT(showCategoryAddingView()));
+    connect(m_editCategoryButton, SIGNAL(clicked()), this, SLOT(showCategoryEditView()));
+}
+
+void TableEditorView::showCategoryAddingView()
+{
+    m_controller->showCategoryAddingView();
+}
+
+void TableEditorView::showCategoryEditView()
+{
+    m_controller->showCategoryEditingView();
 }
 
 void TableEditorView::showCategoryFields()
@@ -121,7 +130,7 @@ void TableEditorView::setupModel(const QString tableName)
     auto nameIndex = m_model->fieldIndex("name");
     auto typeIndex = m_model->fieldIndex("Category_Id");
     m_model->setRelation(typeIndex, QSqlRelation("categories", "id", "category"));
-    m_model->setEditStrategy(QSqlTableModel::OnRowChange);
+    m_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     m_model->setSort(nameIndex, Qt::AscendingOrder);
     m_model->select();
 
@@ -151,11 +160,20 @@ void TableEditorView::submit()
     record.setValue(1, 0.0);
     record.setValue(2, 0);
     m_model->insertRecord(m_selmodel->currentIndex().row(), record);
+    applyChangesToDb();
+}
+
+void TableEditorView::applyChangesToDb()
+{
+    m_model->database().transaction();
+    if (m_model->submitAll()) {
+        m_model->database().commit();
+    }
     m_model->select();
 }
 
 void TableEditorView::removeRow()
 {
     m_model->removeRows(m_selmodel->currentIndex().row(), 1);
-    m_model->select();
+    applyChangesToDb();
 }

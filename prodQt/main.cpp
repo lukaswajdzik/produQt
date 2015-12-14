@@ -13,9 +13,7 @@ int main(int argc, char *argv[])
     Logger::getInstance().log("Application launched!");
 
     auto context = std::make_shared<Application::ApplicationContext>();
-//    MainWindowController windowController(context);
     MainWindowView windowController(context);
-
 
     windowController.show();
     return a.exec();
