@@ -16,7 +16,7 @@ namespace Application
         m_dbOperativeConnector = std::make_shared<Database::UserOperativeDb>();
         m_query = std::make_shared<QSqlQuery>();
     }
-
+//TBD
     ApplicationContext::~ApplicationContext()
     {}
 
