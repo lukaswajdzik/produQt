@@ -21,9 +21,24 @@ namespace Database
         static QString existUser(){
             return "SELECT EXISTS (SELECT name FROM useraccount WHERE name = :userName)";
         }
+        static QString existCategory(){
+            return "SELECT EXISTS (SELECT category FROM categories WHERE category = :categoryName AND parent = :parentName)";
+        }
+        static QString getCategoryParent(){
+            return "SELECT parent FROM categories WHERE category = :categoryName";
+        }
         static QString getUserData(){
             return "SELECT user_id, name, role FROM useraccount WHERE name = :userName";
         }
+        static QString addNewCategorys(){
+            return "INSERT INTO categories (category, parent) \
+                    VALUES (:newName, :baseName);";
+        }
+        static QString addNewCategory(){
+            return "INSERT INTO categories (category, parent, fullname) \
+                    VALUES (:newName, :parentName, :fullName);";
+        }
+
 
     };
 

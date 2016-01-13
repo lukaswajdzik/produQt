@@ -2,21 +2,33 @@
 #define EDITCATEGORYVIEW_H
 
 #include <QDialog>
+#include <memory>
+#include "Utils/Subject.h"
+
+class QSqlTableModel;
 
 namespace Ui {
 class EditCategoryView;
 }
 
-class EditCategoryView : public QDialog
+namespace Application{
+    class ApplicationContext;
+}
+
+class EditCategoryView : public QDialog,
+                         public Utils::Subject
 {
     Q_OBJECT
 
 public:
-    explicit EditCategoryView(QWidget *parent = 0);
+    explicit EditCategoryView(std::shared_ptr<Application::ApplicationContext>, QWidget *parent = 0);
     ~EditCategoryView();
 
 private:
     Ui::EditCategoryView *ui;
+    QSqlTableModel* m_model;
+
+    void setupModel();
 };
 
 #endif // EDITCATEGORYVIEW_H

@@ -1,5 +1,4 @@
 #include "TableEditorController.h"
-#include "View/CategoryEditorView.h"
 #include "View/AddCategoryView.h"
 #include "View/MainWindowView.h"
 #include "View/EditCategoryView.h"
@@ -25,12 +24,16 @@ void TableEditorController::showWidgetWithFocus(QWidget* categoryView)
     categoryView->setFocus();
 }
 
-void TableEditorController::showCategoryAddingView()
+void TableEditorController::showCategoryAddingView(Utils::Observer* p_observer)
 {
-    showWidgetWithFocus(new AddCategoryView(m_mainWindow));
+    AddCategoryView* addCategoryView = new AddCategoryView(m_appContext, m_mainWindow);
+    addCategoryView->attach(p_observer);
+    showWidgetWithFocus(addCategoryView);
 }
 
-void TableEditorController::showCategoryEditingView()
+void TableEditorController::showCategoryEditingView(Utils::Observer* p_observer)
 {
-    showWidgetWithFocus(new EditCategoryView(m_mainWindow));
+    EditCategoryView* editCategoryView = new EditCategoryView(m_appContext, m_mainWindow);
+    editCategoryView->attach(p_observer);
+    showWidgetWithFocus(editCategoryView);
 }

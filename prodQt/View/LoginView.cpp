@@ -41,6 +41,8 @@ void LoginView::setupPasswordLine()
     m_lineEditUserPassword->setEchoMode(QLineEdit::Password);
     m_lineEditUserPassword->setAlignment(Qt::AlignCenter);
     m_lineEditUserPassword->setMaxLength(Utils::Constants::GetLenghtOfUserPassword());
+
+    m_lineEditUserPassword->setText("12345");//TODO: REMOVE!!!
 }
 
 void LoginView::setupObjectNames()

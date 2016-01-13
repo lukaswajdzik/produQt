@@ -31,7 +31,6 @@ namespace Module{
         std::shared_ptr<Dao::LoginDao> m_loginDao;
         void handeException(std::exception*);
     };
-
 }
 
 

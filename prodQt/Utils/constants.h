@@ -35,6 +35,19 @@ namespace Utils {
         static QString GetProductTableDbName(){
             return "products";
         }
+        static QString GetCategoryTableDbName(){
+            return "categories";
+        }
+        static QString GetCategoryColumnName(){
+            return "category";
+        }
+        static QString GetDefaultCategoryExtractionFilter(){
+            return "category<>'-'";
+        }
+        static QString GetValidCategoryParentName(){
+            return "-";
+        }
+
 
         static QStringList GetAllAccessTypesTranslated() {
             QStringList types;

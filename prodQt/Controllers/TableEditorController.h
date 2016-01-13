@@ -5,6 +5,10 @@
 namespace Application{
     class ApplicationContext;
 }
+namespace Utils{
+    class Observer;
+}
+
 class QWidget;
 class MainWindowView;
 
@@ -14,8 +18,8 @@ public:
     TableEditorController(std::shared_ptr<Application::ApplicationContext>, MainWindowView*);
     ~TableEditorController();
 
-    void showCategoryAddingView();
-    void showCategoryEditingView();
+    void showCategoryAddingView(Utils::Observer*);
+    void showCategoryEditingView(Utils::Observer*);
 
 private:
     std::shared_ptr<Application::ApplicationContext> m_appContext;

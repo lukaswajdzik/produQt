@@ -7,6 +7,7 @@
 #include <QSqlRelationalDelegate>
 #include <QComboBox>
 #include <QStringList>
+#include "Utils/Observer.h"
 
 class QDialogButtonBox;
 class QPushButton;
@@ -26,17 +27,17 @@ namespace Application{
     class ApplicationContext;
 }
 
-class TableEditorView : public QWidget,
-                        public IWorkingWindow
+class ProductsEditorView : public QWidget,
+                        public IWorkingWindow,
+                        public Utils::Observer
 {
     Q_OBJECT
 public:
-    explicit TableEditorView(const QString tableName,
+    explicit ProductsEditorView(const QString tableName,
                              std::shared_ptr<Application::ApplicationContext> p_appContext,
                              MainWindowView* p_mainWindow = 0);
     QWidget* getView() override;
 
-    void setupProductsLayout();
 private slots:
     void revert();
     void submit();
@@ -49,7 +50,11 @@ private slots:
     void closeEditMode();
     void showCategoryAddingView();
     void showCategoryEditView();
+
+    void update(Utils::Subject*) override;
 private:
+    QString m_tableName;
+
     MainWindowView *m_mainWindow;
     std::shared_ptr<TableEditorController> m_controller;
 
@@ -69,6 +74,9 @@ private:
     QHBoxLayout *m_mainLayout;
     Qt::SortOrder m_columnSoringOrder[];
 
+    void setupProductsLayout();
+    void setupTableView(const QString tableName);
+    void connectModelSignals();
     void changeColumnOrder(Qt::SortOrder&);
     void applyChangesToDb();
 

@@ -51,7 +51,10 @@ SOURCES += main.cpp\
     View/WorkingTabsView.cpp \
     Controllers/TableEditorController.cpp \
     View/AddCategoryView.cpp \
-    View/EditCategoryView.cpp
+    View/EditCategoryView.cpp \
+    Modules/AddCategoryModule.cpp \
+    Dao/CategoryDao.cpp \
+    Utils/LimitedAccessWorkingWindowBuilder.cpp
 
 HEADERS  += \
     Database/databaseconnector.h \
@@ -100,7 +103,10 @@ HEADERS  += \
     Application/UserAccessType.h \
     Controllers/TableEditorController.h \
     View/AddCategoryView.h \
-    View/EditCategoryView.h
+    View/EditCategoryView.h \
+    Modules/AddCategoryModule.h \
+    Dao/CategoryDao.h \
+    Utils/LimitedAccessWorkingWindowBuilder.h
 
 FORMS    += Controllers/mainwindow.ui \
     Controllers/databasetestwindow.ui \
@@ -108,7 +114,7 @@ FORMS    += Controllers/mainwindow.ui \
     View/AddCategoryView.ui \
     View/EditCategoryView.ui
 
-CONFIG += c++11
+CONFIG += c++14
 
 DISTFILES += \
     config.ini
